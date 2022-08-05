@@ -1,7 +1,7 @@
 
 
 export interface ISendInBlueEmailConfig {
-  ApiKey: string;
+  apiKey: string;
   senderName: string;
   senderEmail: string;
   receivers: {
@@ -33,7 +33,7 @@ export async function makeSendInBlueEmail(config: ISendInBlueEmailConfig) {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Api-Key': config.ApiKey
+      'Api-Key': config.apiKey
     },
     body: JSON.stringify(payload)
   });
