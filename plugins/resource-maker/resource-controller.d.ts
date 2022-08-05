@@ -1,6 +1,7 @@
 // deno-lint-ignore-file no-explicit-any
 
 import { ObjectId } from '../../deps.ts';
+import { Filter } from './mongo_types.ts';
 
 
 export interface IResourceControllerPopulates {
@@ -8,7 +9,7 @@ export interface IResourceControllerPopulates {
 }
 
 export interface IResourceControllerContext<T, TF> {
-  filters?: any;
+  filters?: Filter<T>;
   selects?: string[];
   skip?: number;
   limit?: number;
