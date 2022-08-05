@@ -43,7 +43,7 @@ export {
 } from 'https://deno.land/std@0.136.0/fs/mod.ts';
 
 
-export * as RateLimiterFlexible from 'https://dev.jspm.io/rate-limiter-flexible@2.3.1';
+export * as RateLimiterFlexible from 'https://cdn.skypack.dev/rate-limiter-flexible@2.3.1';
 
 
 export {
