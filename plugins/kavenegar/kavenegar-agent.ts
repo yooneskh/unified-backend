@@ -14,7 +14,13 @@ export interface LookupSMSOptions {
 
 export async function sendLookupSMS(options: LookupSMSOptions) {
 
-  let url = `https://api.kavenegar.com/v1/${Config.notifications.kavenegar.apiKey}/verify/lookup.json?receptor=${options.receptor}&template=${options.template}&token=${encodeURIComponent(options.token)}&type=${options.type ?? 'sms'}`;
+  let receptor = options.receptor;
+
+  if (receptor.startsWith('+98')) {
+    receptor = '0' + receptor.slice(3);
+  }
+
+  let url = `https://api.kavenegar.com/v1/${Config.notifications.kavenegar.apiKey}/verify/lookup.json?receptor=${receptor}&template=${options.template}&token=${encodeURIComponent(options.token)}&type=${options.type ?? 'sms'}`;
   if (options.token2) url += `&token2=${encodeURIComponent(options.token2)}`;
   if (options.token3) url += `&token3=${encodeURIComponent(options.token3)}`;
   if (options.token10) url += `&token10=${encodeURIComponent(options.token10)}`;
