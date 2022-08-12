@@ -25,6 +25,8 @@ app.use((revt, next) => {
 
 import '../plugins/provider-router-addon/provider-router-addon.ts';
 import '../plugins/rest-templates-router-addon/rest-templates-router-addon.ts';
+import '../modules/authentication/lib/router-addon.ts';
+import '../modules/authorization/lib/router-addon.ts';
 import '../plugins/validators-router-addon/validators-router-addon.ts';
 
 
@@ -44,10 +46,6 @@ import '../plugins/svg-captcha/captcha-router-addon.ts';
 
 
 /* global modules */
-
-import '../modules/authentication/lib/router-addon.ts';
-import '../modules/authorization/lib/router-addon.ts';
-
 
 import { UserRouter } from '../modules/users/router.ts';
 app.use('/api/users', UserRouter);
