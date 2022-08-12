@@ -20,7 +20,7 @@ declare module '../../../plugins/resource-maker/resource-router.d.ts' {
 
 ResourceMaker.addGlobalPreware(async context => {
 
-  context.token = context.headers?.['authentication'] ?? context.query?.['x-authentication'] ?? context.payload?.xAuthentication ?? undefined;
+  context.token = context.headers?.['authorization'] ?? context.query?.['x-authorization'] ?? context.payload?.xAuthorization ?? undefined;
 
   if (context.token) {
 
