@@ -16,7 +16,7 @@ AccountMaker.addValidations({
       !it.user || (!it.name && !it.identifier) || 'account with user must not have name or identifier'
     ),
     async (it, controller) => (
-      (await controller!.countLessEqualThan({ filters: { user: it.user } }, 1)) || 'each user can have at most one user'
+      !it.user || (await controller!.countLessEqualThan({ filters: { user: it.user } }, 1)) || 'each user can have at most one account'
     )
   ],
   identifier: [
@@ -55,4 +55,12 @@ export async function getAccountForUser(userId: string) {
     }
   });
 
+}
+
+export function getAccountByIdentifier(identifier: string) {
+  return AccountController.retrieveBy({
+    filters: {
+      identifier,
+    }
+  });
 }
