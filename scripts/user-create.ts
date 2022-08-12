@@ -8,7 +8,7 @@ import { IAuthorizationToken } from '../modules/authorization/authorization-toke
 const USER_NAME = 'یونس خوش قدم';
 const USER_PHONE_NUMBER = '+989364524952';
 const USER_EMAIL = 'yooneskh@gmail.com';
-const USER_PERMISSIONS = ['user.**', 'admin.**']
+const USER_PERMISSIONS = ['user.**', 'admin.**', 'special.**'];
 
 
 await bootstrap();

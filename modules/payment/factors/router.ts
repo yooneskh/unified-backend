@@ -23,9 +23,11 @@ FactorMaker.addActions({
     template: 'update',
     permission: 'admin.payment.factor.update',
     stateValidators: [
-      async ({ resourceId, controller }) => {
+      async ({ resourceId, controller, hasPermission }) => {
         const factor = await controller.retrieve({ resourceId });
-        if (factor.payed) throw new Error(`factor ${factor.name} is payed`);
+        if (factor.payed && !hasPermission('special.payment.factor.update-payed')) {
+          throw new Error(`factor ${factor.name} is payed`);
+        }
       }
     ]
   },
@@ -33,9 +35,11 @@ FactorMaker.addActions({
     template: 'delete',
     permission: 'admin.payment.factor.delete',
     stateValidators: [
-      async ({ resourceId, controller }) => {
+      async ({ resourceId, controller, hasPermission }) => {
         const factor = await controller.retrieve({ resourceId });
-        if (factor.payed) throw new Error(`factor ${factor.name} is payed`);
+        if (factor.payed && !hasPermission('special.payment.factor.delete-payed')) {
+          throw new Error(`factor ${factor.name} is payed`);
+        }
       }
     ]
   }
