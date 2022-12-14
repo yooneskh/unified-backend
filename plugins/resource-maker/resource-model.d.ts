@@ -42,6 +42,7 @@ export interface IResourceProperty {
   richText?: boolean;
   labelFormat?: string;
   valueFormat?: string;
+  dateType?: 'date' | 'time' | 'datetime';
   geo?: 'point';
   defaultCenter?: [longitude: number, latitude: number];
   defaultZoom?: number;
