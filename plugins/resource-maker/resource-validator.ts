@@ -4,7 +4,7 @@ import { validateElement } from './resource-validator-util.ts';
 import { ResourceController } from './resource-controller.ts';
 
 
-type IResourceValidationFunction<T, TF extends IResourceBase> = (it: T & Partial<Omit<TF, keyof T>>, controller?: ResourceController<T, TF>) => boolean | string | undefined | Promise<boolean | string | undefined>;
+type IResourceValidationFunction<T, TF extends IResourceBase> = (it: T, controller?: ResourceController<T, TF>) => boolean | string | undefined | Promise<boolean | string | undefined>;
 
 export type IResourceValidation<T, TF extends IResourceBase> = {
   [property in keyof T]?: IResourceValidationFunction<T, TF>[];

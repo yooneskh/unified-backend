@@ -3,7 +3,7 @@ import { matches } from '../safe-filter/matcher.ts';
 
 
 // deno-lint-ignore no-explicit-any
-export function validateElement<T, TF>(document: Record<keyof T, unknown>, element: any, property: IResourceProperty, keyPath: string) {
+export function validateElement<T, TF>(document: T, element: any, property: IResourceProperty, keyPath: string) {
 
   if (property.vIf) {
     if (!matches(property.vIf, document)) {

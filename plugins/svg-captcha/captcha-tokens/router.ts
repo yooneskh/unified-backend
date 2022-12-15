@@ -1,6 +1,5 @@
-import { CaptchaTokenMaker } from './captcha-tokens-resource.ts';
-import './captcha-tokens-controller.ts';
-import { generateCaptchaToken } from './captcha-tokens-controller.ts';
+import { CaptchaTokenMaker } from './resource.ts';
+import { generateCaptchaToken } from './controller.ts';
 
 
 CaptchaTokenMaker.addActions({
@@ -32,11 +31,11 @@ CaptchaTokenMaker.addActions({
     method: 'get',
     path: '/generate/new',
     signal: 'Route.CaptchaToken.GenerateNew',
-    rateLimit: {
-      points: 3,
-      windowDuration: 20,
-      blockDuration: 20
-    },
+    // rateLimit: {
+    //   points: 3,
+    //   windowDuration: 20,
+    //   blockDuration: 20
+    // },
     provider: async () => {
 
       const data = await generateCaptchaToken();

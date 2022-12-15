@@ -23,26 +23,25 @@ app.use((revt, next) => {
 });
 
 
-import '../plugins/provider-router-addon/provider-router-addon.ts';
-import '../plugins/rest-templates-router-addon/rest-templates-router-addon.ts';
+import '../plugins/router-provider/addon.ts';
+import '../plugins/router-rest-templates/addon.ts';
 import '../modules/authentication/lib/router-addon.ts';
 import '../modules/authorization/lib/router-addon.ts';
-import '../plugins/validators-router-addon/validators-router-addon.ts';
+import '../plugins/router-validators/addon.ts';
 
 
-import { setGlobalRateLimit } from '../plugins/rate-limiter/rate-limiter-router-addon.ts';
+// import { setGlobalRateLimit } from '../plugins/rate-limiter/rate-limiter-router-addon.ts';
+// setGlobalRateLimit({
+//   points: 30,
+//   windowDuration: 1,
+//   blockDuration: 10
+// });
 
-setGlobalRateLimit({
-  points: 30,
-  windowDuration: 1,
-  blockDuration: 10
-});
 
-
-import { CaptchaTokenRouter } from '../plugins/svg-captcha/captcha-tokens/captcha-tokens-router.ts';
+import { CaptchaTokenRouter } from '../plugins/svg-captcha/captcha-tokens/router.ts';
 app.use('/api/captcha-tokens', CaptchaTokenRouter);
 
-import '../plugins/svg-captcha/captcha-router-addon.ts';
+import '../plugins/svg-captcha/router-addon.ts';
 
 
 /* global modules */

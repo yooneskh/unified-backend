@@ -1,4 +1,4 @@
-import { CaptchaTokenMaker } from './captcha-tokens-resource.ts';
+import { CaptchaTokenMaker } from './resource.ts';
 
 
 CaptchaTokenMaker.setProperties({

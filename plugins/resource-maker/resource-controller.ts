@@ -189,8 +189,11 @@ export class ResourceController<T, TF extends IResourceBase> {
       await this.validator.validate(context.document);
     }
 
+
+    const documentKeys = Object.keys(context.document ?? {});
+
     for (const key in this.properties) {
-      if (key in context.document) {
+      if (documentKeys.includes(key)) {
         query.put(key, context.document[key]);
       }
     }

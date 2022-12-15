@@ -47,11 +47,11 @@ AuthenticationRouterMaker.addActions({
     method: 'post',
     path: '/login',
     signal: 'Route.Authentication.Login',
-    rateLimit: {
-      points: 3,
-      windowDuration: 60,
-      blockDuration: 60
-    },
+    // rateLimit: {
+    //   points: 3,
+    //   windowDuration: 60,
+    //   blockDuration: 60
+    // },
     captcha: {
       enabled: true
     },
@@ -70,11 +70,11 @@ AuthenticationRouterMaker.addActions({
     method: 'post',
     path: '/register',
     signal: 'Route.Authentication.Register',
-    rateLimit: {
-      points: 3,
-      windowDuration: 60,
-      blockDuration: 60
-    },
+    // rateLimit: {
+    //   points: 3,
+    //   windowDuration: 60,
+    //   blockDuration: 60
+    // },
     captcha: {
       enabled: true
     },
@@ -93,11 +93,11 @@ AuthenticationRouterMaker.addActions({
     method: 'post',
     path: '/verify',
     signal: 'Route.Authentication.Verify',
-    rateLimit: {
-      points: 3,
-      windowDuration: 60,
-      blockDuration: 60
-    },
+    // rateLimit: {
+    //   points: 3,
+    //   windowDuration: 60,
+    //   blockDuration: 60
+    // },
     provider: async (context) => {
 
       const { provider } = context.payload;

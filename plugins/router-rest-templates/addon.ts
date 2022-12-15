@@ -1,5 +1,5 @@
 import { ResourceMaker } from '../resource-maker/resource-maker.ts';
-import { makeFiltersFromQuery } from './rest-templates-router-addon-util.ts';
+import { makeFiltersFromQuery } from './util.ts';
 // deno-lint-ignore no-unused-vars
 import type { IResourceAction, IResourceActionContext } from '../resource-maker/resource-router.d.ts';
 import { IResourceBase } from '../resource-maker/resource-model.d.ts';

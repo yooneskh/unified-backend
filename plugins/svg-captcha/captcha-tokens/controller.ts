@@ -1,6 +1,6 @@
-import { CaptchaTokenMaker } from './captcha-tokens-resource.ts';
-import './captcha-tokens-model.ts';
-import { makeSvgCaptcha } from '../make-svg-captcha.ts';
+import { CaptchaTokenMaker } from './resource.ts';
+import './model.ts';
+import { makeSvgCaptcha } from '../mod.ts';
 import { Config } from '../../../config.ts';
 
 
