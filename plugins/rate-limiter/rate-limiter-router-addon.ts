@@ -1,7 +1,7 @@
-// import { ResourceMaker } from '../resource-maker/resource-maker.ts';
+// import { ResourceMaker } from '../resource-maker/maker.ts';
 // import { RateLimiterFlexible } from '../../deps.ts';
 // import { HandleableError } from '../error/handleable-error.ts';
-// import type {} from '../resource-maker/resource-router.d.ts';
+// import type {} from '../resource-maker/router.d.ts';
 
 
 // export interface IRateLimiterConfig {
@@ -10,7 +10,7 @@
 //   blockDuration: number;
 // }
 
-// declare module '../resource-maker/resource-router.d.ts' {
+// declare module '../resource-maker/router.d.ts' {
 //   interface IResourceAction<T, TF> {
 //     rateLimit?: IRateLimiterConfig;
 //   }

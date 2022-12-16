@@ -1,10 +1,10 @@
-import { ResourceMaker } from '../../../plugins/resource-maker/resource-maker.ts';
+import { ResourceMaker } from '../../../plugins/resource-maker/maker.ts';
 import type { IUser } from '../../users/interfaces.d.ts';
-import type {} from '../../../plugins/resource-maker/resource-router.d.ts';
+import type {} from '../../../plugins/resource-maker/router.d.ts';
 import { getUserByToken } from './helper.ts';
 
 
-declare module '../../../plugins/resource-maker/resource-router.d.ts' {
+declare module '../../../plugins/resource-maker/router.d.ts' {
 
   interface IResourceAction<T, TF> {
     requiresAuthentication?: boolean;
@@ -20,7 +20,7 @@ declare module '../../../plugins/resource-maker/resource-router.d.ts' {
 
 ResourceMaker.addGlobalPreware(async context => {
 
-  context.token = context.headers?.['authorization'] ?? context.query?.['x-authorization'] ?? context.payload?.xAuthorization ?? undefined;
+  context.token = context.headers?.['authorization'] ?? context.queries?.['x-authorization'] ?? context.payload?.xAuthorization ?? undefined;
 
   if (context.token) {
 

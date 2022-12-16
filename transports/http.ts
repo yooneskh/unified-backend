@@ -1,25 +1,14 @@
-import { NHttp } from '../deps.ts';
+import { UnifiedWebServer } from '../deps.ts';
 
-const app = new NHttp();
+const app = new UnifiedWebServer();
 
 
 /* global plugins */
 
-app.get('/ping', () => 'pong');
-
-app.use((revt, next) => {
-
-  revt.response.header('Access-Control-Allow-Origin', '*');
-  revt.response.header('Access-Control-Allow-Headers', '*');
-  revt.response.header('Access-Control-Allow-Methods', '*');
-
-  if (revt.request.method === 'OPTIONS') {
-    return revt.response.status(200).send('OK');
-  }
-  else {
-    return next();
-  }
-
+app.route({
+  method: 'get',
+  path: '/ping',
+  handler: () => 'pong',
 });
 
 
@@ -103,11 +92,13 @@ import '../modules/notifications/sms-notification-manager.ts';
 
 /* extra */
 
-import { handleNHttpError } from '../plugins/error/handleable-error.ts';
-app.onError(handleNHttpError);
-app.on404(rev => rev.response.status(404).send(`${rev.request.method} at ${rev.request.url} was not found.`));
+// import { handleNHttpError } from '../plugins/error/handleable-error.ts';
+// app.onError(handleNHttpError);
 
 
 export function setupHttpTransport(port: number, afterListenCallback: () => void) {
-  app.listen(port, afterListenCallback);
+  app.listen({
+    port,
+    onListen: afterListenCallback,
+  });
 }

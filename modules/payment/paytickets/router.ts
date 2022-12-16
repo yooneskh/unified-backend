@@ -72,7 +72,7 @@ PayticketMaker.addActions({
     method: 'get',
     path: '/:resourceId/verify',
     stateValidators: [
-      async ({ resourceId, controller, response }) => {
+      async ({ resourceId, controller }) => {
 
         const payticket = await controller.retrieve({ resourceId });
 
@@ -88,28 +88,28 @@ PayticketMaker.addActions({
           }
 
         }
-        catch (error: unknown) {
+        catch (error) {
 
-          response.header('content-type', 'text/html');
-
-          response.send(
+          return new Response(
             makePaymentErrorPage({
               title: Config.payment.default.title,
-              reason: (error as Record<string, unknown>)?.responseMessage as string || (error as Record<string, unknown>)?.message as string || 'An error occured',
-              // deno-lint-ignore no-explicit-any
-              locale: payticket.locale as any,
+              reason: error?.responseMessage || error?.message || 'An error occured',
+              locale: payticket.locale,
               callback: Config.payment.default.callback,
               callbackSupport: Config.payment.default.supportCallback
-            })
-          );
-
-          throw new BypassRouteError('payticket state invalid');
+            }),
+            {
+              headers: {
+                'content-type': 'text/html',
+              }
+            }
+          )
 
         }
 
       }
     ],
-    handler: async ({ resourceId, controller, response }) => {
+    handler: async ({ resourceId, controller }) => {
 
       const payticket = await controller.retrieve({ resourceId });
 
@@ -157,21 +157,23 @@ PayticketMaker.addActions({
         EventEmitter.emit('Resource.Payticket.Payed', String(updatedPayticket._id), updatedPayticket);
         EventEmitter.emit('Resource.Factor.Payed', String(factor._id), factor);
 
-        response.header('content-type', 'text/html');
-
-        response.send(
+        return new Response(
           makePaymentSuccessPage({
             title: Config.payment.default.title,
-            heading: `${payticket.amount.toLocaleString()} تومان`,
+            heading: `${payticket.amount.toLocaleString()} Tomans`,
             reason: factor.name,
-            // deno-lint-ignore no-explicit-any
-            locale: payticket.locale as any,
+            locale: payticket.locale,
             callbackUrl: payticket.returnUrl || Config.payment.default.callback
-          })
+          }),
+          {
+            headers: {
+              'content-type': 'text/html',
+            }
+          }
         );
 
       }
-      catch (error: unknown) {
+      catch (error) {
 
         const updatedPayticket = await controller.update({
           resourceId: payticket._id,
@@ -187,17 +189,20 @@ PayticketMaker.addActions({
         EventEmitter.emit('Resource.Payticket.Resolved', String(updatedPayticket._id), updatedPayticket);
         EventEmitter.emit('Resource.Payticket.Rejected', String(updatedPayticket._id), updatedPayticket);
 
-        response.header('content-type', 'text/html');
 
-        response.send(
+        return new Response(
           makePaymentErrorPage({
             title: Config.payment.default.title,
-            reason: (error as Record<string, unknown>).responseMessage as string || (error as Record<string, unknown>).message as string || 'An error occured',
-            // deno-lint-ignore no-explicit-any
-            locale: payticket.locale as any,
+            reason: error?.responseMessage || error?.message || 'An error occured',
+            locale: payticket.locale,
             callback: Config.payment.default.callback,
             callbackSupport: Config.payment.default.supportCallback
-          })
+          }),
+          {
+            headers: {
+              'content-type': 'text/html',
+            }
+          }
         );
 
       }

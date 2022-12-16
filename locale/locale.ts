@@ -1,4 +1,4 @@
-import { IResourceProperty } from '../plugins/resource-maker/resource-model.d.ts';
+import { IResourceProperty } from '../plugins/resource-maker/model.d.ts';
 
 
 export const ResourceLocales: Record<string, Partial<IResourceProperty>> = {

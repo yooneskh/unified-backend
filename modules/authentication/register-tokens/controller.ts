@@ -1,6 +1,6 @@
 import { RegisterTokenMaker } from './resource.ts';
 import './model.ts';
-import { isEmail, isPhoneNumber } from '../../../tools/validation.ts';
+import { isEmail, isPhoneNumber } from '../../../utilities/validation.ts';
 
 
 export const RegisterTokenController = RegisterTokenMaker.getController();

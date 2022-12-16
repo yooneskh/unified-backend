@@ -1,5 +1,5 @@
-import type { IResourceBase } from '../../../plugins/resource-maker/resource-model.d.ts';
-import type { IResourceActionContext } from '../../../plugins/resource-maker/resource-router.d.ts';
+import type { IResourceBase } from '../../../plugins/resource-maker/model.d.ts';
+import type { IResourceActionContext } from '../../../plugins/resource-maker/router.d.ts';
 
 
 interface IAuthResultDone {

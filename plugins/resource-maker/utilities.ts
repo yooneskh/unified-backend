@@ -1,6 +1,6 @@
 import { plural } from '../../deps.ts';
-import type { IResourceBase } from './resource-model.d.ts';
-import type { IResourceActionContext, IResourceActionMultiFunction } from './resource-router.d.ts';
+import type { IResourceBase } from './model.d.ts';
+import type { IResourceActionContext, IResourceActionMultiFunction } from './router.d.ts';
 
 
 export function makeCollectionName(name: string) {

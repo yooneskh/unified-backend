@@ -1,7 +1,7 @@
-import { ResourceMaker } from '../resource-maker/resource-maker.ts';
-import { IResourceBase, IResourceProperties } from '../resource-maker/resource-model.d.ts';
-import { IResourceAction } from '../resource-maker/resource-router.d.ts';
-import { IResourceValidation } from '../resource-maker/resource-validator.ts';
+import { ResourceMaker } from '../resource-maker/maker.ts';
+import { IResourceBase, IResourceProperties } from '../resource-maker/model.d.ts';
+import { IResourceAction } from '../resource-maker/router.d.ts';
+import { IResourceValidation } from '../resource-maker/validator.ts';
 import { SettingResourceController } from './setting-resource-controller.ts';
 import type {} from './setting-resource-router.d.ts';
 

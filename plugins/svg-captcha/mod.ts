@@ -1,4 +1,4 @@
-import { generateRandomDigits } from '../../tools/generators.ts';
+import { generateRandomDigits } from '../../utilities/generators.ts';
 
 
 export function makeSvgCaptcha() {

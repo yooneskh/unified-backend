@@ -1,7 +1,7 @@
-import { IResourceBase, IResourceProperties } from './resource-model.d.ts';
+import { IResourceBase, IResourceProperties } from './model.d.ts';
 import { HandleableError } from '../error/handleable-error.ts';
-import { validateElement } from './resource-validator-util.ts';
-import { ResourceController } from './resource-controller.ts';
+import { validateElement } from './validator-utilities.ts';
+import { ResourceController } from './controller.ts';
 
 
 type IResourceValidationFunction<T, TF extends IResourceBase> = (it: T, controller?: ResourceController<T, TF>) => boolean | string | undefined | Promise<boolean | string | undefined>;

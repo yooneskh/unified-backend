@@ -1,39 +1,29 @@
-import { ResourceMaker } from '../resource-maker/resource-maker.ts';
-import type { IResourceBase } from '../resource-maker/resource-model.d.ts';
-import type { IResourceActionFunction, IResourceActionMultiFunction, IResourceVersioned } from '../resource-maker/resource-router.d.ts';
-import { executeActionMultiFunction } from '../resource-maker/resource-util.ts';
+import { ResourceMaker } from '../resource-maker/maker.ts';
+import type { IResourceBase } from '../resource-maker/model.d.ts';
+import type { IResourceActionFunction, IResourceActionMultiFunction, IResourceVersioned, IRouteHandlerReturn } from '../resource-maker/router.d.ts';
+import { executeActionMultiFunction } from '../resource-maker/utilities.ts';
 
 
-declare module '../resource-maker/resource-router.d.ts' {
+declare module '../resource-maker/router.d.ts' {
 
   interface IResourceAction<T, TF> {
     provider?: IResourceActionMultiFunction<T, TF> | IResourceVersioned<IResourceActionMultiFunction<T, TF>>;
     responsePreprocessors?: IResourceActionMultiFunction<T, TF>;
-    postprocessors?: IResourceActionMultiFunction<T, TF>;
   }
 
   interface IResourceActionContext<T, TF> {
-    // deno-lint-ignore no-explicit-any
-    responseData?: any;
+    responseData?: IRouteHandlerReturn;
   }
 
 }
 
 
 ResourceMaker.addGlobalActionAugmentor(action => {
-
   if (!action.responsePreprocessors) {
     return {
       responsePreprocessors: []
     };
   }
-
-  if (!action.postprocessors) {
-    return {
-      postprocessors: []
-    };
-  }
-
 });
 
 
@@ -47,11 +37,7 @@ function transformSimpleProviderHandler<T, TF extends IResourceBase>(provider: I
         await executeActionMultiFunction(context.action.responsePreprocessors, context);
       }
 
-      context.response.json(context.responseData);
-
-      if (context.action.postprocessors) {
-        await executeActionMultiFunction(context.action.postprocessors, context);
-      }
+      return context.responseData;
 
     }
   }
@@ -64,11 +50,7 @@ function transformSimpleProviderHandler<T, TF extends IResourceBase>(provider: I
         await executeActionMultiFunction(context.action.responsePreprocessors, context);
       }
 
-      context.response.json(context.responseData);
-
-      if (context.action.responsePreprocessors) {
-        await executeActionMultiFunction(context.action.responsePreprocessors, context);
-      }
+      return context.responseData;
 
     }
   }
@@ -87,11 +69,8 @@ function transformSimpleProviderHandler<T, TF extends IResourceBase>(provider: I
         await executeActionMultiFunction(context.action.responsePreprocessors, context);
       }
 
-      context.response.json(context.responseData);
 
-      if (context.action.responsePreprocessors) {
-        await executeActionMultiFunction(context.action.responsePreprocessors, context);
-      }
+      return context.responseData;
 
     }
   }

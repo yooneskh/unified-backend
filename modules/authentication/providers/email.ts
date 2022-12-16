@@ -4,7 +4,7 @@ import { UserController } from '../../users/controller.ts';
 import { VerificationTokenController } from '../verification-tokens/controller.ts';
 import { RegisterTokenController } from '../register-tokens/controller.ts';
 import { NotFoundError } from '../../../plugins/error/handleable-error.ts';
-import { generateRandomDigits } from '../../../tools/generators.ts';
+import { generateRandomDigits } from '../../../utilities/generators.ts';
 
 
 registerProvider({

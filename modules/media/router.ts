@@ -29,9 +29,9 @@ MediaMaker.addActions({
     method: 'post',
     path: '/upload',
     signal: 'Route.Media.Upload',
-    provider: async ({ requestEvent, controller, user }) => {
+    provider: async ({ payload, controller, user }) => {
 
-      const file = requestEvent.body.file as File;
+      const file = payload.file as File;
       if (!file) throw new Error('file not provided');
       if (!( file.size > 0 )) throw new Error('file is invalid');
 

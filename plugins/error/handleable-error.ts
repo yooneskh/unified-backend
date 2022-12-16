@@ -1,4 +1,3 @@
-import { RequestEvent, TObject } from '../../deps.ts';
 
 
 export class HandleableError extends Error {
@@ -29,31 +28,31 @@ export class BypassRouteError extends HandleableError {
 }
 
 
-export function handleNHttpError(error: TObject, rev: RequestEvent) {
+// export function handleNHttpError(error: unknown, rev: RequestEvent) {
 
-  if (error instanceof HandleableError) {
-    if (error instanceof BypassRouteError) return;
+  // if (error instanceof HandleableError) {
+  //   if (error instanceof BypassRouteError) return;
 
-    console.error(`Error :: ${error.message || error.defaultMessage}`);
+  //   console.error(`Error :: ${error.message || error.defaultMessage}`);
 
-    rev.response.header(error.headers);
+  //   rev.response.header(error.headers);
 
-    rev.response.status(error.httpStatus).json({
-      code: error.code,
-      message: error.responseMessage || error.defaultResponseMessage || error.message || error.defaultMessage,
-      ...error.defaultData,
-      ...error.data
-    });
+  //   rev.response.status(error.httpStatus).json({
+  //     code: error.code,
+  //     message: error.responseMessage || error.defaultResponseMessage || error.message || error.defaultMessage,
+  //     ...error.defaultData,
+  //     ...error.data
+  //   });
 
-  }
-  else {
+  // }
+  // else {
 
-    console.error(`Error :: ${error.message}`);
+  //   console.error(`Error :: ${error.message}`);
 
-    rev.response.status(400).json({
-      message: error.message
-    });
+  //   rev.response.status(400).json({
+  //     message: error.message
+  //   });
 
-  }
+  // }
 
-}
+// }

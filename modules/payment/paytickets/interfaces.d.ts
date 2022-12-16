@@ -1,4 +1,4 @@
-import { IResourceBase } from '../../../plugins/resource-maker/resource-model.d.ts';
+import { IResourceBase } from '../../../plugins/resource-maker/model.d.ts';
 
 
 export interface IPayticketBase {
@@ -7,7 +7,7 @@ export interface IPayticketBase {
   amount: number;
   payUrl?: string;
   returnUrl?: string;
-  locale?: string;
+  locale?: 'en' | 'fa';
   resolved?: boolean;
   resolvedAt?: number;
   payed?: boolean;

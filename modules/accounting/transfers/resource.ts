@@ -1,4 +1,4 @@
-import { ResourceMaker } from '../../../plugins/resource-maker/resource-maker.ts';
+import { ResourceMaker } from '../../../plugins/resource-maker/maker.ts';
 import { ITransferBase, ITransfer } from './interfaces.d.ts';
 
 

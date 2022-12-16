@@ -4,15 +4,10 @@ export {
 
 
 export {
-  NHttp,
-  Router,
-  RequestEvent,
-  HttpResponse
-} from 'https://deno.land/x/nhttp@1.1.11/mod.ts';
-
-export type {
-  TObject
-} from 'https://deno.land/x/nhttp@1.1.11/src/types.ts'
+  UnifiedRouter,
+  UnifiedWebServer,
+  type IRouteHandlerReturn,
+} from 'https://deno.land/x/unified_webserver@v0.3.5/mod.ts';
 
 
 export {

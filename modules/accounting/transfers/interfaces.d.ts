@@ -1,4 +1,4 @@
-import { IResourceBase } from '../../../plugins/resource-maker/resource-model.d.ts';
+import { IResourceBase } from '../../../plugins/resource-maker/model.d.ts';
 
 
 export interface ITransferBase {

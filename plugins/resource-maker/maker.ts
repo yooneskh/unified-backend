@@ -1,11 +1,11 @@
 // deno-lint-ignore-file no-explicit-any
 import { registerPopulateItem } from '../../deps.ts';
 import { Augmentor } from '../augment-looper/augment-looper.ts';
-import { ResourceController } from './resource-controller.ts';
-import type { IResourceBase, IResourceProperties } from './resource-model.d.ts';
-import type { IResourceAction, IResourceWare } from './resource-router.d.ts';
-import { ResourceRouter } from './resource-router.ts';
-import { IResourceValidation, ResourceValidator } from './resource-validator.ts';
+import { ResourceController } from './controller.ts';
+import type { IResourceBase, IResourceProperties } from './model.d.ts';
+import type { IResourceAction, IResourceWare } from './router.d.ts';
+import { ResourceRouter } from './router.ts';
+import { IResourceValidation, ResourceValidator } from './validator.ts';
 
 
 export class ResourceMaker<T, TF extends IResourceBase> {

@@ -15,7 +15,7 @@ export interface IPayticketCreation {
   factorId: string;
   gateway: string;
   returnUrl?: string;
-  locale?: string;
+  locale?: 'en' | 'fa';
 }
 
 export async function createPayticket({ factorId, gateway, returnUrl, locale }: IPayticketCreation): Promise<IPayticket> {

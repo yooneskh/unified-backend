@@ -1,4 +1,4 @@
-import type { IResourceBase } from '../../../plugins/resource-maker/resource-model.d.ts';
+import type { IResourceBase } from '../../../plugins/resource-maker/model.d.ts';
 
 
 export interface IVerificationTokenBase<UT = string, RT = string> {

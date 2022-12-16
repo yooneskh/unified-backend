@@ -1,4 +1,4 @@
-import { IResourceProperties, IResourceProperty } from './resource-model.d.ts';
+import { IResourceProperties, IResourceProperty } from './model.d.ts';
 import { matches } from '../safe-filter/matcher.ts';
 
 

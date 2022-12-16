@@ -1,11 +1,11 @@
-import { ResourceMaker } from '../../../plugins/resource-maker/resource-maker.ts';
-import type { IResourceActionMultiFunction } from '../../../plugins/resource-maker/resource-router.d.ts';
-import { executeActionMultiFunction } from '../../../plugins/resource-maker/resource-util.ts';
+import { ResourceMaker } from '../../../plugins/resource-maker/maker.ts';
+import type { IResourceActionMultiFunction } from '../../../plugins/resource-maker/router.d.ts';
+import { executeActionMultiFunction } from '../../../plugins/resource-maker/utilities.ts';
 import type { IAuthorizationRole } from '../authorization-roles/interfaces.d.ts';
 import { getAuthorizationInfoForUser, matchPermission } from './helper.ts';
 
 
-declare module '../../../plugins/resource-maker/resource-router.d.ts' {
+declare module '../../../plugins/resource-maker/router.d.ts' {
 
   interface IResourceAction<T, TF> {
     permission?: string;

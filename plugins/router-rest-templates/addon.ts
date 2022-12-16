@@ -1,11 +1,11 @@
-import { ResourceMaker } from '../resource-maker/resource-maker.ts';
+import { ResourceMaker } from '../resource-maker/maker.ts';
 import { makeFiltersFromQuery } from './util.ts';
 // deno-lint-ignore no-unused-vars
-import type { IResourceAction, IResourceActionContext } from '../resource-maker/resource-router.d.ts';
-import { IResourceBase } from '../resource-maker/resource-model.d.ts';
+import type { IResourceAction, IResourceActionContext } from '../resource-maker/router.d.ts';
+import { IResourceBase } from '../resource-maker/model.d.ts';
 
 
-declare module '../resource-maker/resource-router.d.ts' {
+declare module '../resource-maker/router.d.ts' {
 
   interface IResourceAction<T, TF> {
     template?: 'list' | 'count' | 'retrieve' | 'create' | 'update' | 'delete';
@@ -27,43 +27,43 @@ declare module '../resource-maker/resource-router.d.ts' {
 
 ResourceMaker.addGlobalPreware(context => {
 
-  const { query, params } = context;
+  const { queries, params } = context;
 
   if (params.resourceId) {
     context.resourceId = params.resourceId;
   }
 
-  if (query.filters) {
-    context.filters = makeFiltersFromQuery(query.filters);
+  if (queries.filters) {
+    context.filters = makeFiltersFromQuery(queries.filters);
   }
 
-  if (query.selects) {
-    context.selects = query.selects.split(' ');
+  if (queries.selects) {
+    context.selects = queries.selects.split(' ');
   }
 
-  if (query.sorts) {
+  if (queries.sorts) {
     context.sorts = Object.fromEntries(
-      query.sorts.split(',').map(part => {
+      queries.sorts.split(',').map(part => {
         const items = part.split(':');
         return [items[0], items[1] === '1' ? 1 : -1];
       })
     );
   }
 
-  if (query.populates) {
+  if (queries.populates) {
     context.populates = Object.fromEntries(
-      query.populates.split(',').map(it =>
+      queries.populates.split(',').map(it =>
         it.split(':')
       )
     );
   }
 
-  if (query.skip) {
-    context.skip = parseInt(query.skip, 10);
+  if (queries.skip) {
+    context.skip = parseInt(queries.skip, 10);
   }
 
-  if (query.limit) {
-    context.limit = Math.min(parseInt(query.limit, 10), 30);
+  if (queries.limit) {
+    context.limit = Math.min(parseInt(queries.limit, 10), 30);
   }
 
 });
@@ -83,8 +83,8 @@ ResourceMaker.addGlobalActionAugmentor(({ template, resourceName, signal, method
       if (!path) result.path = '/';
 
       if (!provider) {
-        result.provider = ({ controller, query, filters, selects, sorts, populates, skip, limit }) => {
-          if (!query.single) {
+        result.provider = ({ controller, queries, filters, selects, sorts, populates, skip, limit }) => {
+          if (!queries.single) {
             return controller.list({
               filters,
               selects,

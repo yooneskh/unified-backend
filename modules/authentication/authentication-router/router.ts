@@ -1,4 +1,4 @@
-import { ResourceMaker } from '../../../plugins/resource-maker/resource-maker.ts';
+import { ResourceMaker } from '../../../plugins/resource-maker/maker.ts';
 import type { IAuthProvider } from './types.d.ts';
 import { AuthenticationTokenController } from '../authentication-tokens/controller.ts';
 import { Config } from '../../../config.ts';

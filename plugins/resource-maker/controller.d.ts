@@ -1,5 +1,4 @@
 // deno-lint-ignore-file no-explicit-any
-
 import { ObjectId } from '../../deps.ts';
 import { Filter } from './mongo_types.ts';
 
