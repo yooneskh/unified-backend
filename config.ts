@@ -6,27 +6,27 @@ export const Config = {
     host: '127.0.0.1',
     port: 27017,
     name: 'yback',
-    connectionString: ''
+    connectionString: '',
   },
   http: {
     enabled: true,
-    port: 48500
+    port: 8080,
   },
   media: {
     cwd: '/home/yooneskh/yback-server',
     directory: 'media',
-    baseUrl: 'http://localhost:48500'
+    baseUrl: 'http://localhost:8080',
   },
   captcha: {
-    lifetime: 1000 * 60 * 3
+    lifetime: 1000 * 60 * 3,
   },
   authentication: {
     staticVerificationCode: '111111',
     randomDigitsCount: 6,
-    tokenLifetime: 1000 * 60 * 60 * 24 * 30
+    tokenLifetime: 1000 * 60 * 60 * 24 * 30,
   },
   authorization: {
-    defaultPermissions: ['user.**']
+    defaultPermissions: ['user.**'],
   },
   payment: {
     core: {
@@ -34,7 +34,7 @@ export const Config = {
     },
     zarinpal: {
       merchantId: '',
-      sandbox: true
+      sandbox: true,
     },
     default: {
       locale: 'en' as 'en' | 'fa',
@@ -42,7 +42,7 @@ export const Config = {
       font: 'https://cdn.khoshghadam.com/font/roboto/roboto.css',
       title: 'Application | Payment Result',
       callback: '{{website-base}}',
-      supportCallback: '{{website-base}}'
+      supportCallback: '{{website-base}}',
     },
     en: {
       locale: 'en' as 'en' | 'fa',
@@ -50,7 +50,7 @@ export const Config = {
       font: 'https://cdn.khoshghadam.com/font/roboto/roboto.css',
       title: 'Application | Payment Result',
       callback: '{{website-base}}',
-      supportCallback: '{{website-base}}'
+      supportCallback: '{{website-base}}',
     },
     fa: {
       locale: 'en' as 'en' | 'fa',
@@ -58,22 +58,22 @@ export const Config = {
       font: 'https://cdn.khoshghadam.com/font/iryekan/iryekan.css',
       title: 'اپلیکیشن | نتیجه پرداخت',
       callback: '{{website-base}}',
-      supportCallback: '{{website-base}}'
-    }
+      supportCallback: '{{website-base}}',
+    },
   },
   notifications: {
     kavenegar: {
-      apiKey: ''
+      apiKey: '',
     },
     sendInBlue: {
-      apiKey: ''
+      apiKey: '',
     },
     smtp: {
       host: '',
       port: 25,
       username: '',
-      password: ''
-    }
+      password: '',
+    },
   },
   accounting: {
     specialAccounts: [
@@ -83,7 +83,7 @@ export const Config = {
         balance: 0,
         acceptsInput: false,
         acceptsOutput: true,
-        allowsNegativeBalance: true
+        allowsNegativeBalance: true,
       },
       {
         name: 'Global Drain',
@@ -91,10 +91,10 @@ export const Config = {
         balance: 0,
         acceptsInput: true,
         acceptsOutput: false,
-        allowsNegativeBalance: false
-      }
-    ]
-  }
+        allowsNegativeBalance: false,
+      },
+    ],
+  },
 };
 
 augmentConfiguration(Config);
