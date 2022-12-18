@@ -5,7 +5,7 @@ export const Config = {
     enabled: true,
     host: '127.0.0.1',
     port: 27017,
-    name: 'yback',
+    name: '{{app.id}}',
     connectionString: '',
   },
   http: {
@@ -13,9 +13,9 @@ export const Config = {
     port: 8080,
   },
   media: {
-    cwd: '/home/yooneskh/yback-server',
+    cwd: '/home/yooneskh/{{app.id}}-server',
     directory: 'media',
-    baseUrl: 'http://localhost:8080',
+    baseUrl: 'https://api.{{app.domain}}/',
   },
   captcha: {
     lifetime: 1000 * 60 * 3,
@@ -30,7 +30,7 @@ export const Config = {
   },
   payment: {
     core: {
-      verificationCallback: 'https://api.aboutshiraz.khoshghadam.com/api/paytickets',
+      verificationCallback: 'https://api.{{app.domain}}/api/paytickets',
     },
     zarinpal: {
       merchantId: '',
@@ -38,27 +38,27 @@ export const Config = {
     },
     default: {
       locale: 'en' as 'en' | 'fa',
-      favicon: '{{website-base}}/favicon.ico',
+      favicon: '{{app.website.url}}/favicon.ico',
       font: 'https://cdn.khoshghadam.com/font/roboto/roboto.css',
-      title: 'Application | Payment Result',
-      callback: '{{website-base}}',
-      supportCallback: '{{website-base}}',
+      title: '{{app.name.en}} | Payment Result',
+      callback: '{{app.website.url}}',
+      supportCallback: '{{app.website.url}}',
     },
     en: {
       locale: 'en' as 'en' | 'fa',
-      favicon: '{{website-base}}/favicon.ico',
+      favicon: '{{app.website.url}}/favicon.ico',
       font: 'https://cdn.khoshghadam.com/font/roboto/roboto.css',
-      title: 'Application | Payment Result',
-      callback: '{{website-base}}',
-      supportCallback: '{{website-base}}',
+      title: '{{app.name.en}} | Payment Result',
+      callback: '{{app.website.url}}',
+      supportCallback: '{{app.website.url}}',
     },
     fa: {
-      locale: 'en' as 'en' | 'fa',
-      favicon: '{{website-base}}/favicon.ico',
+      locale: 'fa' as 'en' | 'fa',
+      favicon: '{{app.website.url}}/favicon.ico',
       font: 'https://cdn.khoshghadam.com/font/iryekan/iryekan.css',
-      title: 'اپلیکیشن | نتیجه پرداخت',
-      callback: '{{website-base}}',
-      supportCallback: '{{website-base}}',
+      title: '{{app.name.fa}} | نتیجه پرداخت',
+      callback: '{{app.website.url}}',
+      supportCallback: '{{app.website.url}}',
     },
   },
   notifications: {
