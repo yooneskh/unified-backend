@@ -153,7 +153,7 @@ export class ResourceMaker<T, TF extends IResourceBase> {
 
     const metaObject = Object.keys(this.properties ?? {}).map(key => ({ key, ...this.properties![key as keyof T] }));
 
-    this.addAction({
+    this.router.addAction({
       method: 'get',
       path: '/meta',
       signal: `Route.${this.name}.Meta`,
@@ -163,7 +163,7 @@ export class ResourceMaker<T, TF extends IResourceBase> {
     });
 
 
-    this.addAction({
+    this.router.addAction({
       method: 'get',
       path: '/validate',
       signal: `Route.${this.name}.HasValidate`,
@@ -172,7 +172,7 @@ export class ResourceMaker<T, TF extends IResourceBase> {
       }
     });
 
-    this.addAction({
+    this.router.addAction({
       method: 'post',
       path: '/validate',
       signal: `Route.${this.name}.Validate`,
