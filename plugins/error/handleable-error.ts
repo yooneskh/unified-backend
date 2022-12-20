@@ -28,31 +28,47 @@ export class BypassRouteError extends HandleableError {
 }
 
 
-// export function handleNHttpError(error: unknown, rev: RequestEvent) {
+export function handleWebserverError(error: unknown) {
 
-  // if (error instanceof HandleableError) {
-  //   if (error instanceof BypassRouteError) return;
+  if (error instanceof BypassRouteError) {
+    return;
+  }
 
-  //   console.error(`Error :: ${error.message || error.defaultMessage}`);
+  if (error instanceof HandleableError) {
 
-  //   rev.response.header(error.headers);
+    console.error(`Error :: ${error.message ?? error.defaultMessage}`);
 
-  //   rev.response.status(error.httpStatus).json({
-  //     code: error.code,
-  //     message: error.responseMessage || error.defaultResponseMessage || error.message || error.defaultMessage,
-  //     ...error.defaultData,
-  //     ...error.data
-  //   });
+    return new Response(
+      JSON.stringify({
+        code: error.code,
+        message: error.responseMessage || error.defaultResponseMessage || error.message || error.defaultMessage,
+        ...error.defaultData,
+        ...error.data
+      }),
+      {
+        status: error.httpStatus,
+        headers: {
+          'content-type': 'application/json',
+          ...error.headers,
+        },
+      }
+    );
 
-  // }
-  // else {
+  }
 
-  //   console.error(`Error :: ${error.message}`);
 
-  //   rev.response.status(400).json({
-  //     message: error.message
-  //   });
+  console.error(`Error :: ${(error as Record<string, unknown>)?.message}`);
 
-  // }
+  return new Response(
+    JSON.stringify({
+      message: (error as Record<string, unknown>)?.message,
+    }),
+    {
+      status: 400,
+      headers: {
+        'content-type': 'application/json',
+      },
+    }
+  );
 
-// }
+}

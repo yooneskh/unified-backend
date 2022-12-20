@@ -92,8 +92,8 @@ import '../modules/notifications/sms-notification-manager.ts';
 
 /* extra */
 
-// import { handleNHttpError } from '../plugins/error/handleable-error.ts';
-// app.onError(handleNHttpError);
+import { handleWebserverError } from '../plugins/error/handleable-error.ts';
+app.setErrorHandler(handleWebserverError);
 
 
 export function setupHttpTransport(port: number, afterListenCallback: () => void) {
