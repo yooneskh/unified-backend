@@ -157,8 +157,8 @@ ResourceMaker.addGlobalActionAugmentor(({ template, resourceName, signal, method
     case 'update': {
 
       if (!signal) result.signal = `Route.${resourceName}.Update`;
-      if (!method) result.method = 'patch';
-      if (!path) result.path = '/:resourceId';
+      if (!method) result.method = 'post';
+      if (!path) result.path = '/:resourceId/update';
 
       if (!provider) {
         result.provider = ({ controller, resourceId, payload }) => {
