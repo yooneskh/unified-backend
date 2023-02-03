@@ -4,7 +4,7 @@ import { validateElement } from './validator-utilities.ts';
 import { ResourceController } from './controller.ts';
 
 
-type IResourceValidationFunction<T, TF extends IResourceBase> = (it: T, controller?: ResourceController<T, TF>) => boolean | string | undefined | Promise<boolean | string | undefined>;
+type IResourceValidationFunction<T, TF extends IResourceBase> = (it: T & Partial<IResourceBase>, controller?: ResourceController<T, TF>) => boolean | string | undefined | Promise<boolean | string | undefined>;
 
 export type IResourceValidation<T, TF extends IResourceBase> = {
   [property in keyof T]?: IResourceValidationFunction<T, TF>[];
@@ -63,7 +63,7 @@ export class ResourceValidator<T, TF extends IResourceBase> {
   public async validate(document: T) {
 
     const errors: { property: string, error: string }[] = [];
-    const frozenDocument = Object.freeze(document) as T;
+    const frozenDocument = Object.freeze(document) as T & Partial<IResourceBase>;
 
     for (const property in this.validations) {
       for (const validator of this.validations[property]! || []) {
