@@ -27,10 +27,10 @@ import '../plugins/router-validators/addon.ts';
 // });
 
 
-import { CaptchaTokenRouter } from '../plugins/svg-captcha/captcha-tokens/router.ts';
+import { CaptchaTokenRouter } from '../modules/captcha-tokens/router.ts';
 app.use('/api/captcha-tokens', CaptchaTokenRouter);
 
-import '../plugins/svg-captcha/router-addon.ts';
+import '../modules/captcha-tokens/router-addon.ts';
 
 
 /* global modules */

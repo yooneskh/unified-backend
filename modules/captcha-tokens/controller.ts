@@ -1,7 +1,6 @@
 import { CaptchaTokenMaker } from './resource.ts';
 import './model.ts';
-import { makeSvgCaptcha } from '../mod.ts';
-import { Config } from '../../../config.ts';
+import { Config } from '../../config.ts';
 
 
 export const CaptchaTokenController = CaptchaTokenMaker.getController();
@@ -12,7 +11,7 @@ CaptchaTokenMaker.addValidations({ });
 
 export async function generateCaptchaToken() {
 
-  const captcha = makeSvgCaptcha();
+  // const captcha = makeSvgCaptcha();
 
   const captchaToken = await CaptchaTokenController.create({
     document: {

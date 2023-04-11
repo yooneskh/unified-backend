@@ -42,7 +42,7 @@ CaptchaTokenMaker.addActions({
 
       return {
         captchaId: data.token._id,
-        svg: data.svg
+        base64: data.base64,
       };
 
     }
