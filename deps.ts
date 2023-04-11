@@ -25,13 +25,13 @@ export {
 } from 'https://deno.land/x/deno_plural@2.0.0/mod.ts';
 
 
-export {
-  copy,
-} from 'https://deno.land/std@0.182.0/io/util.ts';
+// export {
+//   copy,
+// } from 'https://deno.land/std@0.182.0/io/util.ts';
 
-export {
-  readerFromStreamReader,
-} from 'https://deno.land/std@0.182.0/io/mod.ts';
+// export {
+//   readerFromStreamReader,
+// } from 'https://deno.land/std@0.182.0/io/mod.ts';
 
 export {
   ensureFile,
