@@ -7,7 +7,7 @@ export {
   UnifiedRouter,
   UnifiedWebServer,
   type IRouteHandlerReturn,
-} from 'https://deno.land/x/unified_webserver@v0.4.0/mod.ts';
+} from 'https://deno.land/x/unified_webserver@v0.4.1/mod.ts';
 
 
 export {
@@ -27,15 +27,15 @@ export {
 
 export {
   copy,
-} from 'https://deno.land/std@0.136.0/io/util.ts';
+} from 'https://deno.land/std@0.182.0/io/util.ts';
 
 export {
   readerFromStreamReader,
-} from 'https://deno.land/std@0.136.0/io/mod.ts';
+} from 'https://deno.land/std@0.182.0/io/mod.ts';
 
 export {
   ensureFile,
-} from 'https://deno.land/std@0.136.0/fs/mod.ts';
+} from 'https://deno.land/std@0.182.0/fs/mod.ts';
 
 
 // export * as RateLimiterFlexible from 'https://dev.jspm.io/rate-limiter-flexible@2.3.1';
