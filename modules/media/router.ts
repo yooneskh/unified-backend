@@ -1,6 +1,6 @@
 import { MediaMaker } from './resource.ts';
 import './controller.ts';
-import { copy, ensureFile, readerFromStreamReader } from '../../deps.ts';
+import { ensureFile } from '../../deps.ts';
 import { Config } from '../../config.ts';
 import { getMediaAddons, getMediaValidators } from './globals.ts';
 import { EventEmitter } from '../../services/event-emitter.ts';
@@ -33,17 +33,33 @@ MediaMaker.addActions({
 
       const formData = payload as FormData;
       const file = formData.get('file') as File;
-      if (!file) throw new Error('file not provided');
-      if (!( file.size > 0 )) throw new Error('file is invalid');
+
+      if (!file) {
+        throw new Error('file not provided');
+      }
+
+      if (!( file.size > 0 )) {
+        throw new Error('file is invalid');
+      }
+
 
       const name = file.name.slice(0, file.name.lastIndexOf('.'));
       const extension = file.name.slice(file.name.lastIndexOf('.') + 1);
       const size = file.size;
       const type = file.type;
 
-      if (!name) throw new Error('invalid file name');
-      if (!extension) throw new Error('invalid file extension');
-      if (!type) throw new Error('invalid file type');
+      if (!name) {
+        throw new Error('invalid file name');
+      }
+
+      if (!extension) {
+        throw new Error('invalid file extension');
+      }
+
+      if (!type) {
+        throw new Error('invalid file type');
+      }
+
 
       const mediaBase = await controller.create({
         document: {
@@ -60,17 +76,12 @@ MediaMaker.addActions({
       try {
 
         const relativeFilePath = `${Config.media.directory}/${mediaBase._id}.${extension}`;
-        await ensureFile(`./${relativeFilePath}`);
-
-
-        const stream = await file.stream();
-        const reader = readerFromStreamReader(stream.getReader());
-        const output = await Deno.open(`./${relativeFilePath}`, { write: true, create: true, truncate: true });
-
-        await copy(reader, output);
-
-
         const fullPath = `${Config.media.baseUrl}/${relativeFilePath}`;
+
+
+        await ensureFile(`./${relativeFilePath}`);
+        await Deno.writeFile(`./${relativeFilePath}`, await file.stream())
+
 
         const newMedia = await controller.update({
           resourceId: mediaBase._id,
@@ -92,6 +103,7 @@ MediaMaker.addActions({
 
         const finalizedMedia = await controller.retrieve({ resourceId: newMedia._id });
         EventEmitter.emit('Resource.Media.Uploaded', String(finalizedMedia._id), finalizedMedia);
+
         return finalizedMedia;
 
       }
@@ -110,11 +122,15 @@ MediaMaker.addActions({
             try {
               await Deno.remove(deletePath);
             }
-            catch {/*  */}
+            catch (error) {
+              console.error(error);
+            }
           }
 
         }
-        catch {/*  */}
+        catch (error) {
+          console.error(error);
+        }
 
         await controller.delete({ resourceId: mediaBase._id });
         throw error;
