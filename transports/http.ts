@@ -19,14 +19,6 @@ import '../modules/authorization/lib/router-addon.ts';
 import '../plugins/router-validators/addon.ts';
 
 
-// import { setGlobalRateLimit } from '../plugins/rate-limiter/rate-limiter-router-addon.ts';
-// setGlobalRateLimit({
-//   points: 30,
-//   windowDuration: 1,
-//   blockDuration: 10
-// });
-
-
 import { CaptchaTokenRouter } from '../modules/captcha-tokens/router.ts';
 app.use('/api/captcha-tokens', CaptchaTokenRouter);
 

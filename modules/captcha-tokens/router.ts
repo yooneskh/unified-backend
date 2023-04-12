@@ -42,7 +42,7 @@ CaptchaTokenMaker.addActions({
 
       return {
         captchaId: data.token._id,
-        base64: data.base64,
+        data: data.data,
       };
 
     }

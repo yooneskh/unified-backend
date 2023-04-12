@@ -25,20 +25,14 @@ export {
 } from 'https://deno.land/x/deno_plural@2.0.0/mod.ts';
 
 
-// export {
-//   copy,
-// } from 'https://deno.land/std@0.182.0/io/util.ts';
-
-// export {
-//   readerFromStreamReader,
-// } from 'https://deno.land/std@0.182.0/io/mod.ts';
-
 export {
   ensureFile,
 } from 'https://deno.land/std@0.182.0/fs/mod.ts';
 
 
-// export * as RateLimiterFlexible from 'https://dev.jspm.io/rate-limiter-flexible@2.3.1';
+export {
+  createCanvas,
+} from 'https://deno.land/x/canvas@v1.4.1/mod.ts';
 
 
 export {
