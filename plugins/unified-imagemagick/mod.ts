@@ -7,6 +7,9 @@ import {
 } from "https://deno.land/x/imagemagick_deno@0.0.19/mod.ts";
 
 
+let isImageMagickInitialized = false;
+
+
 function readImageMagick(filePath: string): Promise<IMagickImage> {
   return new Promise((resolve, reject) => {
     Deno.readFile(filePath)
@@ -37,9 +40,14 @@ function writeImageMagick(image: IMagickImage, format: MagickFormat, filePath: s
 }
 
 
-let isImageMagickInitialized = false;
+export interface IConvertWebp {
+  inputFilePath: string;
+  outputFilePath: string;
+  width?: number;
+  height?: number;
+}
 
-export async function transformToWebp(inputFilePath: string, outputFilePath: string, width?: number, height?: number) {
+export async function transformToWebp({ inputFilePath, outputFilePath, width, height }: IConvertWebp) {
 
   if (!isImageMagickInitialized) {
     await initializeImageMagick();

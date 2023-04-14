@@ -78,10 +78,8 @@ MediaMaker.addActions({
         const relativeFilePath = `${Config.media.directory}/${mediaBase._id}.${extension}`;
         const fullPath = `${Config.media.baseUrl}/${relativeFilePath}`;
 
-
         await ensureFile(`./${relativeFilePath}`);
         await Deno.writeFile(`./${relativeFilePath}`, await file.stream())
-
 
         const newMedia = await controller.update({
           resourceId: mediaBase._id,

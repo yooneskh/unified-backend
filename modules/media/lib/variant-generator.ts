@@ -1,7 +1,7 @@
 import { Config } from '../../../config.ts';
+import { transformToWebp } from '../../../plugins/unified-imagemagick/mod.ts';
 import { MediaController } from '../controller.ts';
 import { IMedia } from '../interfaces.d.ts';
-import { transformMedia } from '../transformer-agent.ts';
 
 
 const IMAGES_MIME_TYPES = [
@@ -35,25 +35,13 @@ export async function generateMediaVariants(media: IMedia): Promise<IMedia> {
 
       const newRelativePath = `${currentMedia.relativePath.slice(0, currentMedia.relativePath.lastIndexOf('.'))}${variant[1]}`;
 
-      await transformMedia(
-        currentMedia,
-        newRelativePath,
-        [
-          {
-            method: 'resize',
-            payload: {
-              width: variant[2],
-              withoutEnlargement: true
-            }
-          },
-          {
-            method: 'webp',
-            payload: {
-              quality: variant[3]
-            }
-          }
-        ]
-      );
+
+      await transformToWebp({
+        inputFilePath: './' + currentMedia.relativePath,
+        outputFilePath: './' + newRelativePath,
+        width: Number(variant[2]),
+      });
+
 
       currentMedia = await MediaController.update({
         resourceId: currentMedia._id,
@@ -70,8 +58,7 @@ export async function generateMediaVariants(media: IMedia): Promise<IMedia> {
       });
 
     }
-    // deno-lint-ignore no-explicit-any
-    catch (error: any) {
+    catch (error) {
       console.error(`error while making media variant`, variant[0], error?.message, media);
       throw new Error(`could not make variant ${variant[0]} because ${error?.message}`, error);
     }
