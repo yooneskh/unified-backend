@@ -10,8 +10,17 @@ export function bootstrap(timeStart: number) {
 
   const httpListenAddress = `:${Config.http.port}`;
 
-  setupHttpTransport(Config.http.port, () => {
-    console.log(`http service listening on ${httpListenAddress} -- time took: ${Date.now() - timeStart} ms`);
+
+  return new Promise<void>((resolve, reject) => {
+    try {
+      setupHttpTransport(Config.http.port, () => {
+        console.log(`http service listening on ${httpListenAddress} -- time took: ${Date.now() - timeStart} ms`);
+        resolve();
+      });
+    }
+    catch (error) {
+      reject(error);
+    }
   });
 
 }

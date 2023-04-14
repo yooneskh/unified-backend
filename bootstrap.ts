@@ -1,19 +1,10 @@
 import { Config } from './config.ts';
 
+import { bootstrap as bootstrapDatabase } from './bootstrappers/database.ts';
+import { bootstrap as bootstrapHttp } from './bootstrappers/http.ts';
+
+
 const timeStart = Date.now();
-
-
-async function bootstrapDatabase() {
-  const { bootstrap } = await import('./bootstrappers/database.ts');
-  await bootstrap();
-}
-
-async function bootstrapHttp() {
-  const { bootstrap } = await import('./bootstrappers/http.ts');
-  await bootstrap(timeStart);
-}
-
-
 const services: Promise<unknown>[] = [];
 
 if (Config.database.enabled) {
@@ -21,7 +12,7 @@ if (Config.database.enabled) {
 }
 
 if (Config.http.enabled) {
-  services.push(bootstrapHttp());
+  services.push(bootstrapHttp(timeStart));
 }
 
 await Promise.all(services);
