@@ -14,72 +14,72 @@ app.route({
 
 import '../plugins/router-provider/addon.ts';
 import '../plugins/router-rest-templates/addon.ts';
-import '../modules/authentication/lib/router-addon.ts';
-import '../modules/authorization/lib/router-addon.ts';
+import '../domains/authentication/lib/router-addon.ts';
+import '../domains/authorization/lib/router-addon.ts';
 import '../plugins/router-validators/addon.ts';
 
 
-import { CaptchaTokenRouter } from '../modules/captcha-tokens/router.ts';
+import { CaptchaTokenRouter } from '../domains/captcha-tokens/router.ts';
 app.use('/api/captcha-tokens', CaptchaTokenRouter);
 
-import '../modules/captcha-tokens/router-addon.ts';
+import '../domains/captcha-tokens/router-addon.ts';
 
 
 /* global modules */
 
-import { UserRouter } from '../modules/users/router.ts';
+import { UserRouter } from '../domains/users/router.ts';
 app.use('/api/users', UserRouter);
 
 
-import { AuthenticationRouter } from '../modules/authentication/authentication-router/router.ts';
-import { AuthenticationTokenRouter } from '../modules/authentication/authentication-tokens/router.ts';
-import { RegisterTokenRouter } from '../modules/authentication/register-tokens/router.ts';
-import { VerificationTokenRouter } from '../modules/authentication/verification-tokens/router.ts';
+import { AuthenticationRouter } from '../domains/authentication/authentication-router/router.ts';
+import { AuthenticationTokenRouter } from '../domains/authentication/authentication-tokens/router.ts';
+import { RegisterTokenRouter } from '../domains/authentication/register-tokens/router.ts';
+import { VerificationTokenRouter } from '../domains/authentication/verification-tokens/router.ts';
 app.use('/api/authentication', AuthenticationRouter);
 app.use('/api/authentication-tokens', AuthenticationTokenRouter);
 app.use('/api/register-tokens', RegisterTokenRouter);
 app.use('/api/verification-tokens', VerificationTokenRouter);
 
-import '../modules/authentication/providers/email.ts'
-import '../modules/authentication/providers/phone.ts';
+import '../domains/authentication/providers/email.ts'
+import '../domains/authentication/providers/phone.ts';
 
-import '../modules/authentication/lib/listeners.ts';
+import '../domains/authentication/lib/listeners.ts';
 
 
-import { AuthorizationTokenRouter } from '../modules/authorization/authorization-tokens/router.ts';
-import { AuthorizationRoleRouter } from '../modules/authorization/authorization-roles/router.ts';
+import { AuthorizationTokenRouter } from '../domains/authorization/authorization-tokens/router.ts';
+import { AuthorizationRoleRouter } from '../domains/authorization/authorization-roles/router.ts';
 app.use('/api/authorization-tokens', AuthorizationTokenRouter);
 app.use('/api/authorization-roles', AuthorizationRoleRouter);
 
 
-import { MediaRouter } from '../modules/media/router.ts';
+import { MediaRouter } from '../domains/media/router.ts';
 app.use('/api/media', MediaRouter);
 
-import '../modules/media/lib/validators.ts';
-import '../modules/media/lib/addons.ts';
+import '../domains/media/lib/validators.ts';
+import '../domains/media/lib/addons.ts';
 
 
-import { FactorRouter } from '../modules/payment/factors/router.ts';
-import { PayticketRouter } from '../modules/payment/paytickets/router.ts';
+import { FactorRouter } from '../domains/payment/factors/router.ts';
+import { PayticketRouter } from '../domains/payment/paytickets/router.ts';
 app.use('/api/factors', FactorRouter);
 app.use('/api/paytickets', PayticketRouter);
 
-import '../modules/payment/paytickets/gateway-zarinpal.ts';
+import '../domains/payment/paytickets/gateway-zarinpal.ts';
 
 
-import { AccountRouter } from '../modules/accounting/accounts/router.ts';
-import { TransferRouter } from '../modules/accounting/transfers/router.ts';
+import { AccountRouter } from '../domains/accounting/accounts/router.ts';
+import { TransferRouter } from '../domains/accounting/transfers/router.ts';
 app.use('/api/accounts', AccountRouter);
 app.use('/api/transfers', TransferRouter);
 
-import '../modules/accounting/accounts/lib/bootstrap.ts';
+import '../domains/accounting/accounts/lib/bootstrap.ts';
 
 
-import { ApplicationSettingRouter } from '../modules/application-settings/router.ts';
+import { ApplicationSettingRouter } from '../domains/application-settings/router.ts';
 app.use('/api/application-settings', ApplicationSettingRouter);
 
 
-import '../modules/notifications/sms-notification-manager.ts';
+import '../domains/notifications/sms-notification-manager.ts';
 
 
 /* extra */
