@@ -13,6 +13,7 @@ declare module '../../../plugins/resource-maker/router.d.ts' {
   interface IResourceActionContext<T, TF> {
     token?: string;
     user?: IUser;
+    userId?: string;
   }
 
 }
@@ -25,6 +26,7 @@ ResourceMaker.addGlobalPreware(async context => {
   if (context.token) {
 
     context.user = await getUserByToken(context.token);
+    context.userId = context.user ? String(context.user._id) : undefined;
 
     if (!context.user) {
       throw new Error('invalid token');

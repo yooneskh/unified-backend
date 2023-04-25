@@ -27,7 +27,7 @@ declare module '../../../plugins/resource-maker/router.d.ts' {
 
 ResourceMaker.addGlobalPreware(async context => {
 
-  const { action, user } = context;
+  const { action, userId } = context;
   const { permission, permissions, anyPermissions, permissionValidator } = action;
 
 
@@ -55,25 +55,25 @@ ResourceMaker.addGlobalPreware(async context => {
   };
 
 
-  if (user) {
-    const info = await getAuthorizationInfoForUser(String(user._id));
+  if (userId) {
+    const info = await getAuthorizationInfoForUser(userId);
     context.userPermissions = info.permissions;
     context.userRoles = info.roles;
   }
 
 
   if (permission) {
-    if (!user) throw new Error('unauthorized access');
+    if (!userId) throw new Error('unauthorized access');
     if (!context.hasPermission(permission)) throw new Error('unauthorized access');
   }
 
   if (permissions) {
-    if (!user) throw new Error('unauthorized access');
+    if (!userId) throw new Error('unauthorized access');
     if (!context.hasAllPermissions(permissions)) throw new Error('unauthorized access');
   }
 
   if (anyPermissions) {
-    if (!user) throw new Error('unauthorized access');
+    if (!userId) throw new Error('unauthorized access');
     if (!context.hasAnyPermission(anyPermissions)) throw new Error('unauthorized access');
   }
 

@@ -145,12 +145,12 @@ AuthenticationRouterMaker.addActions({
     path: '/identity',
     signal: 'Route.Authentication.ChangeIdentity',
     requiresAuthentication: true,
-    provider: ({ user, payload }) => {
+    provider: ({ userId, payload }) => {
       return UserController.update({
-        resourceId: user!._id,
-        payload
+        resourceId: userId,
+        payload,
       });
-    }
+    },
   },
   'logout': {
     method: 'post',
@@ -162,12 +162,12 @@ AuthenticationRouterMaker.addActions({
       await AuthenticationTokenController.updateBy({
         filters: {
           token,
-          valid: true
+          valid: true,
         },
         payload: {
           valid: false,
-          invalidatedAt: Date.now()
-        }
+          invalidatedAt: Date.now(),
+        },
       });
 
       return true;

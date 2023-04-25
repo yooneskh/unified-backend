@@ -50,12 +50,12 @@ AccountMaker.addActions({
     path: '/retrieve/mine',
     signal: 'Route.Account.RetrieveMine',
     permission: 'user.accounting.account.retrieve-mine',
-    provider: ({ user, controller }) => {
+    provider: ({ controller, userId }) => {
 
       return controller.retrieveBy({
         filters: {
-          user: String(user!._id)
-        }
+          user: userId,
+        },
       });
 
     }
