@@ -7,7 +7,7 @@ export {
   UnifiedRouter,
   UnifiedWebServer,
   type IRouteHandlerReturn,
-} from 'https://deno.land/x/unified_webserver@v0.4.3/mod.ts';
+} from 'https://deno.land/x/unified_webserver@v0.4.4/mod.ts';
 
 
 export {
