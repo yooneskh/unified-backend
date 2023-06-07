@@ -1,7 +1,7 @@
 import { MediaMaker } from './resource.ts';
 import './controller.ts';
-import { ensureFile } from '../../deps.ts';
-import { Config } from '../../config.ts';
+import { ensureFile } from 'std/fs/ensure_file.ts';
+import { Config } from 'config';
 import { getMediaAddons, getMediaValidators } from './globals.ts';
 import { EventEmitter } from '../../services/event-emitter.ts';
 

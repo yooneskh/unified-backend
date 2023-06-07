@@ -1,10 +1,10 @@
-import { ResourceMaker } from '../resource-maker/maker.ts';
-import type { IResourceBase } from '../resource-maker/model.d.ts';
-import type { IResourceActionFunction, IResourceActionMultiFunction, IResourceVersioned, IRouteHandlerReturn } from '../resource-maker/router.d.ts';
-import { executeActionMultiFunction } from '../resource-maker/utilities.ts';
+import { ResourceMaker } from 'resource-maker';
+import type { IResourceBase } from 'resource-maker';
+import type { IResourceActionFunction, IResourceActionMultiFunction, IResourceVersioned, IRouteHandlerReturn } from 'resource-maker';
+import { executeActionMultiFunction } from 'resource-maker';
 
 
-declare module '../resource-maker/router.d.ts' {
+declare module 'resource-maker' {
 
   interface IResourceAction<T, TF> {
     provider?: IResourceActionMultiFunction<T, TF> | IResourceVersioned<IResourceActionMultiFunction<T, TF>>;

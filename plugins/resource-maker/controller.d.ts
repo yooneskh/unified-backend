@@ -1,5 +1,4 @@
-// deno-lint-ignore-file no-explicit-any
-import { ObjectId } from '../../deps.ts';
+import { ObjectId } from 'yongo';
 import { Filter } from './mongo_types.ts';
 
 
@@ -12,6 +11,7 @@ export interface IResourceControllerContext<T, TF> {
   selects?: string[];
   skip?: number;
   limit?: number;
+  // deno-lint-ignore no-explicit-any
   sorts?: any;
   populates?: IResourceControllerPopulates;
   resourceId?: string | ObjectId;

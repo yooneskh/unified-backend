@@ -1,4 +1,4 @@
-import { IResourceControllerPopulates } from '../resource-maker/controller.d.ts';
+import { IResourceControllerPopulates } from 'resource-maker';
 
 
 export interface IResourceSettingsControllerContext<T, TF> {

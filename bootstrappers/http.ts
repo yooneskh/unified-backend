@@ -1,4 +1,4 @@
-import { Config } from '../config.ts';
+import { Config } from 'config';
 import { setupHttpTransport } from '../transports/http.ts';
 
 

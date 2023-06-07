@@ -1,5 +1,5 @@
-import { ResourceMaker } from '../../plugins/resource-maker/maker.ts';
-import type {} from '../../plugins/resource-maker/router.d.ts';
+import { ResourceMaker } from 'resource-maker';
+import type {} from 'resource-maker';
 import { CaptchaTokenController } from './controller.ts';
 
 
@@ -7,7 +7,7 @@ export interface ICaptchaRouterAddonConfig {
   enabled: boolean;
 }
 
-declare module '../../plugins/resource-maker/router.d.ts' {
+declare module 'resource-maker' {
   interface IResourceAction<T, TF> {
     captcha?: ICaptchaRouterAddonConfig;
   }

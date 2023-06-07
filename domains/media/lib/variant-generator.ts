@@ -1,4 +1,4 @@
-import { Config } from '../../../config.ts';
+import { Config } from 'config';
 import { transformToWebp } from '../../../plugins/unified-imagemagick/mod.ts';
 import { MediaController } from '../controller.ts';
 import { IMedia } from '../interfaces.d.ts';

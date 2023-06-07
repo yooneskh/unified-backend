@@ -1,10 +1,10 @@
-import { ResourceMaker } from '../../../plugins/resource-maker/maker.ts';
+import { ResourceMaker } from 'resource-maker';
 import type { IUser } from '../../users/interfaces.d.ts';
-import type {} from '../../../plugins/resource-maker/router.d.ts';
+import type {} from 'resource-maker';
 import { getUserByToken } from './helper.ts';
 
 
-declare module '../../../plugins/resource-maker/router.d.ts' {
+declare module 'resource-maker' {
 
   interface IResourceAction<T, TF> {
     requiresAuthentication?: boolean;

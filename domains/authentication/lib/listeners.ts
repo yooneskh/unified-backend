@@ -1,6 +1,6 @@
+import { Config } from 'config';
 import { EventEmitter } from '../../../services/event-emitter.ts';
 import { IVerificationToken } from '../verification-tokens/interfaces.d.ts';
-import { Config } from '../../../config.ts';
 import { sendLookupSMS } from '../../../plugins/kavenegar/kavenegar-agent.ts';
 import { makeSendInBlueEmail } from '../../../plugins/send-in-blue/send-in-blue-agent.ts';
 

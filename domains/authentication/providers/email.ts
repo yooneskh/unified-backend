@@ -1,5 +1,5 @@
 import { registerProvider } from '../authentication-router/router.ts';
-import { Config } from '../../../config.ts';
+import { Config } from 'config';
 import { UserController } from '../../users/controller.ts';
 import { VerificationTokenController } from '../verification-tokens/controller.ts';
 import { RegisterTokenController } from '../register-tokens/controller.ts';

@@ -1,4 +1,4 @@
-import { IResourceBase } from '../../../plugins/resource-maker/model.d.ts';
+import { IResourceBase } from 'resource-maker';
 
 
 export interface IAccountBase {

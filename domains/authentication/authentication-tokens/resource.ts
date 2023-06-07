@@ -1,4 +1,4 @@
-import { ResourceMaker } from '../../../plugins/resource-maker/maker.ts';
+import { ResourceMaker } from 'resource-maker';
 import type { IAuthenticationTokenBase, IAuthenticationToken } from './interfaces.d.ts';
 
 

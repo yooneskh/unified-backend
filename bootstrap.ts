@@ -1,4 +1,4 @@
-import { Config } from './config.ts';
+import { Config } from 'config';
 
 import { bootstrap as bootstrapDatabase } from './bootstrappers/database.ts';
 import { bootstrap as bootstrapHttp } from './bootstrappers/http.ts';

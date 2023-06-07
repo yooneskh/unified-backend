@@ -1,4 +1,4 @@
-import type { IResourceBase } from '../../../plugins/resource-maker/model.d.ts';
+import type { IResourceBase } from 'resource-maker';
 
 
 export interface IAuthorizationRoleBase {

@@ -1,5 +1,5 @@
-import { Config } from '../config.ts';
-import { connect } from '../deps.ts';
+import { connect } from 'yongo';
+import { Config } from 'config';
 
 
 export async function bootstrap() {

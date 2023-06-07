@@ -1,6 +1,6 @@
-import { bootstrap } from '../bootstrappers/bootstrap-database.ts';
-import { Config } from '../config.ts';
-import { MediaController } from '../modules/media/media-controller.ts';
+import { Config } from 'config';
+import { bootstrap } from '../bootstrappers/database.ts';
+import { MediaController } from '../domains/media/controller.ts';
 
 
 await bootstrap();

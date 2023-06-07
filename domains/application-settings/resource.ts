@@ -1,4 +1,4 @@
-import { SettingResourceMaker } from '../../plugins/setting-resource-maker/setting-resource-maker.ts';
+import { SettingResourceMaker } from 'setting-resource-maker';
 import type { IApplicationSettingsBase, IApplicationSettings } from './interfaces.d.ts';
 
 

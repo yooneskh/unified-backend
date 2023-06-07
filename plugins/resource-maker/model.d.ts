@@ -1,6 +1,5 @@
 // deno-lint-ignore-file no-explicit-any
-
-import { ObjectId } from '../../deps.ts';
+import { ObjectId } from 'yongo';
 
 
 export interface IResourceBase {

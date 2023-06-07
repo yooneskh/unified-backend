@@ -1,6 +1,6 @@
 import type { IAuthorizationRole } from '../authorization-roles/interfaces.d.ts';
 import { AuthorizationTokenController } from '../authorization-tokens/controller.ts';
-import { Config } from '../../../config.ts';
+import { Config } from 'config';
 
 
 export interface IUserAuthorizationInfo {

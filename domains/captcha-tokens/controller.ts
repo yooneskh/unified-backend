@@ -1,6 +1,6 @@
 import { CaptchaTokenMaker } from './resource.ts';
 import './model.ts';
-import { Config } from '../../config.ts';
+import { Config } from 'config';
 import { createCaptcha } from '../../plugins/captcha-maker/mod.ts';
 
 

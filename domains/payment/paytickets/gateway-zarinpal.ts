@@ -1,4 +1,4 @@
-import { Config } from '../../../config.ts';
+import { Config } from 'config';
 import { UserController } from '../../users/controller.ts';
 import { FactorController } from '../factors/controller.ts';
 import { registerPayticketGateway } from './gateways.ts';

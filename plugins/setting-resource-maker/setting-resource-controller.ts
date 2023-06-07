@@ -1,6 +1,6 @@
-import { ObjectId } from '../../deps.ts';
-import { ResourceController } from '../resource-maker/controller.ts';
-import { IResourceBase } from '../resource-maker/model.d.ts';
+import { ObjectId } from 'yongo';
+import { ResourceController } from 'resource-maker';
+import { IResourceBase } from 'resource-maker';
 import { IResourceSettingsControllerContext } from './setting-resource-controller.d.ts';
 
 

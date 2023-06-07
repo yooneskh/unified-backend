@@ -1,4 +1,5 @@
-import { augmentConfiguration } from './deps.ts';
+import { augmentConfiguration } from 'deno_config';
+
 
 export const Config = {
   database: {
@@ -96,5 +97,6 @@ export const Config = {
     ],
   },
 };
+
 
 augmentConfiguration(Config);

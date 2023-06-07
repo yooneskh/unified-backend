@@ -3,10 +3,9 @@ import { createPayticket } from './controller.ts';
 import { FactorController } from '../factors/controller.ts';
 import { EventEmitter } from '../../../services/event-emitter.ts';
 import { makePaymentSuccessPage } from '../payment-results/success.ts';
-import { Config } from '../../../config.ts';
+import { Config } from 'config';
 import { makePaymentErrorPage } from '../payment-results/error.ts';
 import { getGatewayHandler } from './gateways.ts';
-import { BypassRouteError } from '../../../plugins/error/handleable-error.ts';
 import { getAccountForUser } from '../../accounting/accounts/controller.ts';
 import { createTransfer, getGlobalSourceAccount } from '../../accounting/transfers/controller.ts';
 

@@ -1,5 +1,5 @@
 // deno-lint-ignore-file no-explicit-any
-import { registerPopulateItem } from '../../deps.ts';
+import { registerPopulateItem } from 'yongo';
 import { Augmentor } from '../augment-looper/augment-looper.ts';
 import { ResourceController } from './controller.ts';
 import type { IResourceBase, IResourceProperties } from './model.d.ts';

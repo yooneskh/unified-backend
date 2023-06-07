@@ -1,4 +1,4 @@
-import { UnifiedRouter } from '../../deps.ts';
+import { UnifiedRouter } from 'unified_webserver';
 import { AugmentLooper, Augmentor } from '../augment-looper/augment-looper.ts';
 import { ResourceController } from './controller.ts';
 import type { IResourceBase } from './model.d.ts';

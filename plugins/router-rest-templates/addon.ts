@@ -1,11 +1,11 @@
-import { ResourceMaker } from '../resource-maker/maker.ts';
+import { ResourceMaker } from 'resource-maker';
 import { makeFiltersFromQuery } from './util.ts';
 // deno-lint-ignore no-unused-vars
-import type { IResourceAction, IResourceActionContext } from '../resource-maker/router.d.ts';
-import { IResourceBase } from '../resource-maker/model.d.ts';
+import type { IResourceAction, IResourceActionContext } from 'resource-maker';
+import { IResourceBase } from 'resource-maker';
 
 
-declare module '../resource-maker/router.d.ts' {
+declare module 'resource-maker' {
 
   interface IResourceAction<T, TF> {
     template?: 'list' | 'count' | 'retrieve' | 'create' | 'update' | 'delete';

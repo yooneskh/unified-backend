@@ -1,6 +1,6 @@
 import { ResourceController } from './controller.ts';
 import type { IResourceBase } from './model.d.ts';
-import type { IRouteHandlerReturn } from '../../deps.ts';
+import type { IRouteHandlerReturn } from 'unified_webserver';
 
 
 export { IRouteHandlerReturn };

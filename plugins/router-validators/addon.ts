@@ -1,9 +1,9 @@
-import { ResourceMaker } from '../../plugins/resource-maker/maker.ts';
-import type { IResourceActionMultiFunction } from '../../plugins/resource-maker/router.d.ts';
-import { executeActionMultiFunction } from '../resource-maker/utilities.ts';
+import { ResourceMaker } from 'resource-maker';
+import type { IResourceActionMultiFunction } from 'resource-maker';
+import { executeActionMultiFunction } from 'resource-maker';
 
 
-declare module '../../plugins/resource-maker/router.d.ts' {
+declare module 'resource-maker' {
   interface IResourceAction<T, TF> {
     stateValidators?: IResourceActionMultiFunction<T, TF>;
     payloadValidators?: IResourceActionMultiFunction<T, TF>;

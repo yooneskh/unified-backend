@@ -1,4 +1,4 @@
-import { createCanvas } from '../../deps.ts';
+import { createCanvas } from 'canvas';
 
 
 export interface ICaptchaCreate {

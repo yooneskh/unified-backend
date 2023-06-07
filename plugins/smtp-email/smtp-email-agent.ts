@@ -1,4 +1,4 @@
-import { SmtpClient } from '../../deps.ts';
+import { SmtpClient } from 'smtp';
 
 
 interface ISmtpEmailConfig {

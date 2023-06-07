@@ -1,4 +1,4 @@
-import { plural } from '../../deps.ts';
+import { plural } from 'deno_plural';
 import type { IResourceBase } from './model.d.ts';
 import type { IResourceActionContext, IResourceActionMultiFunction } from './router.d.ts';
 
