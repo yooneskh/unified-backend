@@ -41,12 +41,12 @@ export async function transformToWebp({ inputFilePath, outputFilePath, width, he
 
           image.resize(new MagickGeometry((!width ? '' : Math.min(width, image.width)) + 'x' + (!height ? '' : Math.min(height, image.height))))
 
-          image.write((outData: Uint8Array) => {
+          image.write(MagickFormat.Webp, (outData: Uint8Array) => {
             (Deno.writeFile(outputFilePath, outData)
               .then(resolve)
               .catch(reject)
             );
-          }, MagickFormat.Webp);
+          });
 
         });
 
