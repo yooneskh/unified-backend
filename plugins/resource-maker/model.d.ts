@@ -29,7 +29,7 @@ export interface IResourceProperty {
   /* meta */
   title?: string;
   titleable?: boolean;
-  items?: string[] | { value: string, text: string }[];
+  items?: string[] | { value: string, title: string }[];
   itemValue?: string;
   itemText?: string;
   width?: number;
