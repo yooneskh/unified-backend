@@ -22,7 +22,7 @@ export interface IResourceProperty {
   seriesBase?: Record<string, unknown>;
   seriesSchema?: IResourceProperties<any, any>;
   seriesReportGroupBy?: string;
-  itemWidth?: number;
+  seriesColumns?: number;
   /* validation */
   vIf?: any;
   validator?: string | RegExp | ((it: any) => void | boolean | string);
