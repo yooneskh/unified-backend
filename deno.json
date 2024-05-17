@@ -1,15 +1,9 @@
 {
   "imports": {
-    "std/": "https://deno.land/std@0.192.0/",
-    "deno_config": "https://deno.land/x/deno_config@v0.1.2/mod.ts",
-    "unified_webserver": "https://deno.land/x/unified_webserver@v0.4.4/mod.ts",
-    "yongo": "https://deno.land/x/yongo@v1.4.4/mod.ts",
-    "deno_plural": "https://deno.land/x/deno_plural@2.0.0/mod.ts",
-    "canvas": "https://deno.land/x/canvas@v1.4.1/mod.ts",
-    "smtp": "https://deno.land/x/smtp@v0.7.0/mod.ts",
-    "imagemagick_deno": "https://deno.land/x/imagemagick_deno@0.0.26/mod.ts",
     "config": "./config.ts",
-    "resource-maker": "./plugins/resource-maker/mod.ts",
-    "setting-resource-maker": "./plugins/setting-resource-maker/mod.ts"
+    "unified-app": "./lib/unified-app/mod.ts"
+  },
+  "fmt": {
+    "singleQuote": true
   }
 }
