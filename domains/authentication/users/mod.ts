@@ -11,13 +11,14 @@ export function install(app: IUnifiedApp) {
   });
 
 
-  app.addRoute({
+  app.addAction({
     method: 'get',
     path: '/users/',
     handler: () => {
       return [];
     },
   });
+
 
   console.log('installed users resource');
 

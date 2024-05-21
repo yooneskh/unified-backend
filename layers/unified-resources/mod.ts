@@ -1,12 +1,6 @@
 import { IUnifiedApp } from 'unified-app';
+import './interfaces.d.ts';
 
-
-declare module 'unified-app' {
-  interface IUnifiedApp {
-    models: Record<string, unknown>;
-    addModel: (model: string, schema: unknown) => void;
-  }
-}
 
 export function install(app: IUnifiedApp) {
 

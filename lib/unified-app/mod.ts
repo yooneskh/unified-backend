@@ -1,9 +1,11 @@
 
 
 export {
-    createUnifiedApp,
+  createUnifiedApp,
 } from './unified-app.ts';
 
 export type {
-    IUnifiedApp,
-} from './unified-app.ts';
+  IUnifiedApp,
+  IUnifiedAction,
+  IUnifiedActionContext,
+} from './interfaces.d.ts';
