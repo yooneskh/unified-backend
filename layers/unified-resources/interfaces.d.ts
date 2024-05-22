@@ -1,3 +1,4 @@
+import type { Filter, IBaseDocument } from 'unified-kv';
 
 
 declare module 'unified-app' {
@@ -62,14 +63,23 @@ export interface IUnifiedModel {
 
 
 export interface IUnifiedController<T> {
-  list: () => Promise<T[]>;
-  retrieve: () => Promise<T>;
-  find: () => Promise<T | undefined>;
-  count: () => Promise<number>;
-  exists: () => Promise<boolean>;
-  notExists: () => Promise<boolean>;
-  create: () => Promise<T>;
-  update: () => Promise<T>;
-  replace: () => Promise<T>;
-  delete: () => Promise<T>;
+  list: (context: IUnifiedControllerContext<T>) => Promise<(T & IBaseDocument)[]>;
+  retrieve: (context: IUnifiedControllerContext<T>) => Promise<T & IBaseDocument>;
+  find: (context: IUnifiedControllerContext<T>) => Promise<(T & IBaseDocument) | undefined>;
+  count: (context: IUnifiedControllerContext<T>) => Promise<number>;
+  exists: (context: IUnifiedControllerContext<T>) => Promise<boolean>;
+  notExists: (context: IUnifiedControllerContext<T>) => Promise<boolean>;
+  create: (context: IUnifiedControllerContext<T>) => Promise<T & IBaseDocument>;
+  update: (context: IUnifiedControllerContext<T>) => Promise<T & IBaseDocument>;
+  replace: (context: IUnifiedControllerContext<T>) => Promise<T & IBaseDocument>;
+  delete: (context: IUnifiedControllerContext<T>) => Promise<T & IBaseDocument>;
+}
+
+export interface IUnifiedControllerContext<T> {
+  resourceId?: string;
+  filter?: Filter<T & IBaseDocument>;
+  limit?: number;
+  skip?: number;
+  document?: T;
+  payload?: Partial<T>;
 }

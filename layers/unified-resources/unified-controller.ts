@@ -1,42 +1,103 @@
-import type { IUnifiedModel, IUnifiedController } from './interfaces.d.ts';
+import type { IUnifiedModel, IUnifiedController, IUnifiedControllerContext } from './interfaces.d.ts';
 import { Document } from 'unified-kv';
 
 
-export function createUnifiedController<T>(model: string, schema: IUnifiedModel) {
+export function createUnifiedController<T>(model: string, _schema: IUnifiedModel) {
 
   const document = new Document<T>(model);
 
 
   return {
-    list: () => {
-      return document.list();
+    list: (context: IUnifiedControllerContext<T>) => {
+      return document.list({
+        filter: context.filter,
+        limit: context.limit,
+        skip: context.skip,
+      });
     },
-    retrieve: () => {
-      return document.retrieve('xxx');
+    retrieve: (context: IUnifiedControllerContext<T>) => {
+      return document.retrieve({
+        recordId: context.resourceId,
+        filter: context.filter,
+      });
     },
-    find: async () => {
-      return (await document.list())?.[0];
+    find: async (context: IUnifiedControllerContext<T>) => {
+      return document.find({
+        recordId: context.resourceId,
+        filter: context.filter,
+      });
     },
-    count: async () => {
-      return (await document.list()).length;
+    count: async (context: IUnifiedControllerContext<T>) => {
+      
+      const records = await document.list({
+        filter: context.filter,
+        limit: context.limit,
+        skip: context.skip,
+      });
+
+      return records.length;
+
     },
-    exists: async () => {
-      return (await document.list())?.[0] !== undefined;
+    exists: async (context: IUnifiedControllerContext<T>) => {
+      
+      const records = await document.list({
+        filter: context.filter,
+        limit: 1,
+      });
+
+      return records.length > 0;
+
     },
-    notExists:  async () => {
-      return (await document.list())?.[0] === undefined;
+    notExists:  async (context: IUnifiedControllerContext<T>) => {
+      
+      const records = await document.list({
+        filter: context.filter,
+        limit: 1,
+      });
+
+      return records.length === 0;
+
     },
-    create: () => {
-      return document.create({} as T);
+    create: (context: IUnifiedControllerContext<T>) => {
+
+      if (!context.document) {
+        throw new Error('document is not provided');
+      }
+
+      return document.create(context.document);
+
     },
-    update: () => {
-      return document.update('xxx', {});
+    update: (context: IUnifiedControllerContext<T>) => {
+
+      if (!context.payload) {
+        throw new Error('payload is not provided');
+      }
+
+      return document.update({
+        recordId: context.resourceId,
+        filter: context.filter,
+        payload: context.payload,
+      });
+
     },
-    replace: () => {
-      throw new Error('not implemented');
+    replace: (context: IUnifiedControllerContext<T>) => {
+
+      if (!context.document) {
+        throw new Error('document is not provided');
+      }
+
+      return document.replace({
+        recordId: context.resourceId,
+        filter: context.filter,
+        payload: context.document,
+      });
+
     },
-    delete: () => {
-      return document.delete('xxx') as T;
+    delete: (context: IUnifiedControllerContext<T>) => {
+      return document.delete({
+        recordId: context.resourceId,
+        filter: context.filter,
+      });
     },
   } as IUnifiedController<T>;
 
