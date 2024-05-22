@@ -1,0 +1,34 @@
+{
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "jsr:@unified/kv@0.1.0": "jsr:@unified/kv@0.1.0",
+      "jsr:@unified/mongo-filter@0.4.0": "jsr:@unified/mongo-filter@0.4.0",
+      "npm:nanoid@5.0.7": "npm:nanoid@5.0.7"
+    },
+    "jsr": {
+      "@unified/kv@0.1.0": {
+        "integrity": "5d23cd10bbb6791487a4b3961e48130aee54918f00da1a916368aa64b36e7bd1",
+        "dependencies": [
+          "jsr:@unified/mongo-filter@0.4.0",
+          "npm:nanoid@5.0.7"
+        ]
+      },
+      "@unified/mongo-filter@0.4.0": {
+        "integrity": "6ccf10c3ea61c229970b15a531b414638cdf7c57c461330842a11e99d2b120fa"
+      }
+    },
+    "npm": {
+      "nanoid@5.0.7": {
+        "integrity": "sha512-oLxFY2gd2IqnjcYyOXD8XGCftpGtZP2AbHbOkthDkvRywH5ayNtPVy9YlOPcHckXzbLTCHpkb7FB+yuxKV13pQ==",
+        "dependencies": {}
+      }
+    }
+  },
+  "remote": {},
+  "workspace": {
+    "dependencies": [
+      "jsr:@unified/kv@0.1.0"
+    ]
+  }
+}
