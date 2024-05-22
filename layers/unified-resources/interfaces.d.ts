@@ -59,3 +59,17 @@ export interface IUnifiedModel {
     nonCreating?: boolean;
   };
 }
+
+
+export interface IUnifiedController<T> {
+  list: () => Promise<T[]>;
+  retrieve: () => Promise<T>;
+  find: () => Promise<T | undefined>;
+  count: () => Promise<number>;
+  exists: () => Promise<boolean>;
+  notExists: () => Promise<boolean>;
+  create: () => Promise<T>;
+  update: () => Promise<T>;
+  replace: () => Promise<T>;
+  delete: () => Promise<T>;
+}

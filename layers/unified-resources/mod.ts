@@ -2,6 +2,17 @@ import { IUnifiedApp } from 'unified-app';
 import './interfaces.d.ts';
 
 
+export type {
+  IUnifiedModel,
+  IUnifiedModelBase,
+  IUnifiedController,
+} from './interfaces.d.ts';
+
+export {
+  createUnifiedController,
+} from './unified-controller.ts';
+
+
 export function install(app: IUnifiedApp) {
 
   app.models = {};

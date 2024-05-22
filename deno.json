@@ -1,7 +1,8 @@
 {
   "imports": {
     "config": "./config.ts",
-    "unified-app": "./lib/unified-app/mod.ts"
+    "unified-app": "./lib/unified-app/mod.ts",
+    "unified-resources": "./layers/unified-resources/mod.ts"
   },
   "fmt": {
     "singleQuote": true
