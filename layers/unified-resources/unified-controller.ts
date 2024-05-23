@@ -21,7 +21,7 @@ export function createUnifiedController<T>(model: string, _schema: IUnifiedModel
         filter: context.filter,
       });
     },
-    find: async (context: IUnifiedControllerContext<T>) => {
+    find: (context: IUnifiedControllerContext<T>) => {
       return document.find({
         recordId: context.resourceId,
         filter: context.filter,

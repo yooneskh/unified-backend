@@ -1,4 +1,5 @@
 import { IUnifiedApp } from 'unified-app';
+import { install as installUnifiedRouter } from './unified-router.ts';
 import './interfaces.d.ts';
 
 
@@ -6,6 +7,7 @@ export type {
   IUnifiedModel,
   IUnifiedModelBase,
   IUnifiedController,
+  IUnifiedControllerContext,
 } from './interfaces.d.ts';
 
 export {
@@ -20,6 +22,9 @@ export function install(app: IUnifiedApp) {
   app.addModel = (model, schema) => {
     app.models[model] = schema;
   };
+
+
+  installUnifiedRouter(app);
 
   console.log('installed unified resources layer');
 
