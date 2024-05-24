@@ -2,6 +2,11 @@ import type { IUnifiedApp } from 'unified-app';
 
 
 declare module 'unified-app' {
+
+  interface IUnifiedAction {
+    template?: 'list' | 'count' | 'retrieve' | 'create' | 'update' | 'replace' | 'delete';
+  }
+
   interface IUnifiedActionContext {
     resourceId?: string;
     // deno-lint-ignore no-explicit-any
@@ -12,6 +17,7 @@ declare module 'unified-app' {
     limit?: number;
     skip?: number;
   }
+
 }
 
 
@@ -56,6 +62,41 @@ export function install(app: IUnifiedApp) {
       context.limit = Math.min(parseInt(context.query.limit, 10), 30);
     }
   
+  });
+
+  app.addMiddleware(context => {
+
+    if (!context.action.template) {
+      return;
+    }
+
+    switch (context.action.template) {
+
+      case 'list': {
+
+        if (!context.action.method) context.action.method = 'get';
+        if (!context.action.path) context.action.path = '/';
+
+        if (!context.action.handler) context.action.handler = ({ query, filter, select, populate, limit, skip }) => {
+          if (query['single'] === 'true') {
+            return app.users.find({
+              filter,
+              limit,
+              skip,
+            });
+          }
+          else {
+            return app.users.list({
+              filter,
+              limit,
+              skip,
+            });
+          }
+        };
+
+      } break;
+
+    }
   });
 
 }

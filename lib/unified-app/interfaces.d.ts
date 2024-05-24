@@ -13,9 +13,9 @@ export interface IUnifiedActionContext {
 }
 
 export interface IUnifiedAction {
-  method: string;
-  path: string;
-  handler: (context: IUnifiedActionContext) => Promise<unknown> | unknown;
+  method?: string;
+  path?: string;
+  handler?: (context: IUnifiedActionContext) => Promise<unknown> | unknown;
 }
 
 export type IUnifiedMiddleware = (context: IUnifiedActionContext) => void;

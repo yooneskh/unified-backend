@@ -30,24 +30,7 @@ export function install(app: IUnifiedApp) {
 
 
   app.addAction({
-    method: 'get',
-    path: '/users/',
-    handler: ({ query, filter, select, populate, limit, skip }) => {
-      if (query['single'] === 'true') {
-        return app.users.find({
-          filter,
-          limit,
-          skip,
-        });
-      }
-      else {
-        return app.users.list({
-          filter,
-          limit,
-          skip,
-        });
-      }
-    },
+    template: 'list',
   });
 
   app.addAction({
