@@ -31,75 +31,37 @@ export function install(app: IUnifiedApp) {
 
   app.addAction({
     template: 'list',
+    controller: app.users,
   });
 
   app.addAction({
-    method: 'get',
-    path: '/users/count',
-    handler: ({ filter, limit, skip }) => {
-      return app.users.count({
-        filter,
-        limit,
-        skip,
-      });
-    },
+    template: 'count',
+    controller: app.users,
   });
 
   app.addAction({
-    method: 'get',
-    path: '/users/:resourceId',
-    handler: ({ resourceId, filter, select, populate }) => {
-      return app.users.retrieve({
-        resourceId,
-        filter,
-      });
-    },
+    template: 'retrieve',
+    controller: app.users,
   });
 
   app.addAction({
-    method: 'post',
-    path: '/users/',
-    handler: ({ body }) => {
-      return app.users.create(body);
-    },
+    template: 'create',
+    controller: app.users,
   });
 
   app.addAction({
-    method: 'patch',
-    path: '/users/:resourceId',
-    handler: ({ resourceId, filter, body }) => {
-      return app.users.update({
-        resourceId,
-        filter,
-        payload: body,
-      });
-    },
+    template: 'update',
+    controller: app.users,
   });
 
   app.addAction({
-    method: 'put',
-    path: '/users/:resourceId',
-    handler: ({ resourceId, filter, body }) => {
-      return app.users.replace({
-        resourceId,
-        filter,
-        document: body,
-      });
-    },
+    template: 'replace',
+    controller: app.users,
   });
 
   app.addAction({
-    method: 'delete',
-    path: '/users/:resourceId',
-    handler: ({ resourceId, filter }) => {
-      return app.users.retrieve({
-        resourceId,
-        filter,
-      });
-    },
+    template: 'delete',
+    controller: app.users,
   });
-
-
-  console.log('installed users resource');
 
 }

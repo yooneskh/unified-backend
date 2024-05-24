@@ -1,10 +1,13 @@
 import type { IUnifiedApp } from 'unified-app';
+import type { IUnifiedController } from 'unified-resources';
 
 
 declare module 'unified-app' {
 
   interface IUnifiedAction {
     template?: 'list' | 'count' | 'retrieve' | 'create' | 'update' | 'replace' | 'delete';
+    // deno-lint-ignore no-explicit-any
+    controller?: IUnifiedController<any>;
   }
 
   interface IUnifiedActionContext {
@@ -53,15 +56,15 @@ export function install(app: IUnifiedApp) {
         )
       );
     }
-  
+
     if (context.query.skip) {
       context.skip = parseInt(context.query.skip, 10);
     }
-  
+
     if (context.query.limit) {
       context.limit = Math.min(parseInt(context.query.limit, 10), 30);
     }
-  
+
   });
 
   app.addMiddleware(context => {
@@ -77,21 +80,105 @@ export function install(app: IUnifiedApp) {
         if (!context.action.method) context.action.method = 'get';
         if (!context.action.path) context.action.path = '/';
 
-        if (!context.action.handler) context.action.handler = ({ query, filter, select, populate, limit, skip }) => {
+        if (!context.action.handler) context.action.handler = ({ action, query, filter, select, populate, limit, skip }) => {
           if (query['single'] === 'true') {
-            return app.users.find({
+            return action.controller!.find({
               filter,
               limit,
               skip,
             });
           }
           else {
-            return app.users.list({
+            return action.controller!.list({
               filter,
               limit,
               skip,
             });
           }
+        };
+
+      } break;
+
+      case 'count': {
+
+        if (!context.action.method) context.action.method = 'get';
+        if (!context.action.path) context.action.path = '/count';
+
+        if (!context.action.handler) context.action.handler = ({ action, filter, limit, skip }) => {
+          return action.controller!.count({
+            filter,
+            limit,
+            skip,
+          });
+        };
+
+      } break;
+
+      case 'retrieve': {
+
+        if (!context.action.method) context.action.method = 'get';
+        if (!context.action.path) context.action.path = '/:resourceId';
+
+        if (!context.action.handler) context.action.handler = ({ action, resourceId, filter, select, populate }) => {
+          return action.controller!.retrieve({
+            resourceId,
+            filter,
+          });
+        };
+
+      } break;
+
+      case 'create': {
+
+        if (!context.action.method) context.action.method = 'post';
+        if (!context.action.path) context.action.path = '/';
+
+        if (!context.action.handler) context.action.handler = ({ action, body }) => {
+          return action.controller!.create(body);
+        };
+
+      } break;
+
+      case 'update': {
+
+        if (!context.action.method) context.action.method = 'patch';
+        if (!context.action.path) context.action.path = '/:resourceId';
+
+        if (!context.action.handler) context.action.handler = ({ action, resourceId, filter, body }) => {
+          return action.controller!.update({
+            resourceId,
+            filter,
+            payload: body,
+          });
+        };
+
+      } break;
+
+      case 'replace': {
+
+        if (!context.action.method) context.action.method = 'put';
+        if (!context.action.path) context.action.path = '/:resourceId';
+
+        if (!context.action.handler) context.action.handler = ({ action, resourceId, filter, body }) => {
+          return action.controller!.replace({
+            resourceId,
+            filter,
+            payload: body,
+          });
+        };
+
+      } break;
+
+      case 'delete': {
+
+        if (!context.action.method) context.action.method = 'delete';
+        if (!context.action.path) context.action.path = '/:resourceId';
+
+        if (!context.action.handler) context.action.handler = ({ action, resourceId, filter }) => {
+          return action.controller!.retrieve({
+            resourceId,
+            filter,
+          });
         };
 
       } break;
