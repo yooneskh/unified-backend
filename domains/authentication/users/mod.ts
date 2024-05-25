@@ -32,36 +32,43 @@ export function install(app: IUnifiedApp) {
   app.addAction({
     template: 'list',
     controller: app.users,
+    pathPrefix: '/users',
   });
 
   app.addAction({
     template: 'count',
     controller: app.users,
+    pathPrefix: '/users',
   });
 
   app.addAction({
     template: 'retrieve',
     controller: app.users,
+    pathPrefix: '/users',
   });
 
   app.addAction({
     template: 'create',
     controller: app.users,
+    pathPrefix: '/users',
   });
 
   app.addAction({
     template: 'update',
     controller: app.users,
+    pathPrefix: '/users',
   });
 
   app.addAction({
     template: 'replace',
     controller: app.users,
+    pathPrefix: '/users',
   });
 
   app.addAction({
     template: 'delete',
     controller: app.users,
+    pathPrefix: '/users',
   });
 
 }

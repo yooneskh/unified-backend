@@ -20,6 +20,8 @@ export interface IUnifiedAction {
 
 export type IUnifiedMiddleware = (context: IUnifiedActionContext) => void;
 
+export type IUnifiedProcessor = (action: IUnifiedAction) => void;
+
 export interface IUnifiedAppListen {
   port: number;
 }
@@ -28,7 +30,9 @@ export interface IUnifiedAppListen {
 export interface IUnifiedApp {
   actions: IUnifiedAction[];
   middlewares: IUnifiedMiddleware[];
+  actionProcessors: IUnifiedProcessor[];
   addAction: (route: IUnifiedAction) => void;
   addMiddleware: (middleware: IUnifiedMiddleware) => void;
+  addActionProcessor: (processor: IUnifiedProcessor) => void;
   listen: (options: IUnifiedAppListen) => void;
 }

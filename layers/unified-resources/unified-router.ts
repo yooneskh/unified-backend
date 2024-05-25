@@ -8,6 +8,7 @@ declare module 'unified-app' {
     template?: 'list' | 'count' | 'retrieve' | 'create' | 'update' | 'replace' | 'delete';
     // deno-lint-ignore no-explicit-any
     controller?: IUnifiedController<any>;
+    pathPrefix?: string;
   }
 
   interface IUnifiedActionContext {
@@ -67,20 +68,20 @@ export function install(app: IUnifiedApp) {
 
   });
 
-  app.addMiddleware(context => {
+  app.addActionProcessor(action => {
 
-    if (!context.action.template) {
+    if (!action.template) {
       return;
     }
 
-    switch (context.action.template) {
+    switch (action.template) {
 
       case 'list': {
 
-        if (!context.action.method) context.action.method = 'get';
-        if (!context.action.path) context.action.path = '/';
+        if (!action.method) action.method = 'get';
+        if (!action.path) action.path = `${action.pathPrefix ?? ''}/`;
 
-        if (!context.action.handler) context.action.handler = ({ action, query, filter, select, populate, limit, skip }) => {
+        if (!action.handler) action.handler = ({ action, query, filter, select, populate, limit, skip }) => {
           if (query['single'] === 'true') {
             return action.controller!.find({
               filter,
@@ -101,10 +102,10 @@ export function install(app: IUnifiedApp) {
 
       case 'count': {
 
-        if (!context.action.method) context.action.method = 'get';
-        if (!context.action.path) context.action.path = '/count';
+        if (!action.method) action.method = 'get';
+        if (!action.path) action.path = `${action.pathPrefix ?? ''}/count`;
 
-        if (!context.action.handler) context.action.handler = ({ action, filter, limit, skip }) => {
+        if (!action.handler) action.handler = ({ action, filter, limit, skip }) => {
           return action.controller!.count({
             filter,
             limit,
@@ -116,10 +117,10 @@ export function install(app: IUnifiedApp) {
 
       case 'retrieve': {
 
-        if (!context.action.method) context.action.method = 'get';
-        if (!context.action.path) context.action.path = '/:resourceId';
+        if (!action.method) action.method = 'get';
+        if (!action.path) action.path = `${action.pathPrefix ?? ''}/:resourceId`;
 
-        if (!context.action.handler) context.action.handler = ({ action, resourceId, filter, select, populate }) => {
+        if (!action.handler) action.handler = ({ action, resourceId, filter, select, populate }) => {
           return action.controller!.retrieve({
             resourceId,
             filter,
@@ -130,10 +131,10 @@ export function install(app: IUnifiedApp) {
 
       case 'create': {
 
-        if (!context.action.method) context.action.method = 'post';
-        if (!context.action.path) context.action.path = '/';
+        if (!action.method) action.method = 'post';
+        if (!action.path) action.path = `${action.pathPrefix ?? ''}/`;
 
-        if (!context.action.handler) context.action.handler = ({ action, body }) => {
+        if (!action.handler) action.handler = ({ action, body }) => {
           return action.controller!.create(body);
         };
 
@@ -141,10 +142,10 @@ export function install(app: IUnifiedApp) {
 
       case 'update': {
 
-        if (!context.action.method) context.action.method = 'patch';
-        if (!context.action.path) context.action.path = '/:resourceId';
+        if (!action.method) action.method = 'patch';
+        if (!action.path) action.path = `${action.pathPrefix ?? ''}/:resourceId`;
 
-        if (!context.action.handler) context.action.handler = ({ action, resourceId, filter, body }) => {
+        if (!action.handler) action.handler = ({ action, resourceId, filter, body }) => {
           return action.controller!.update({
             resourceId,
             filter,
@@ -156,10 +157,10 @@ export function install(app: IUnifiedApp) {
 
       case 'replace': {
 
-        if (!context.action.method) context.action.method = 'put';
-        if (!context.action.path) context.action.path = '/:resourceId';
+        if (!action.method) action.method = 'put';
+        if (!action.path) action.path = `${action.pathPrefix ?? ''}/:resourceId`;
 
-        if (!context.action.handler) context.action.handler = ({ action, resourceId, filter, body }) => {
+        if (!action.handler) action.handler = ({ action, resourceId, filter, body }) => {
           return action.controller!.replace({
             resourceId,
             filter,
@@ -171,10 +172,10 @@ export function install(app: IUnifiedApp) {
 
       case 'delete': {
 
-        if (!context.action.method) context.action.method = 'delete';
-        if (!context.action.path) context.action.path = '/:resourceId';
+        if (!action.method) action.method = 'delete';
+        if (!action.path) action.path = `${action.pathPrefix ?? ''}/:resourceId`;
 
-        if (!context.action.handler) context.action.handler = ({ action, resourceId, filter }) => {
+        if (!action.handler) action.handler = ({ action, resourceId, filter }) => {
           return action.controller!.retrieve({
             resourceId,
             filter,
@@ -184,6 +185,10 @@ export function install(app: IUnifiedApp) {
       } break;
 
     }
+
+    delete action.template;
+    delete action.pathPrefix;
+
   });
 
 }
