@@ -26,6 +26,4 @@ export function install(app: IUnifiedApp) {
 
   installUnifiedRouter(app);
 
-  console.log('installed unified resources layer');
-
 }

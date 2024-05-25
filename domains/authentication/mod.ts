@@ -3,9 +3,5 @@ import { install as installUsers } from './users/mod.ts';
 
 
 export function install(app: IUnifiedApp) {
-
   installUsers(app);
-
-  console.log('installed auth domain');
-
 }

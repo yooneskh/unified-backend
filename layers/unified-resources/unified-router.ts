@@ -135,7 +135,9 @@ export function install(app: IUnifiedApp) {
         if (!action.path) action.path = `${action.pathPrefix ?? ''}/`;
 
         if (!action.handler) action.handler = ({ action, body }) => {
-          return action.controller!.create(body);
+          return action.controller!.create({
+            document: body,
+          });
         };
 
       } break;
@@ -164,7 +166,7 @@ export function install(app: IUnifiedApp) {
           return action.controller!.replace({
             resourceId,
             filter,
-            payload: body,
+            document: body,
           });
         };
 

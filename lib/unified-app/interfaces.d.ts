@@ -34,5 +34,5 @@ export interface IUnifiedApp {
   addAction: (route: IUnifiedAction) => void;
   addMiddleware: (middleware: IUnifiedMiddleware) => void;
   addActionProcessor: (processor: IUnifiedProcessor) => void;
-  listen: (options: IUnifiedAppListen) => void;
+  listen: (options: IUnifiedAppListen) => Deno.HttpServer;
 }

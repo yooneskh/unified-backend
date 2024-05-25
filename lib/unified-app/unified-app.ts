@@ -1,4 +1,5 @@
 import type { IUnifiedApp, IUnifiedAction, IUnifiedMiddleware, IUnifiedAppListen, IUnifiedProcessor } from './interfaces.d.ts';
+import { makeRequestHandler } from './utils/request-handler.ts';
 
 
 export function createUnifiedApp(): IUnifiedApp {
@@ -24,7 +25,10 @@ export function createUnifiedApp(): IUnifiedApp {
         }
       }
 
-      console.log(`listening on ${options.port}`);
+
+      const handler = makeRequestHandler(app as IUnifiedApp, app.actions!);
+
+      return Deno.serve(options, handler);
 
     },
   };
