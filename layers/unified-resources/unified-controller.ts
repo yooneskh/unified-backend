@@ -11,6 +11,8 @@ export function createUnifiedController<T>(model: string, _schema: IUnifiedModel
     list: (context: IUnifiedControllerContext<T>) => {
       return document.list({
         filter: context.filter,
+        populate: context.populate,
+        select: context.select,
         limit: context.limit,
         skip: context.skip,
       });
@@ -19,12 +21,16 @@ export function createUnifiedController<T>(model: string, _schema: IUnifiedModel
       return document.retrieve({
         recordId: context.resourceId,
         filter: context.filter,
+        populate: context.populate,
+        select: context.select,
       });
     },
     find: (context: IUnifiedControllerContext<T>) => {
       return document.find({
         recordId: context.resourceId,
         filter: context.filter,
+        populate: context.populate,
+        select: context.select,
       });
     },
     count: async (context: IUnifiedControllerContext<T>) => {

@@ -1,6 +1,6 @@
 {
   "imports": {
-    "unified-kv": "jsr:@unified/kv@0.3.0",
+    "unified-kv": "jsr:@unified/kv@0.4.1",
     "config": "./config.ts",
     "unified-app": "./lib/unified-app/mod.ts",
     "unified-resources": "./layers/unified-resources/mod.ts"

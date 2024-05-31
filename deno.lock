@@ -2,13 +2,13 @@
   "version": "3",
   "packages": {
     "specifiers": {
-      "jsr:@unified/kv@0.3.0": "jsr:@unified/kv@0.3.0",
+      "jsr:@unified/kv@0.4.1": "jsr:@unified/kv@0.4.1",
       "jsr:@unified/mongo-filter@0.4.0": "jsr:@unified/mongo-filter@0.4.0",
       "npm:nanoid@5.0.7": "npm:nanoid@5.0.7"
     },
     "jsr": {
-      "@unified/kv@0.3.0": {
-        "integrity": "9b1ff375b3fa0a3af2e4a9b08a1a343f2c3bbc11893c5cafceadde6533788839",
+      "@unified/kv@0.4.1": {
+        "integrity": "9db45338e06b64b69f066373e5bc0d0e035f78985b848ee52a7f9d9d52e48792",
         "dependencies": [
           "jsr:@unified/mongo-filter@0.4.0",
           "npm:nanoid@5.0.7"
@@ -28,7 +28,7 @@
   "remote": {},
   "workspace": {
     "dependencies": [
-      "jsr:@unified/kv@0.3.0"
+      "jsr:@unified/kv@0.4.1"
     ]
   }
 }
