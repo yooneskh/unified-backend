@@ -13,7 +13,7 @@ export interface IUnifiedActionContext {
 }
 
 export interface IUnifiedAction {
-  method?: string;
+  method?: 'get' | 'post' | 'put' | 'patch' | 'delete';
   path?: string;
   handler?: (context: IUnifiedActionContext) => Promise<unknown> | unknown;
 }
