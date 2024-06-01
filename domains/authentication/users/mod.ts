@@ -1,13 +1,17 @@
 import type { IUnifiedApp } from 'unified-app';
 import type { IUnifiedModel, IUnifiedController } from 'unified-resources';
+import type { IBaseDocument } from 'unified-kv';
 import { createUnifiedController } from 'unified-resources';
 
 
-export interface IUser {
+interface IUserBase {
   name: string;
 }
 
-export const UserSchema: IUnifiedModel<IUser> = {
+export interface IUser extends IUserBase, IBaseDocument {}
+
+
+const UserSchema: IUnifiedModel<IUserBase> = {
   name: {
     type: 'string',
     required: true,
@@ -17,7 +21,7 @@ export const UserSchema: IUnifiedModel<IUser> = {
 
 declare module 'unified-app' {
   interface IUnifiedApp {
-    users: IUnifiedController<IUser>;
+    users: IUnifiedController<IUserBase>;
   }
 }
 
@@ -26,7 +30,7 @@ export function install(app: IUnifiedApp) {
 
   app.addModel('User', UserSchema);
 
-  app.users = createUnifiedController<IUser>('User', UserSchema);
+  app.users = createUnifiedController<IUserBase>('User', UserSchema);
 
 
   app.addAction({

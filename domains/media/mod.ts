@@ -1,10 +1,11 @@
 import { Config } from 'config';
 import type { IUnifiedApp } from 'unified-app';
 import type { IUnifiedModel, IUnifiedController } from 'unified-resources';
+import type { IBaseDocument } from 'unified-kv';
 import { createUnifiedController } from 'unified-resources';
 
 
-export interface IMedia {
+interface IMediaBase {
   owner: string;
   name: string;
   extension: string;
@@ -16,7 +17,10 @@ export interface IMedia {
   variants?: Record<string, string>;
 }
 
-export const MediaSchema: IUnifiedModel<IMedia> = {
+export interface IMedia extends IMediaBase, IBaseDocument {}
+
+
+const MediaSchema: IUnifiedModel<IMediaBase> = {
   owner: {
     type: 'string',
     ref: 'User',
@@ -56,7 +60,7 @@ export const MediaSchema: IUnifiedModel<IMedia> = {
 
 declare module 'unified-app' {
   interface IUnifiedApp {
-    media: IUnifiedController<IMedia>;
+    media: IUnifiedController<IMediaBase>;
   }
 }
 
@@ -65,7 +69,7 @@ export function install(app: IUnifiedApp) {
 
   app.addModel('Media', MediaSchema);
 
-  app.media = createUnifiedController<IMedia>('Media', MediaSchema);
+  app.media = createUnifiedController<IMediaBase>('Media', MediaSchema);
 
 
   app.addAction({
@@ -114,7 +118,8 @@ export function install(app: IUnifiedApp) {
   app.addAction({
     method: 'post',
     path: '/media/upload',
-    handler: async ({ body }) => {
+    requiresAuthentication: true,
+    handler: async ({ body, user }) => {
 
       const formData = body as FormData;
       const file = formData.get('file') as File;
@@ -148,14 +153,14 @@ export function install(app: IUnifiedApp) {
 
       const mediaBase = await app.media.create({
         document: {
-          owner: 'xxx',
+          owner: user!._id,
           name,
           extension,
           size,
           type,
           relativePath: '--uploading--',
           path: '--uploading--'
-        }
+        },
       });
 
 
@@ -164,9 +169,7 @@ export function install(app: IUnifiedApp) {
         try {
           await Deno.mkdir(Config.media.directory);
         }
-        catch {
-          // directory already exists
-        }
+        catch { /* directory exists */ }
 
 
         const relativeFilePath = `${Config.media.directory}/${mediaBase._id}.${extension}`;
