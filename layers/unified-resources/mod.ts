@@ -16,13 +16,17 @@ export {
 } from './unified-controller.ts';
 
 
-function registerSchemaPopulates(model: string, schema: IUnifiedModel, keyPrefix = '') {
+function registerSchemaPopulates(model: string, schema: IUnifiedModel<unknown>, keyPrefix = '') {
   for (const key in schema) {
-    if (schema[key]?.ref) {
-      registerPopulate(model, keyPrefix + key, schema[key]?.ref!);
+    // deno-lint-ignore no-explicit-any
+    if ((schema as any)[key]?.ref) {
+      // deno-lint-ignore no-explicit-any
+      registerPopulate(model, keyPrefix + key, (schema as any)[key]?.ref!);
     }
-    else if (schema[key].type === 'series') {
-      registerSchemaPopulates(model, schema[key].seriesSchema!, keyPrefix + key + '.')
+    // deno-lint-ignore no-explicit-any
+    else if ((schema as any)[key].type === 'series') {
+      // deno-lint-ignore no-explicit-any
+      registerSchemaPopulates(model, (schema as any)[key].seriesSchema!, keyPrefix + key + '.')
     }
   }
 }

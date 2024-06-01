@@ -15,7 +15,7 @@ export interface IMedia {
   variants?: Record<string, string>;
 }
 
-export const MediaSchema: IUnifiedModel = {
+export const MediaSchema: IUnifiedModel<IMedia> = {
   owner: {
     type: 'string',
     ref: 'User',

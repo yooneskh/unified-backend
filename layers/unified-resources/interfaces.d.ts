@@ -4,8 +4,8 @@ import type { Filter, IBaseDocument } from 'unified-kv';
 declare module 'unified-app' {
 
   interface IUnifiedApp {
-    models: Record<string, IUnifiedModel>;
-    addModel: (model: string, schema: IUnifiedModel) => void;
+    models: Record<string, IUnifiedModel<unknown>>;
+    addModel: (model: string, schema: IUnifiedModel<unknown>) => void;
   }
 
 }
@@ -17,8 +17,8 @@ export interface IUnifiedModelBase {
   updatedAt?: number;
 }
 
-export interface IUnifiedModel {
-  [key: string]: {
+export type IUnifiedModel<T> = {
+  [key in keyof T] -?: {
     type: 'string' | 'number' | 'boolean' | 'series' | 'object';
     array?: boolean;
     ref?: string;
@@ -30,7 +30,7 @@ export interface IUnifiedModel {
     seriesIdentifier?: string;
     seriesLoopTo?: string;
     seriesBase?: unknown;
-    seriesSchema?: IUnifiedModel;
+    seriesSchema?: IUnifiedModel<unknown>;
     seriesReportGroupBy?: string;
     seriesColumns?: number;
     /* validation */
@@ -43,7 +43,7 @@ export interface IUnifiedModel {
     itemValue?: string;
     itemText?: string;
     width?: number;
-    variants?: Record<string, Partial<IUnifiedModel>>;
+    variants?: Record<string, Partial<IUnifiedModel<unknown>>>;
     dir?: string;
     hideInTable?: boolean;
     hidden?: boolean;

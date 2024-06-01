@@ -2,7 +2,7 @@ import type { IUnifiedModel, IUnifiedController, IUnifiedControllerContext } fro
 import { Document } from 'unified-kv';
 
 
-export function createUnifiedController<T>(model: string, _schema: IUnifiedModel) {
+export function createUnifiedController<T>(model: string, _schema: IUnifiedModel<unknown>) {
 
   const document = new Document<T>(model);
 

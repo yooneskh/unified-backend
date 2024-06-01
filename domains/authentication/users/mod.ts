@@ -7,7 +7,7 @@ export interface IUser {
   name: string;
 }
 
-export const UserSchema: IUnifiedModel = {
+export const UserSchema: IUnifiedModel<IUser> = {
   name: {
     type: 'string',
     required: true,
