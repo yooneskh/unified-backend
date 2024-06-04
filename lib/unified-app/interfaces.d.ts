@@ -18,7 +18,7 @@ export interface IUnifiedAction {
   handler?: (context: IUnifiedActionContext) => Promise<unknown> | unknown;
 }
 
-export type IUnifiedMiddleware = (context: IUnifiedActionContext) => void;
+export type IUnifiedMiddleware = (context: IUnifiedActionContext) => void | Promise<void>;
 
 export type IUnifiedProcessor = (action: IUnifiedAction) => void;
 

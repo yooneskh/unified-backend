@@ -49,42 +49,49 @@ export function install(app: IUnifiedApp) {
     template: 'list',
     controller: app.registrationTokens,
     pathPrefix: '/registration-tokens',
+    requirePermission: 'admin.authentication.registration-tokens.list',
   });
 
   app.addAction({
     template: 'count',
     controller: app.registrationTokens,
     pathPrefix: '/registration-tokens',
+    requirePermission: 'admin.authentication.registration-tokens.count',
   });
 
   app.addAction({
     template: 'retrieve',
     controller: app.registrationTokens,
     pathPrefix: '/registration-tokens',
+    requirePermission: 'admin.authentication.registration-tokens.retrieve',
   });
 
   app.addAction({
     template: 'create',
     controller: app.registrationTokens,
     pathPrefix: '/registration-tokens',
+    requirePermission: 'admin.authentication.registration-tokens.create',
   });
 
   app.addAction({
     template: 'update',
     controller: app.registrationTokens,
     pathPrefix: '/registration-tokens',
+    requirePermission: 'admin.authentication.registration-tokens.update',
   });
 
   app.addAction({
     template: 'replace',
     controller: app.registrationTokens,
     pathPrefix: '/registration-tokens',
+    requirePermission: 'admin.authentication.registration-tokens.replace',
   });
 
   app.addAction({
     template: 'delete',
     controller: app.registrationTokens,
     pathPrefix: '/registration-tokens',
+    requirePermission: 'admin.authentication.registration-tokens.delete',
   });
 
 }

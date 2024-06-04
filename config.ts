@@ -16,4 +16,14 @@ export const Config = {
     authenticationTokenUnits: 4,
     authenticationTokenLifetime: 30 * 24 * 60 * 1000,
   },
+  authorization: {
+    userDefaultPermissions: [ 'user.**' ],
+    prepopulateUsers: [
+      {
+        name: 'Yoones Khoshghadam',
+        email: 'yooneskh@gmail.com',
+        permissions: [ 'user.**', 'admin.**', 'special.**' ],
+      },
+    ],
+  },
 };

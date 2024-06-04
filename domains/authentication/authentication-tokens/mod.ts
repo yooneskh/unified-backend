@@ -45,42 +45,49 @@ export function install(app: IUnifiedApp) {
     template: 'list',
     controller: app.authenticationTokens,
     pathPrefix: '/authentication-tokens',
+    requirePermission: 'admin.authentication.authentication-tokens.list',
   });
 
   app.addAction({
     template: 'count',
     controller: app.authenticationTokens,
     pathPrefix: '/authentication-tokens',
+    requirePermission: 'admin.authentication.authentication-tokens.count',
   });
 
   app.addAction({
     template: 'retrieve',
     controller: app.authenticationTokens,
     pathPrefix: '/authentication-tokens',
+    requirePermission: 'admin.authentication.authentication-tokens.retrieve',
   });
 
   app.addAction({
     template: 'create',
     controller: app.authenticationTokens,
     pathPrefix: '/authentication-tokens',
+    requirePermission: 'admin.authentication.authentication-tokens.create',
   });
 
   app.addAction({
     template: 'update',
     controller: app.authenticationTokens,
     pathPrefix: '/authentication-tokens',
+    requirePermission: 'admin.authentication.authentication-tokens.update',
   });
 
   app.addAction({
     template: 'replace',
     controller: app.authenticationTokens,
     pathPrefix: '/authentication-tokens',
+    requirePermission: 'admin.authentication.authentication-tokens.replace',
   });
 
   app.addAction({
     template: 'delete',
     controller: app.authenticationTokens,
     pathPrefix: '/authentication-tokens',
+    requirePermission: 'admin.authentication.authentication-tokens.delete',
   });
 
 }

@@ -32,11 +32,11 @@ export function install(app: IUnifiedApp) {
 
   app.addMiddleware(async context => {
 
-    if (context.headers['Authentication']) {
+    if (context.headers['authentication']) {
 
       const authToken = await context.app.authenticationTokens.find({
         filter: {
-          token: context.headers['Authentication'],
+          token: context.headers['authentication'],
           validUntil: { $gte: Date.now() },
         },
       });

@@ -39,42 +39,49 @@ export function install(app: IUnifiedApp) {
     template: 'list',
     controller: app.users,
     pathPrefix: '/users',
+    requirePermission: 'admin.authentication.users.list',
   });
 
   app.addAction({
     template: 'count',
     controller: app.users,
     pathPrefix: '/users',
+    requirePermission: 'admin.authentication.users.count',
   });
 
   app.addAction({
     template: 'retrieve',
     controller: app.users,
     pathPrefix: '/users',
+    requirePermission: 'admin.authentication.users.retrieve',
   });
 
   app.addAction({
     template: 'create',
     controller: app.users,
     pathPrefix: '/users',
+    requirePermission: 'admin.authentication.users.create',
   });
 
   app.addAction({
     template: 'update',
     controller: app.users,
     pathPrefix: '/users',
+    requirePermission: 'admin.authentication.users.update',
   });
 
   app.addAction({
     template: 'replace',
     controller: app.users,
     pathPrefix: '/users',
+    requirePermission: 'admin.authentication.users.replace',
   });
 
   app.addAction({
     template: 'delete',
     controller: app.users,
     pathPrefix: '/users',
+    requirePermission: 'admin.authentication.users.delete',
   });
 
 }
