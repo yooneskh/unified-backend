@@ -8,10 +8,7 @@ interface IAuthenticationTokenBase {
   user: string;
   token: string;
   validUntil: number;
-}
-
-export interface IAuthenticationToken extends IAuthenticationTokenBase, IBaseDocument {}
-
+} export interface IAuthenticationToken extends IAuthenticationTokenBase, IBaseDocument {}
 
 const AuthenticationTokenSchema: IUnifiedModel<IAuthenticationTokenBase> = {
   user: {

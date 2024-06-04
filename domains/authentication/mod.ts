@@ -1,7 +1,12 @@
+import { Config } from 'config';
 import { IUnifiedApp } from 'unified-app';
 import { install as installUsers } from './users/mod.ts';
 import { install as installAuthenticationTokens } from './authentication-tokens/mod.ts';
+import { install as installRegistrationTokens } from './registration-tokens/mod.ts';
+import { install as installVerificationTokens } from './verification-tokens/mod.ts';
 import { IUser } from './users/mod.ts';
+import { createToken } from './utils/create-token.ts';
+import { createVerificationCode } from './utils/create-verification-code.ts';
 
 
 declare module 'unified-app' {
@@ -21,6 +26,8 @@ export function install(app: IUnifiedApp) {
 
   installUsers(app);
   installAuthenticationTokens(app);
+  installRegistrationTokens(app);
+  installVerificationTokens(app);
 
 
   app.addMiddleware(async context => {
@@ -55,6 +62,196 @@ export function install(app: IUnifiedApp) {
       }
     }
 
+  });
+
+
+  app.addAction({
+    method: 'post',
+    path: '/authentication/login',
+    handler: async ({ body }) => {
+      
+      if (!body.method) {
+        throw new Error('no method specified');
+      }
+
+      if (!['email'].includes(body.method)) {
+        throw new Error('invalid method');
+      }
+
+
+      if (body.method === 'email') {
+
+        const user = await app.users.find({
+          filter: {
+            email: body.email,
+          },
+        });
+
+        if (!user) {
+          throw new Error('invalid credentials');
+        }
+
+
+        const verificationToken = await app.verificationTokens.create({
+          document: {
+            user: user._id,
+            code: Config.authentication.verificationTokenStaticCode || createVerificationCode(Config.authentication.verificationTokenLength),
+            validUntil: Date.now() + Config.authentication.verificationTokenLifetime,
+          },
+        });
+
+        // todo: send email
+
+
+        return {
+          needsVerification: true,
+          verificationToken: verificationToken._id,
+        };
+
+      }
+
+    },
+  });
+
+  app.addAction({
+    method: 'post',
+    path: '/authentication/register',
+    handler: async ({ body }) => {
+      
+      const { name, email } = body;
+
+      if (!name || !email) {
+        throw new Error('name and email must be entered');
+      }
+
+
+      const oldUserExists = await app.users.exists({
+        filter: {
+          email,
+        },
+      });
+
+      if (oldUserExists) {
+        throw new Error('user with this email exists');
+      }
+
+
+      const registrationToken = await app.registrationTokens.create({
+        document: {
+          userName: name,
+          userEmail: email,
+          validUntil: Date.now() + Config.authentication.registrationTokenLifetime,
+          resolved: false,
+        },
+      });
+
+      const verificationToken = await app.verificationTokens.create({
+        document: {
+          registrationToken: registrationToken._id,
+          code: Config.authentication.verificationTokenStaticCode || createVerificationCode(Config.authentication.verificationTokenLength),
+          validUntil: Date.now() + Config.authentication.verificationTokenLifetime,
+        },
+      });
+
+
+      return {
+        needsVerification: true,
+        verificationToken: verificationToken._id,
+      };
+
+    },
+  });
+
+  app.addAction({
+    method: 'post',
+    path: '/authentication/verify',
+    handler: async ({ body }) => {
+      
+      if (!body.verificationToken || !body.verificationCode) {
+        throw new Error('invalid credentials');
+      }
+
+
+      let userId = '';
+
+      const verificationToken = await app.verificationTokens.find({
+        resourceId: body.verificationToken,
+        filter: {
+          code: body.verificationCode,
+          validUntil: { $gte: Date.now() },
+        },
+      });
+
+      if (!verificationToken) {
+        throw new Error('invalid credentials');
+      }
+
+
+      if (verificationToken.user) {
+        userId = verificationToken.user;
+      }
+      else if (verificationToken.registrationToken) {
+
+        const registrationToken = await app.registrationTokens.find({
+          resourceId: verificationToken.registrationToken,
+          filter: {
+            validUntil: { $gte: Date.now() },
+            resolved: false,
+          },
+        });
+
+        if (!registrationToken) {
+          throw new Error('invalid credentials');
+        }
+
+        await app.registrationTokens.update({
+          resourceId: registrationToken._id,
+          payload: {
+            resolved: true,
+          },
+        });
+
+
+        const oldUserExists = await app.users.exists({
+          filter: {
+            email: registrationToken.userEmail,
+          },
+        });
+
+        if (oldUserExists) {
+          throw new Error('user with this email exists');
+        }
+
+
+        const newUser = await app.users.create({
+          document: {
+            name: registrationToken.userName,
+            email: registrationToken.userEmail,
+          },
+        });
+
+
+        userId = newUser._id;
+
+      }
+
+
+      if (!userId) {
+        throw new Error('invalid credentials');
+      }
+
+
+      const authenticationToken = await app.authenticationTokens.create({
+        document: {
+          user: userId,
+          token: createToken(Config.authentication.authenticationTokenUnits),
+          validUntil: Date.now() + Config.authentication.authenticationTokenLifetime,
+        },
+      });
+
+      return authenticationToken;
+
+    },
   });
 
 }

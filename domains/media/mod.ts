@@ -15,10 +15,7 @@ interface IMediaBase {
   path: string;
   variantRelatives?: Record<string, string>;
   variants?: Record<string, string>;
-}
-
-export interface IMedia extends IMediaBase, IBaseDocument {}
-
+} export interface IMedia extends IMediaBase, IBaseDocument {}
 
 const MediaSchema: IUnifiedModel<IMediaBase> = {
   owner: {
