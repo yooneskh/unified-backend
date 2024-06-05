@@ -27,7 +27,7 @@ export const Config = {
     ],
   },
   resend: {
-    authorization: 'Bearer re_fvKea5XU_KaDsuqHgQCbG6THN477Tesip',
+    authorization: '',
     from: 'Unified Backend <noreply@mail.khoshghadam.com>',
   },
 };
