@@ -11,8 +11,8 @@ export const Config = {
   authentication: {
     verificationTokenStaticCode: '1111',
     verificationTokenLength: 4,
-    verificationTokenLifetime: 120_000,
-    registrationTokenLifetime: 120_000,
+    verificationTokenLifetime: 1000 * 60 * 2,
+    registrationTokenLifetime: 1000 * 60 * 2,
     authenticationTokenUnits: 4,
     authenticationTokenLifetime: 30 * 24 * 60 * 1000,
   },
@@ -25,6 +25,10 @@ export const Config = {
         permissions: [ 'user.**', 'admin.**', 'special.**' ],
       },
     ],
+  },
+  captcha: {
+    length: 5,
+    lifetime: 1000 * 60 * 2
   },
   resend: {
     authorization: '',

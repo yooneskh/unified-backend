@@ -7,12 +7,16 @@ export function createUnifiedApp(): IUnifiedApp {
   const app: Partial<IUnifiedApp> = {
     actions: [],
     middlewares: [],
+    postwares: [],
     actionProcessors: [],
     addAction: (route: IUnifiedAction) => {
       app.actions!.push(route);
     },
     addMiddleware: (middleware: IUnifiedMiddleware) => {
       app.middlewares!.push(middleware);
+    },
+    addPostware: (postware: IUnifiedMiddleware) => {
+      app.postwares!.push(postware);
     },
     addActionProcessor: (processor: IUnifiedProcessor) => {
       app.actionProcessors!.push(processor);

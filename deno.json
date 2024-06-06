@@ -1,6 +1,7 @@
 {
   "imports": {
     "unified-kv": "jsr:@unified/kv@0.4.1",
+    "skia-canvas": "jsr:@gfx/canvas@0.5.6",
     "config": "./config.ts",
     "unified-app": "./lib/unified-app/mod.ts",
     "unified-resources": "./layers/unified-resources/mod.ts"

@@ -30,9 +30,11 @@ export interface IUnifiedAppListen {
 export interface IUnifiedApp {
   actions: IUnifiedAction[];
   middlewares: IUnifiedMiddleware[];
+  postwares: IUnifiedMiddleware[];
   actionProcessors: IUnifiedProcessor[];
   addAction: (route: IUnifiedAction) => void;
   addMiddleware: (middleware: IUnifiedMiddleware) => void;
+  addPostware: (postware: IUnifiedMiddleware) => void;
   addActionProcessor: (processor: IUnifiedProcessor) => void;
   listen: (options: IUnifiedAppListen) => Deno.HttpServer;
 }

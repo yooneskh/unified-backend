@@ -88,7 +88,7 @@ export function makeRequestHandler(app: IUnifiedApp, actions: IUnifiedAction[]):
       };
   
   
-      /* context middlewares */
+      /* middlewares */
   
       for (const middleware of app.middlewares) {
         await middleware(context);
@@ -98,6 +98,16 @@ export function makeRequestHandler(app: IUnifiedApp, actions: IUnifiedAction[]):
       /* response */
   
       const response = await action.handler!(context);
+
+
+      /* postwares */
+
+      for (const postware of app.postwares) {
+        await postware(context);
+      }
+
+
+      /* return response */
   
       if (response instanceof Response) {
         return response;
