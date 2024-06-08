@@ -9,6 +9,8 @@ export function createApp(): IUnifiedApp {
 
   const app = createUnifiedApp();
 
+  app.pathPush('api');
+
 
   installUnifiedCommons(app);
 
@@ -16,6 +18,8 @@ export function createApp(): IUnifiedApp {
   installAuthorization(app);
   installMedia(app);
 
+
+  app.pathPop();
 
   return app;
 

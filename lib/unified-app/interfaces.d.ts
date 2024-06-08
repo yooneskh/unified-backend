@@ -29,10 +29,13 @@ export interface IUnifiedAppListen {
 
 
 export interface IUnifiedApp {
+  pathStack: string[];
   actions: IUnifiedAction[];
   middlewares: IUnifiedMiddleware[];
   postwares: IUnifiedMiddleware[];
   actionProcessors: IUnifiedProcessor[];
+  pathPush: (segment: string) => void;
+  pathPop: () => string | undefined;
   addAction: (route: IUnifiedAction) => void;
   addMiddleware: (middleware: IUnifiedMiddleware) => void;
   addPostware: (postware: IUnifiedMiddleware) => void;

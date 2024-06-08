@@ -1,27 +1,45 @@
-import type { IUnifiedApp, IUnifiedAction, IUnifiedMiddleware, IUnifiedAppListen, IUnifiedProcessor } from './interfaces.d.ts';
+import type { IUnifiedApp } from './interfaces.d.ts';
+import { joinPaths } from './utils/join-paths.ts';
 import { makeRequestHandler } from './utils/request-handler.ts';
 
 
 export function createUnifiedApp(): IUnifiedApp {
 
   const app: Partial<IUnifiedApp> = {
+    pathStack: [],
     actions: [],
     middlewares: [],
     postwares: [],
     actionProcessors: [],
-    addAction: (route: IUnifiedAction) => {
-      app.actions!.push(route);
+    pathPush: (segment) => {
+      app.pathStack!.push(segment);
     },
-    addMiddleware: (middleware: IUnifiedMiddleware) => {
+    pathPop: () => {
+      return app.pathStack!.pop();
+    },
+    addAction: (route) => {
+
+      if (route.path) {
+        route.path = joinPaths(...app.pathStack!, route.path);
+      }
+        
+      if (route.pathPrefix) {
+        route.pathPrefix = joinPaths(...app.pathStack!, route.pathPrefix);
+      }
+
+      app.actions!.push(route);
+
+    },
+    addMiddleware: (middleware) => {
       app.middlewares!.push(middleware);
     },
-    addPostware: (postware: IUnifiedMiddleware) => {
+    addPostware: (postware) => {
       app.postwares!.push(postware);
     },
-    addActionProcessor: (processor: IUnifiedProcessor) => {
+    addActionProcessor: (processor) => {
       app.actionProcessors!.push(processor);
     },
-    listen: (options: IUnifiedAppListen) => {
+    listen: (options) => {
 
       for (const action of app.actions!) {
         for (const processor of app.actionProcessors!) {
