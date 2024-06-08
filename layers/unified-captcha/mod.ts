@@ -54,6 +54,11 @@ export function install(app: IUnifiedApp) {
   app.addAction({
     method: 'post',
     path: '/captcha-tokens/',
+    rateLimit: {
+      points: 10,
+      windowDuration: 60_000 * 5,
+      blockDuration: 60_000 * 5,
+    },
     handler: async () => {
 
       const captchaInfo = createCaptcha({

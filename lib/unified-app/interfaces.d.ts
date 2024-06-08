@@ -4,6 +4,7 @@ export interface IUnifiedActionContext {
   app: IUnifiedApp;
   action: IUnifiedAction;
   request: Request;
+  requestInfo: Deno.ServeHandlerInfo;
   params: Record<string, string | undefined>;
   headers: Record<string, string>;
   query: Record<string, string>;

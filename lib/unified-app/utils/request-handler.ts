@@ -14,7 +14,7 @@ export function makeRequestHandler(app: IUnifiedApp, actions: IUnifiedAction[]):
   }));
 
 
-  return async (request, _info) => {
+  return async (request, requestInfo) => {
     try {
 
       /* find route */
@@ -81,6 +81,7 @@ export function makeRequestHandler(app: IUnifiedApp, actions: IUnifiedAction[]):
         app,
         action,
         request,
+        requestInfo,
         headers,
         params,
         query,
