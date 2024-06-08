@@ -85,3 +85,17 @@ export interface IUnifiedControllerContext<T> {
   document?: T;
   payload?: Partial<T>;
 }
+
+
+export interface IUnifiedSettingController<T> {
+  retrieve: (context: IUnifiedSettingControllerContext<T>) => Promise<T & IBaseDocument>;
+  update: (context: IUnifiedSettingControllerContext<T>) => Promise<T & IBaseDocument>;
+}
+
+export interface IUnifiedSettingControllerContext<T> {
+  resourceId?: string;
+  filter?: Filter<T & IBaseDocument>;
+  populate?: Record<string, string[]>;
+  select?: string[];
+  payload?: Partial<T>;
+}

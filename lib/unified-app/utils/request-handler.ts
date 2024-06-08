@@ -24,7 +24,7 @@ export function makeRequestHandler(app: IUnifiedApp, actions: IUnifiedAction[]):
       );
   
       if (!action) {
-        return new Response('Path not found: ' + URL.parse(request.url)?.pathname, {
+        return new Response('path not found: ' + request.method.toLowerCase() + ' ' + URL.parse(request.url)?.pathname, {
           status: 404,
         });
       }

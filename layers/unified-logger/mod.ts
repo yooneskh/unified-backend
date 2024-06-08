@@ -17,7 +17,7 @@ export function install(app: IUnifiedApp) {
 
   app.addPostware(context => {
     context.timeEnd = Date.now();
-    console.log(`${context.action.method?.toUpperCase()} ${context.action.path} - ${context.timeEnd! - context.timeStart!}ms`);
+    console.log(`${context.action.method?.toLowerCase()} ${context.action.path} - ${context.timeEnd! - context.timeStart!}ms`);
   });
 
 }

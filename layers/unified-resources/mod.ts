@@ -9,11 +9,17 @@ export type {
   IUnifiedModelBase,
   IUnifiedController,
   IUnifiedControllerContext,
+  IUnifiedSettingController,
+  IUnifiedSettingControllerContext,
 } from './interfaces.d.ts';
 
 export {
   createUnifiedController,
 } from './unified-controller.ts';
+
+export {
+  createUnifiedSettingController,
+} from './unified-setting-controller.ts';
 
 
 function registerSchemaPopulates(model: string, schema: IUnifiedModel<unknown>, keyPrefix = '') {
