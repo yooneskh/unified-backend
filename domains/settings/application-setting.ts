@@ -27,7 +27,7 @@ export function install(app: IUnifiedApp) {
 
   app.addModel('ApplicationSetting', ApplicationSettingSchema);
 
-  app.applicationSetting = createUnifiedSettingController('ApplicationSetting', ApplicationSettingSchema);
+  app.applicationSetting = createUnifiedSettingController(app, 'ApplicationSetting', ApplicationSettingSchema);
 
 
   app.addAction({

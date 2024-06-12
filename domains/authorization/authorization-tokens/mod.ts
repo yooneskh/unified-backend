@@ -40,7 +40,7 @@ export function install(app: IUnifiedApp) {
 
   app.addModel('AuthorizationToken', AuthorizationTokenSchema);
 
-  app.authorizationTokens = createUnifiedController<IAuthorizationTokenBase>('AuthorizationToken', AuthorizationTokenSchema);
+  app.authorizationTokens = createUnifiedController<IAuthorizationTokenBase>(app, 'AuthorizationToken', AuthorizationTokenSchema);
 
 
   app.addAction({

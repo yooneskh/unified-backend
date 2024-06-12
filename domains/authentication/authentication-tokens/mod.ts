@@ -38,7 +38,7 @@ export function install(app: IUnifiedApp) {
 
   app.addModel('AuthenticationToken', AuthenticationTokenSchema);
 
-  app.authenticationTokens = createUnifiedController<IAuthenticationTokenBase>('AuthenticationToken', AuthenticationTokenSchema);
+  app.authenticationTokens = createUnifiedController<IAuthenticationTokenBase>(app, 'AuthenticationToken', AuthenticationTokenSchema);
 
 
   app.addAction({

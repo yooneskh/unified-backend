@@ -32,7 +32,7 @@ export function install(app: IUnifiedApp) {
 
   app.addModel('User', UserSchema);
 
-  app.users = createUnifiedController<IUserBase>('User', UserSchema);
+  app.users = createUnifiedController<IUserBase>(app, 'User', UserSchema);
 
 
   app.addAction({

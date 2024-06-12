@@ -66,7 +66,7 @@ export function install(app: IUnifiedApp) {
 
   app.addModel('Media', MediaSchema);
 
-  app.media = createUnifiedController<IMediaBase>('Media', MediaSchema);
+  app.media = createUnifiedController<IMediaBase>(app, 'Media', MediaSchema);
 
 
   app.addAction({

@@ -33,7 +33,7 @@ export function install(app: IUnifiedApp) {
 
   app.addModel('AuthorizationRole', AuthorizationRoleSchema);
 
-  app.authorizationRoles = createUnifiedController<IAuthorizationRoleBase>('AuthorizationRole', AuthorizationRoleSchema);
+  app.authorizationRoles = createUnifiedController<IAuthorizationRoleBase>(app, 'AuthorizationRole', AuthorizationRoleSchema);
 
 
   app.addAction({

@@ -42,7 +42,7 @@ export function install(app: IUnifiedApp) {
 
   app.addModel('RegistrationToken', RegistrationTokenSchema);
 
-  app.registrationTokens = createUnifiedController<IRegistrationTokenBase>('RegistrationToken', RegistrationTokenSchema);
+  app.registrationTokens = createUnifiedController<IRegistrationTokenBase>(app, 'RegistrationToken', RegistrationTokenSchema);
 
 
   app.addAction({

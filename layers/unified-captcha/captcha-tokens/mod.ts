@@ -37,6 +37,6 @@ export function install(app: IUnifiedApp) {
 
   app.addModel('CaptchaToken', CaptchaTokenSchema);
 
-  app.captchaTokens = createUnifiedController<ICaptchaTokenBase>('CaptchaToken', CaptchaTokenSchema);
+  app.captchaTokens = createUnifiedController<ICaptchaTokenBase>(app, 'CaptchaToken', CaptchaTokenSchema);
 
 }

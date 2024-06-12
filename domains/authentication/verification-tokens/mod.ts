@@ -42,7 +42,7 @@ export function install(app: IUnifiedApp) {
 
   app.addModel('VerificationToken', VerificationTokenSchema);
 
-  app.verificationTokens = createUnifiedController<IVerificationTokenBase>('VerificationToken', VerificationTokenSchema);
+  app.verificationTokens = createUnifiedController<IVerificationTokenBase>(app, 'VerificationToken', VerificationTokenSchema);
 
 
   app.addAction({

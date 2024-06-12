@@ -1,8 +1,9 @@
+import type { IUnifiedApp } from 'unified-app';
 import type { IUnifiedModel, IUnifiedSettingController, IUnifiedSettingControllerContext } from './interfaces.d.ts';
 import { Document } from 'unified-kv';
 
 
-export function createUnifiedSettingController<T>(model: string, _schema: IUnifiedModel<unknown>) {
+export function createUnifiedSettingController<T>(app: IUnifiedApp, model: string, _schema: IUnifiedModel<unknown>) {
 
   const document = new Document<T>(model);
 
@@ -19,10 +20,17 @@ export function createUnifiedSettingController<T>(model: string, _schema: IUnifi
 
 
       if (!item) {
+
         // deno-lint-ignore no-explicit-any
-        return document.create({} as any)
+        const record = await document.create({} as any);
+
+        app.emit(`${model}.retrieve`, record);
+        return record;
+
       }
 
+
+      app.emit(`${model}.retrieve`, item);
       return item;
 
     },
@@ -51,10 +59,18 @@ export function createUnifiedSettingController<T>(model: string, _schema: IUnifi
       }
 
 
-      return document.update({
+      const previousRecord = await document.find({
+        recordId: itemId,
+      });
+
+      const newRecord = await document.update({
         recordId: itemId,
         payload: context.payload,
       });
+
+
+      app.emit(`${model}.update`, newRecord, previousRecord);
+      return newRecord;
 
     },
   } as IUnifiedSettingController<T>;
