@@ -11,6 +11,7 @@ export function createUnifiedApp(): IUnifiedApp {
     middlewares: [],
     postwares: [],
     actionProcessors: [],
+    listeners: [],
     pathPush: (segment) => {
       app.pathStack!.push(segment);
     },
@@ -38,6 +39,19 @@ export function createUnifiedApp(): IUnifiedApp {
     },
     addActionProcessor: (processor) => {
       app.actionProcessors!.push(processor);
+    },
+    on: (event, callback) => {
+      app.listeners!.push({
+        event,
+        callback,
+      });
+    },
+    emit: (event, ...args) => {
+      for (const listener of app.listeners!) {
+        if (listener.event === event) {
+          listener.callback(...args);
+        }
+      }
     },
     listen: (options) => {
 
