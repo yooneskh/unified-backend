@@ -34,17 +34,11 @@ export interface IUnifiedApp {
   middlewares: IUnifiedMiddleware[];
   postwares: IUnifiedMiddleware[];
   actionProcessors: IUnifiedProcessor[];
-  // deno-lint-ignore no-explicit-any
-  listeners: { event: string; callback: (...args: any) => void; }[];
   pathPush: (segment: string) => void;
   pathPop: () => string | undefined;
   addAction: (route: IUnifiedAction) => void;
   addMiddleware: (middleware: IUnifiedMiddleware) => void;
   addPostware: (postware: IUnifiedMiddleware) => void;
   addActionProcessor: (processor: IUnifiedProcessor) => void;
-  // deno-lint-ignore no-explicit-any
-  on: (event: string, callback: (...args: any) => void) => void;
-  // deno-lint-ignore no-explicit-any
-  emit: (event: string, ...args: any) => void;
   listen: (options: IUnifiedAppListen) => Deno.HttpServer;
 }
