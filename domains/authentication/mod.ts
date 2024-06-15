@@ -7,7 +7,7 @@ import { install as installVerificationTokens } from './verification-tokens/mod.
 import { IUser } from './users/mod.ts';
 import { createToken } from './utils/create-token.ts';
 import { createVerificationCode } from './utils/create-verification-code.ts';
-import { sendResendMail } from '../../lib/resend-agend/mod.ts';
+import { sendResendMail } from '../../lib/resend-agent/mod.ts';
 
 
 declare module 'unified-app' {

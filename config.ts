@@ -34,4 +34,7 @@ export const Config = {
     authorization: '',
     from: 'Unified Backend <noreply@mail.khoshghadam.com>',
   },
+  kavenegar: {
+    apiKey: '',
+  },
 };
