@@ -5,15 +5,10 @@ import { createUnifiedController } from 'unified-resources';
 
 
 interface IUserBase {
-  name: string;
   email: string;
 } export interface IUser extends IUserBase, IBaseDocument {}
 
 const UserSchema: IUnifiedModel<IUserBase> = {
-  name: {
-    type: 'string',
-    required: true,
-  },
   email: {
     type: 'string',
     required: true,

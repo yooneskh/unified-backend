@@ -42,7 +42,6 @@ export function install(app: IUnifiedApp) {
 
       const newUser = await app.users.create({
         document: {
-          name: user.name,
           email: user.email,
         },
       });

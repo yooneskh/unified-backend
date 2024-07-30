@@ -126,10 +126,10 @@ export function install(app: IUnifiedApp) {
     path: '/authentication/register',
     handler: async ({ body }) => {
       
-      const { name, email } = body;
+      const { email } = body;
 
-      if (!name || !email) {
-        throw new Error('name and email must be entered');
+      if (!email) {
+        throw new Error('email must be entered');
       }
 
 
@@ -146,7 +146,6 @@ export function install(app: IUnifiedApp) {
 
       const registrationToken = await app.registrationTokens.create({
         document: {
-          userName: name,
           userEmail: email,
           validUntil: Date.now() + Config.authentication.registrationTokenLifetime,
           resolved: false,
@@ -233,7 +232,6 @@ export function install(app: IUnifiedApp) {
 
         const newUser = await app.users.create({
           document: {
-            name: registrationToken.userName,
             email: registrationToken.userEmail,
           },
         });

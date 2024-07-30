@@ -5,17 +5,12 @@ import { createUnifiedController } from 'unified-resources';
 
 
 interface IRegistrationTokenBase {
-  userName: string;
   userEmail: string;
   validUntil: number;
   resolved: boolean;
 } export interface IRegistrationToken extends IRegistrationTokenBase, IBaseDocument {}
 
 const RegistrationTokenSchema: IUnifiedModel<IRegistrationTokenBase> = {
-  userName: {
-    type: 'string',
-    required: true,
-  },
   userEmail: {
     type: 'string',
     required: true,
