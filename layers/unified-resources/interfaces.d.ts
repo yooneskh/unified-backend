@@ -1,4 +1,5 @@
 import type { Filter, IBaseDocument } from 'unified-kv';
+import 'unified-app';
 
 
 declare module 'unified-app' {
