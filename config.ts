@@ -20,7 +20,6 @@ export const Config = {
     userDefaultPermissions: [ 'user.**' ],
     prepopulateUsers: [
       {
-        name: 'Yoones Khoshghadam',
         email: 'yooneskh@gmail.com',
         permissions: [ 'user.**', 'admin.**', 'special.**' ],
       },

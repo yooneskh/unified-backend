@@ -42,6 +42,23 @@ export function createCaptcha(params: ICaptchaCreate) {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
 
 
+  const textWidth = ctx.measureText(captchaText).width;
+  const lineWidth = 2;
+  const lineColor = "red";
+
+  ctx.strokeStyle = lineColor;
+  ctx.lineWidth = lineWidth;
+  ctx.beginPath();
+  ctx.moveTo(20, 22);
+  ctx.lineTo(20 + textWidth, 22);
+  ctx.stroke();
+  ctx.moveTo(20, 27);
+  ctx.lineTo(20 + textWidth, 27);
+  ctx.stroke();
+
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+
   return {
     text: captchaText,
     data: canvas.toDataURL(),
