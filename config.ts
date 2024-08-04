@@ -1,6 +1,9 @@
 
 
 export const Config = {
+  http: {
+    port: 8081,
+  },
   database: {
     path: './db.kv',
   },

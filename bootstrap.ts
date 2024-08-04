@@ -9,5 +9,5 @@ await bootstrapDatabase(Config.database.path);
 const app = createApp();
 
 app.listen({
-  port: 8080,
+  port: Config.http.port,
 });
