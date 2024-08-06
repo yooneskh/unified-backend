@@ -101,14 +101,16 @@ export function install(app: IUnifiedApp) {
           },
         });
 
-        
-        await sendResendMail({
-          authorization: Config.resend.authorization,
-          from: Config.resend.from,
-          to: [user.email],
-          subject: 'Login Code',
-          text: `Welcome, your login code is: ${verificationToken.code}`,
-        });
+
+        if (!Config.authentication.verificationTokenStaticCode) {
+          await sendResendMail({
+            authorization: Config.resend.authorization,
+            from: Config.resend.from,
+            to: [user.email],
+            subject: 'Login Code',
+            text: `Welcome, your login code is: ${verificationToken.code}`,
+          });
+        }
 
 
         return {
