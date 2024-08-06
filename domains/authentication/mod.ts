@@ -33,11 +33,11 @@ export function install(app: IUnifiedApp) {
 
   app.addMiddleware(async context => {
 
-    if (context.headers['authentication']) {
+    if (context.headers['authorization']) {
 
       const authToken = await context.app.authenticationTokens.find({
         filter: {
-          token: context.headers['authentication'],
+          token: context.headers['authorization'],
           validUntil: { $gte: Date.now() },
         },
       });
@@ -259,6 +259,19 @@ export function install(app: IUnifiedApp) {
 
       return authenticationToken;
 
+    },
+  });
+
+
+  app.addAction({
+    method: 'get',
+    path: '/authentication/identity',
+    requiresAuthentication: true,
+    handler: ({ user, userPermissions }) => {
+      return {
+        ...user,
+        permissions: userPermissions,
+      };
     },
   });
 
