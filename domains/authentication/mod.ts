@@ -1,5 +1,5 @@
 import { Config } from 'config';
-import { IUnifiedApp } from 'unified-app';
+import { IUnifiedApp, NotFoundError } from 'unified-app';
 import { install as installUsers } from './users/mod.ts';
 import { install as installAuthenticationTokens } from './authentication-tokens/mod.ts';
 import { install as installRegistrationTokens } from './registration-tokens/mod.ts';
@@ -69,6 +69,7 @@ export function install(app: IUnifiedApp) {
   app.addAction({
     method: 'post',
     path: '/authentication/login',
+    requiresCaptcha: true,
     handler: async ({ body }) => {
       
       if (!body.method) {
@@ -89,7 +90,7 @@ export function install(app: IUnifiedApp) {
         });
 
         if (!user) {
-          throw new Error('invalid credentials');
+          throw new NotFoundError();
         }
 
 
@@ -126,6 +127,7 @@ export function install(app: IUnifiedApp) {
   app.addAction({
     method: 'post',
     path: '/authentication/register',
+    requiresCaptcha: true,
     handler: async ({ body }) => {
       
       const { email } = body;

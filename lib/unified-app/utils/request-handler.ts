@@ -1,3 +1,4 @@
+import { ResponseError } from 'unified-app';
 import { IUnifiedAction, IUnifiedActionContext, IUnifiedApp } from '../interfaces.d.ts';
 
 
@@ -122,10 +123,25 @@ export function makeRequestHandler(app: IUnifiedApp, actions: IUnifiedAction[]):
 
     }
     catch (error) {
-      return new Response(error?.message ?? 'An error occured', {
-        status: error?.status ?? 400,
-        headers: error?.headers,
-      });
+      if (error instanceof ResponseError) {
+
+        console.error(error.message);
+
+        return Response.json(
+          {
+            error: error.label,
+          },
+          {
+            status: error.status,
+          }
+        );
+
+      }
+      else {
+        return new Response(error?.message ?? 'an error occured', {
+          status: 400,
+        });
+      }
     }
   };
 

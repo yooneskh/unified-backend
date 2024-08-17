@@ -23,8 +23,8 @@ export function install(app: IUnifiedApp) {
     }
 
 
-    const captchaId = context.headers['unified-captcha-id'];
-    const captchaText = context.headers['unified-captcha-text'];
+    const captchaId = context.headers['captcha-id'];
+    const captchaText = context.headers['captcha-text'];
 
 
     const captchaToken = await app.captchaTokens.find({
