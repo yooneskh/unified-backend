@@ -184,7 +184,7 @@ export function install(app: IUnifiedApp) {
         if (!action.path) action.path = `${action.pathPrefix ?? ''}/:resourceId`;
 
         if (!action.handler) action.handler = ({ action, resourceId, filter }) => {
-          return action.controller!.retrieve({
+          return action.controller!.delete({
             resourceId,
             filter,
           });

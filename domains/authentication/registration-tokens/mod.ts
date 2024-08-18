@@ -41,6 +41,15 @@ export function install(app: IUnifiedApp) {
 
 
   app.addAction({
+    method: 'get',
+    path: '/registration-tokens/meta',
+    requirePermission: 'admin.authentication.registration-tokens.meta',
+    handler: () => {
+      return app.models['RegistrationToken'];
+    },
+  });
+
+  app.addAction({
     template: 'list',
     controller: app.registrationTokens,
     pathPrefix: '/registration-tokens',

@@ -37,6 +37,15 @@ export function install(app: IUnifiedApp) {
 
 
   app.addAction({
+    method: 'get',
+    path: '/authorization-roles/meta',
+    requirePermission: 'admin.authorization.authorization-roles.meta',
+    handler: () => {
+      return app.models['AuthorizationRole'];
+    },
+  });
+
+  app.addAction({
     template: 'list',
     controller: app.authorizationRoles,
     pathPrefix: '/authorization-roles',

@@ -31,6 +31,15 @@ export function install(app: IUnifiedApp) {
 
 
   app.addAction({
+    method: 'get',
+    path: '/users/meta',
+    requirePermission: 'admin.authentication.users.meta',
+    handler: () => {
+      return app.models['User'];
+    },
+  });
+
+  app.addAction({
     template: 'list',
     controller: app.users,
     pathPrefix: '/users',

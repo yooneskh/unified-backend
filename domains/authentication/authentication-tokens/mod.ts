@@ -42,6 +42,15 @@ export function install(app: IUnifiedApp) {
 
 
   app.addAction({
+    method: 'get',
+    path: '/authentication-tokens/meta',
+    requirePermission: 'admin.authentication.authentication-tokens.meta',
+    handler: () => {
+      return app.models['AuthenticationToken'];
+    },
+  });
+
+  app.addAction({
     template: 'list',
     controller: app.authenticationTokens,
     pathPrefix: '/authentication-tokens',

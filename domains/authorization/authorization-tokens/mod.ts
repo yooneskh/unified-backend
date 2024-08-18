@@ -44,38 +44,47 @@ export function install(app: IUnifiedApp) {
 
 
   app.addAction({
+    method: 'get',
+    path: '/authorization-tokens/meta',
+    requirePermission: 'admin.authorization.authorization-tokens.meta',
+    handler: () => {
+      return app.models['AuthorizationToken'];
+    },
+  });
+
+  app.addAction({
     template: 'list',
     controller: app.authorizationTokens,
     pathPrefix: '/authorization-tokens',
-    requirePermission: 'admin.authorization.authorization-tokensles.list',
+    requirePermission: 'admin.authorization.authorization-tokens.list',
   });
 
   app.addAction({
     template: 'count',
     controller: app.authorizationTokens,
     pathPrefix: '/authorization-tokens',
-    requirePermission: 'admin.authorization.authorization-tokenses.count',
+    requirePermission: 'admin.authorization.authorization-tokens.count',
   });
 
   app.addAction({
     template: 'retrieve',
     controller: app.authorizationTokens,
     pathPrefix: '/authorization-tokens',
-    requirePermission: 'admin.authorization.authorization-rolestokensretrieve',
+    requirePermission: 'admin.authorization.authorization-tokens.retrieve',
   });
 
   app.addAction({
     template: 'create',
     controller: app.authorizationTokens,
     pathPrefix: '/authorization-tokens',
-    requirePermission: 'admin.authorization.authorization-tokenss.create',
+    requirePermission: 'admin.authorization.authorization-tokens.create',
   });
 
   app.addAction({
     template: 'update',
     controller: app.authorizationTokens,
     pathPrefix: '/authorization-tokens',
-    requirePermission: 'admin.authorization.authorization-tokenss.update',
+    requirePermission: 'admin.authorization.authorization-tokens.update',
   });
 
   app.addAction({
@@ -89,7 +98,7 @@ export function install(app: IUnifiedApp) {
     template: 'delete',
     controller: app.authorizationTokens,
     pathPrefix: '/authorization-tokens',
-    requirePermission: 'admin.authorization.authorization-tokenss.delete',
+    requirePermission: 'admin.authorization.authorization-tokens.delete',
   });
 
 }

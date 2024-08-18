@@ -70,45 +70,61 @@ export function install(app: IUnifiedApp) {
 
 
   app.addAction({
+    method: 'get',
+    path: '/media/meta',
+    requirePermission: 'admin.media.meta',
+    handler: () => {
+      return app.models['Media'];
+    },
+  });
+
+  app.addAction({
     template: 'list',
     controller: app.media,
     pathPrefix: '/media',
+    requirePermission: 'admin.media.list',
   });
 
   app.addAction({
     template: 'count',
     controller: app.media,
     pathPrefix: '/media',
+    requirePermission: 'admin.media.count',
   });
 
   app.addAction({
     template: 'retrieve',
     controller: app.media,
     pathPrefix: '/media',
+    requirePermission: 'admin.media.retrieve',
   });
 
   app.addAction({
     template: 'create',
     controller: app.media,
     pathPrefix: '/media',
+    requirePermission: 'admin.media.create',
   });
 
   app.addAction({
     template: 'update',
     controller: app.media,
     pathPrefix: '/media',
+    requirePermission: 'admin.media.update',
   });
 
   app.addAction({
     template: 'replace',
     controller: app.media,
     pathPrefix: '/media',
+    requirePermission: 'admin.media.replace',
   });
 
   app.addAction({
     template: 'delete',
     controller: app.media,
     pathPrefix: '/media',
+    requirePermission: 'admin.media.delete',
   });
 
 
