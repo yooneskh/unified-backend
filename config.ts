@@ -14,10 +14,10 @@ export const Config = {
   authentication: {
     verificationTokenStaticCode: '1111',
     verificationTokenLength: 4,
-    verificationTokenLifetime: 1000 * 60 * 2,
-    registrationTokenLifetime: 1000 * 60 * 2,
+    verificationTokenLifetime: 1000 * 60 * 3,
+    registrationTokenLifetime: 1000 * 60 * 3,
     authenticationTokenUnits: 4,
-    authenticationTokenLifetime: 30 * 24 * 60 * 1000,
+    authenticationTokenLifetime: 1000 * 60 * 60 * 24 * 30,
   },
   authorization: {
     userDefaultPermissions: [ 'user.**' ],

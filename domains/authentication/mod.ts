@@ -42,17 +42,10 @@ export function install(app: IUnifiedApp) {
         },
       });
 
-      if (!authToken) {
-        throw new Error('invalid token');
-      }
-
-
-      context.user = await context.app.users.find({
-        resourceId: authToken.user,
-      });
-
-      if (!context.user) {
-        throw new Error('invalid token');
+      if (authToken) {
+        context.user = await context.app.users.find({
+          resourceId: authToken.user,
+        });
       }
 
     }
