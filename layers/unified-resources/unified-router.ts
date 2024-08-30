@@ -82,13 +82,11 @@ export function install(app: IUnifiedApp) {
         if (!action.path) action.path = `${action.pathPrefix ?? ''}/`;
 
         if (!action.handler) action.handler = ({ action, query, filter, select, populate, limit, skip }) => {
-          if (query['single'] === 'true') {
+          if (query['single'] === '%true%') {
             return action.controller!.find({
               filter,
               populate,
               select,
-              limit,
-              skip,
             });
           }
           else {
