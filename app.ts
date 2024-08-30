@@ -10,23 +10,25 @@ import { install as installApplicationSetting } from './domains/settings/applica
 export function createApp(): IUnifiedApp {
 
   const app = createUnifiedApp();
-
   app.pathPush('api');
 
 
-  installUnifiedCommons(app);
+  /* general */
 
+  installUnifiedCommons(app);
   installUtilities(app);
 
   installAuthentication(app);
   installAuthorization(app);
   installMedia(app);
 
+
+  /* app specific */
+
   installApplicationSetting(app);
 
 
   app.pathPop();
-
   return app;
 
 }

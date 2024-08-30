@@ -12,6 +12,7 @@ const UserSchema: IUnifiedModel<IUserBase> = {
   email: {
     type: 'string',
     required: true,
+    titleable: true,
   },
 };
 

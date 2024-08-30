@@ -16,7 +16,7 @@ export function install(app: IUnifiedApp) {
           children: [
             {
               label: 'Users',
-              to: { name: 'general.home' },
+              to: { name: 'admin.resources', params: { resourceIdentifier: 'users' } },
             },
           ],
         },
