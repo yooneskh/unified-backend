@@ -31,7 +31,7 @@ export function install(app: IUnifiedApp) {
 
 
     const actionKey = [context.action.method, context.action.path].join(' ');
-    const userKey = [context.requestInfo.remoteAddr.hostname].join(' ');
+    const userKey = [context.request.headers.get('x-forwarded-for')].join(' ');
 
     console.log('rate limit user key: ' + userKey);
 
