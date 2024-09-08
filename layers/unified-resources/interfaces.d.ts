@@ -79,10 +79,11 @@ export interface IUnifiedController<T> {
 export interface IUnifiedControllerContext<T> {
   resourceId?: string;
   filter?: Filter<T & IBaseDocument>;
-  populate?: Record<string, string[]>;
-  select?: string[];
+  sort?: Record<string, 1 | -1>;
   limit?: number;
   skip?: number;
+  populate?: Record<string, string[]>;
+  select?: string[];
   document?: T;
   payload?: Partial<T>;
 }

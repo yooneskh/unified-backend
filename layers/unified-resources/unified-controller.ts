@@ -13,10 +13,11 @@ export function createUnifiedController<T>(app: IUnifiedApp, model: string, _sch
 
       const records = await document.list({
         filter: context.filter,
-        populate: context.populate,
-        select: context.select,
+        sort: context.sort,
         limit: context.limit,
         skip: context.skip,
+        populate: context.populate,
+        select: context.select,
       });
 
       app.emit(`${model}.list`, records);

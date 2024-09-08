@@ -15,11 +15,11 @@ declare module 'unified-app' {
     resourceId?: string;
     // deno-lint-ignore no-explicit-any
     filter?: any;
-    sort?: Record<string, number>;
-    select?: string[];
-    populate?: Record<string, string[]>;
+    sort?: Record<string, 1 | -1>;
     limit?: number;
     skip?: number;
+    select?: string[];
+    populate?: Record<string, string[]>;
   }
 
 }
@@ -81,7 +81,7 @@ export function install(app: IUnifiedApp) {
         if (!action.method) action.method = 'get';
         if (!action.path) action.path = `${action.pathPrefix ?? ''}/`;
 
-        if (!action.handler) action.handler = ({ action, query, filter, select, populate, limit, skip }) => {
+        if (!action.handler) action.handler = ({ action, query, filter, sort, select, populate, limit, skip }) => {
           if (query['single'] === '%true%') {
             return action.controller!.find({
               filter,
@@ -92,10 +92,11 @@ export function install(app: IUnifiedApp) {
           else {
             return action.controller!.list({
               filter,
-              populate,
-              select,
+              sort,
               limit,
               skip,
+              populate,
+              select,
             });
           }
         };
