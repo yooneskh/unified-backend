@@ -127,6 +127,10 @@ export function install(app: IUnifiedApp) {
     requirePermission: 'admin.media.delete',
   });
 
+  app.on('Media.delete', async (media: IMedia) => {
+    await Deno.remove(`../uploads/${Config.media.directory}/${media._id}.${media.extension}`);
+  });
+
 
   app.addAction({
     method: 'post',
@@ -180,7 +184,7 @@ export function install(app: IUnifiedApp) {
       try {
 
         try {
-          await Deno.mkdir(Config.media.directory);
+          await Deno.mkdir(`../uploads/${Config.media.directory}`);
         }
         catch { /* directory exists */ }
 
@@ -188,19 +192,14 @@ export function install(app: IUnifiedApp) {
         const relativeFilePath = `${Config.media.directory}/${mediaBase._id}.${extension}`;
         const fullPath = `${Config.media.baseUrl}/${relativeFilePath}`;
 
-        await Deno.writeFile(`./${relativeFilePath}`, file.stream(), { createNew: true })
+        await Deno.writeFile(`../uploads/${relativeFilePath}`, file.stream(), { createNew: true })
 
-        const newMedia = await app.media.update({
+        return app.media.update({
           resourceId: mediaBase._id,
           payload: {
             relativePath: relativeFilePath,
             path: fullPath,
           },
-        });
-
-
-        return await app.media.retrieve({
-          resourceId: newMedia._id,
         });
 
       }
@@ -219,7 +218,7 @@ export function install(app: IUnifiedApp) {
 
           for (const deletePath of deletePaths) {
             try {
-              await Deno.remove(deletePath);
+              await Deno.remove(`./uploads/${deletePath}`);
             }
             catch (error) {
               console.error(error);

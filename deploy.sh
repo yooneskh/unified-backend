@@ -1,6 +1,2 @@
-deno compile --target x86_64-unknown-linux-gnu --unstable-kv --unstable-ffi -A ./bootstrap.ts && \
-  scp ./bootstrap $zxc:/home/yooneskh/project-backend/bootstrap-tmp && \
-  ssh $zxc pm2 stop project-backend && \
-  ssh $zxc mv /home/yooneskh/project-backend/bootstrap-tmp /home/yooneskh/project-backend/bootstrap && \
-  ssh $zxc pm2 restart project-backend && \
-  rm -f ./bootstrap
+rsync -rh --info=progress2 --delete --exclude .git --exclude db.kv --exclude db.kv-shm --exclude db.kv-wal ./ $zxc:/home/yooneskh/project/backend && \
+  ssh $zxc pm2 restart project-backend
