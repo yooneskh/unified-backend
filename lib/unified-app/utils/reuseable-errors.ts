@@ -11,3 +11,9 @@ export class NotFoundError extends ResponseError {
   public status = 404;
   public label = 'Requested item was not found.'
 }
+
+export class InvalidPermissionError extends ResponseError {
+  public message = 'invalid permissions';
+  public status = 403;
+  public label = 'You do not have permission to access this action.';
+}

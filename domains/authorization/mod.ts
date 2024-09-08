@@ -1,5 +1,5 @@
 import { Config } from 'config';
-import { IUnifiedApp } from 'unified-app';
+import { IUnifiedApp, InvalidPermissionError } from 'unified-app';
 import { install as installAuthorizationTokens } from './authorization-roles/mod.ts';
 import { install as installAuthorizationRoles } from './authorization-tokens/mod.ts';
 import { wildcardIncludes } from './utils/permission-includes.ts';
@@ -10,11 +10,14 @@ declare module 'unified-app' {
 
   interface IUnifiedActionContext {
     userPermissions?: string[];
+    hasPermission: (permission: string) => boolean;
+    hasPermissions: (permissions: string[]) => boolean;
   }
 
   interface IUnifiedAction {
     requirePermission?: string;
     requirePermissions?: string[];
+    permissionFunction?: (context: IUnifiedActionContext) => boolean | Promise<boolean> | void | Promise<void>;
   }
 
 }
@@ -88,12 +91,24 @@ export function install(app: IUnifiedApp) {
     }
 
 
+    context.hasPermission = (permission: string) => {
+      return wildcardIncludes(context.userPermissions, permission);
+    };
+
+    context.hasPermissions = (permissions: string[]) => {
+      return permissions.every(it => wildcardIncludes(context.userPermissions, it));
+    };
+
     if (context.action.requirePermission && !wildcardIncludes(context.userPermissions, context.action.requirePermission)) {
-      throw new Error('invalid permissions');
+      throw new InvalidPermissionError('invalid permissions');
     }
 
     if (context.action.requirePermissions && !context.action.requirePermissions.every(it => wildcardIncludes(context.userPermissions, it))) {
-      throw new Error('invalid permissions');
+      throw new InvalidPermissionError('invalid permissions');
+    }
+
+    if (context.action.permissionFunction && !context.action.permissionFunction(context)) {
+      throw new InvalidPermissionError('invalid permissions');
     }
 
   });
