@@ -158,6 +158,17 @@ export function install(app: IUnifiedApp) {
       });
 
 
+      if (!Config.authentication.verificationTokenStaticCode) {
+        await sendResendMail({
+          authorization: Config.resend.authorization,
+          from: Config.resend.from,
+          to: [email],
+          subject: 'Registration Code',
+          text: `Welcome, your registration code is: ${verificationToken.code}`,
+        });
+      }
+
+
       return {
         needsVerification: true,
         verificationToken: verificationToken._id,
