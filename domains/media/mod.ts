@@ -135,7 +135,7 @@ export function install(app: IUnifiedApp) {
   app.addAction({
     method: 'post',
     path: '/media/upload',
-    requiresAuthentication: true,
+    requirePermission: 'admin.media.upload',
     handler: async ({ body, user }) => {
 
       const formData = body as FormData;

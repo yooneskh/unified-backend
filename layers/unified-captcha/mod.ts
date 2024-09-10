@@ -57,7 +57,7 @@ export function install(app: IUnifiedApp) {
     rateLimit: {
       points: 10,
       windowDuration: 60_000 * 5,
-      blockDuration: 60_000 * 5,
+      blockDuration: 60_000 * 10,
     },
     handler: async () => {
 

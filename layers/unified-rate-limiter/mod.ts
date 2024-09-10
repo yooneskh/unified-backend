@@ -23,17 +23,14 @@ export function install(app: IUnifiedApp) {
 
   app.addMiddleware(context => {
 
-    const rule = context.action.rateLimit;
-
-    if (!rule) {
-      return;
-    }
-
+    const rule = context.action.rateLimit ?? {
+      points: 20,
+      windowDuration: 1_000,
+      blockDuration: 60_000,
+    };
 
     const actionKey = [context.action.method, context.action.path].join(' ');
     const userKey = [context.request.headers.get('x-forwarded-for')].join(' ');
-
-    console.log('rate limit user key: ' + userKey);
 
     if (!rateLimitPool.has(actionKey)) {
       rateLimitPool.set(actionKey, new Map());

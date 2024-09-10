@@ -63,6 +63,11 @@ export function install(app: IUnifiedApp) {
     method: 'post',
     path: '/authentication/login',
     requiresCaptcha: true,
+    rateLimit: {
+      points: 5,
+      windowDuration: 60_000 * 60,
+      blockDuration: 60_000 * 60,
+    },
     handler: async ({ body }) => {
       
       if (!body.method) {
@@ -121,6 +126,11 @@ export function install(app: IUnifiedApp) {
     method: 'post',
     path: '/authentication/register',
     requiresCaptcha: true,
+    rateLimit: {
+      points: 5,
+      windowDuration: 60_000 * 60,
+      blockDuration: 60_000 * 60,
+    },
     handler: async ({ body }) => {
       
       const { email } = body;
@@ -180,6 +190,11 @@ export function install(app: IUnifiedApp) {
   app.addAction({
     method: 'post',
     path: '/authentication/verify',
+    rateLimit: {
+      points: 5,
+      windowDuration: 60_000 * 60,
+      blockDuration: 60_000 * 60,
+    },
     handler: async ({ body }) => {
       
       if (!body.verificationToken || !body.verificationCode) {
