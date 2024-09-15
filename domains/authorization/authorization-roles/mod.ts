@@ -36,62 +36,57 @@ export function install(app: IUnifiedApp) {
   app.authorizationRoles = createUnifiedController<IAuthorizationRoleBase>(app, 'AuthorizationRole', AuthorizationRoleSchema);
 
 
-  app.addAction({
-    method: 'get',
-    path: '/authorization-roles/meta',
-    requirePermission: 'admin.authorization.authorization-roles.meta',
-    handler: () => {
-      return app.models['AuthorizationRole'];
+  app.addActions({
+    'meta': {
+      method: 'get',
+      path: '/authorization-roles/meta',
+      requirePermission: 'admin.authorization.authorization-roles.meta',
+      handler: () => {
+        return app.models['AuthorizationRole'];
+      },
     },
-  });
-
-  app.addAction({
-    template: 'list',
-    controller: app.authorizationRoles,
-    pathPrefix: '/authorization-roles',
-    requirePermission: 'admin.authorization.authorization-roles.list',
-  });
-
-  app.addAction({
-    template: 'count',
-    controller: app.authorizationRoles,
-    pathPrefix: '/authorization-roles',
-    requirePermission: 'admin.authorization.authorization-roles.count',
-  });
-
-  app.addAction({
-    template: 'retrieve',
-    controller: app.authorizationRoles,
-    pathPrefix: '/authorization-roles',
-    requirePermission: 'admin.authorization.authorization-roles.retrieve',
-  });
-
-  app.addAction({
-    template: 'create',
-    controller: app.authorizationRoles,
-    pathPrefix: '/authorization-roles',
-    requirePermission: 'admin.authorization.authorization-roles.create',
-  });
-
-  app.addAction({
-    template: 'update',
-    controller: app.authorizationRoles,
-    pathPrefix: '/authorization-roles',
-    requirePermission: 'admin.authorization.authorization-roles.update',
-  });
-
-  app.addAction({
-    template: 'replace',
-    controller: app.authorizationRoles,
-    pathPrefix: '/authorization-roles',
-    requirePermission: 'admin.authorization.authorization-roles.replace',
-  });
-
-  app.addAction({
-    template: 'delete',
-    controller: app.authorizationRoles,
-    pathPrefix: '/authorization-roles',
-    requirePermission: 'admin.authorization.authorization-roles.delete',
+    'list': {
+      template: 'list',
+      controller: app.authorizationRoles,
+      pathPrefix: '/authorization-roles',
+      requirePermission: 'admin.authorization.authorization-roles.list',
+    },
+    'count': {
+      template: 'count',
+      controller: app.authorizationRoles,
+      pathPrefix: '/authorization-roles',
+      requirePermission: 'admin.authorization.authorization-roles.count',
+    },
+    'retrieve': {
+      template: 'retrieve',
+      controller: app.authorizationRoles,
+      pathPrefix: '/authorization-roles',
+      requirePermission: 'admin.authorization.authorization-roles.retrieve',
+    },
+    'create': {
+      template: 'create',
+      controller: app.authorizationRoles,
+      pathPrefix: '/authorization-roles',
+      requirePermission: 'admin.authorization.authorization-roles.create',
+    },
+    'update': {
+      template: 'update',
+      controller: app.authorizationRoles,
+      pathPrefix: '/authorization-roles',
+      requirePermission: 'admin.authorization.authorization-roles.update',
+    },
+    'replace': {
+      template: 'replace',
+      controller: app.authorizationRoles,
+      pathPrefix: '/authorization-roles',
+      requirePermission: 'admin.authorization.authorization-roles.replace',
+    },
+    'delete': {
+      template: 'delete',
+      controller: app.authorizationRoles,
+      pathPrefix: '/authorization-roles',
+      requirePermission: 'admin.authorization.authorization-roles.delete',
+    },
   });
 
 }

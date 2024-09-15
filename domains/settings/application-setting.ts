@@ -30,27 +30,28 @@ export function install(app: IUnifiedApp) {
   app.applicationSetting = createUnifiedSettingController(app, 'ApplicationSetting', ApplicationSettingSchema);
 
 
-  app.addAction({
-    method: 'get',
-    path: '/application-settings/',
-    handler: ({ filter, populate, select }) => {
-      return app.applicationSetting.retrieve({
-        filter,
-        populate,
-        select,
-      });
+  app.addActions({
+    'retrieve': {
+      method: 'get',
+      path: '/application-settings/',
+      handler: ({ filter, populate, select }) => {
+        return app.applicationSetting.retrieve({
+          filter,
+          populate,
+          select,
+        });
+      },
     },
-  });
-
-  app.addAction({
-    method: 'patch',
-    path: '/application-settings/',
-    requirePermission: 'admin.settings.application-settings.retrieve',
-    handler: ({ filter, body }) => {
-      return app.applicationSetting.update({
-        filter,
-        payload: body,
-      });
+    'update': {
+      method: 'patch',
+      path: '/application-settings/',
+      requirePermission: 'admin.settings.application-settings.retrieve',
+      handler: ({ filter, body }) => {
+        return app.applicationSetting.update({
+          filter,
+          payload: body,
+        });
+      },
     },
   });
 

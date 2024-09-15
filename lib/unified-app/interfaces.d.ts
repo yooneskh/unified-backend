@@ -36,9 +36,9 @@ export interface IUnifiedApp {
   actionProcessors: IUnifiedProcessor[];
   pathPush: (segment: string) => void;
   pathPop: () => string | undefined;
-  addAction: (route: IUnifiedAction) => void;
-  addMiddleware: (middleware: IUnifiedMiddleware) => void;
-  addPostware: (postware: IUnifiedMiddleware) => void;
-  addActionProcessor: (processor: IUnifiedProcessor) => void;
+  addActions: (routes: Record<string, IUnifiedAction>) => void;
+  addMiddlewares: (middlewares: Record<string, IUnifiedMiddleware>) => void;
+  addPostwares: (postwares: Record<string, IUnifiedMiddleware>) => void;
+  addActionProcessors: (processors: Record<string, IUnifiedProcessor>) => void;
   listen: (options: IUnifiedAppListen) => Deno.HttpServer;
 }

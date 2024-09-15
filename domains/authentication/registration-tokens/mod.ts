@@ -40,62 +40,57 @@ export function install(app: IUnifiedApp) {
   app.registrationTokens = createUnifiedController<IRegistrationTokenBase>(app, 'RegistrationToken', RegistrationTokenSchema);
 
 
-  app.addAction({
-    method: 'get',
-    path: '/registration-tokens/meta',
-    requirePermission: 'admin.authentication.registration-tokens.meta',
-    handler: () => {
-      return app.models['RegistrationToken'];
+  app.addActions({
+    'meta': {
+      method: 'get',
+      path: '/registration-tokens/meta',
+      requirePermission: 'admin.authentication.registration-tokens.meta',
+      handler: () => {
+        return app.models['RegistrationToken'];
+      },
     },
-  });
-
-  app.addAction({
-    template: 'list',
-    controller: app.registrationTokens,
-    pathPrefix: '/registration-tokens',
-    requirePermission: 'admin.authentication.registration-tokens.list',
-  });
-
-  app.addAction({
-    template: 'count',
-    controller: app.registrationTokens,
-    pathPrefix: '/registration-tokens',
-    requirePermission: 'admin.authentication.registration-tokens.count',
-  });
-
-  app.addAction({
-    template: 'retrieve',
-    controller: app.registrationTokens,
-    pathPrefix: '/registration-tokens',
-    requirePermission: 'admin.authentication.registration-tokens.retrieve',
-  });
-
-  app.addAction({
-    template: 'create',
-    controller: app.registrationTokens,
-    pathPrefix: '/registration-tokens',
-    requirePermission: 'admin.authentication.registration-tokens.create',
-  });
-
-  app.addAction({
-    template: 'update',
-    controller: app.registrationTokens,
-    pathPrefix: '/registration-tokens',
-    requirePermission: 'admin.authentication.registration-tokens.update',
-  });
-
-  app.addAction({
-    template: 'replace',
-    controller: app.registrationTokens,
-    pathPrefix: '/registration-tokens',
-    requirePermission: 'admin.authentication.registration-tokens.replace',
-  });
-
-  app.addAction({
-    template: 'delete',
-    controller: app.registrationTokens,
-    pathPrefix: '/registration-tokens',
-    requirePermission: 'admin.authentication.registration-tokens.delete',
+    'list': {
+      template: 'list',
+      controller: app.registrationTokens,
+      pathPrefix: '/registration-tokens',
+      requirePermission: 'admin.authentication.registration-tokens.list',
+    },
+    'count': {
+      template: 'count',
+      controller: app.registrationTokens,
+      pathPrefix: '/registration-tokens',
+      requirePermission: 'admin.authentication.registration-tokens.count',
+    },
+    'retrieve': {
+      template: 'retrieve',
+      controller: app.registrationTokens,
+      pathPrefix: '/registration-tokens',
+      requirePermission: 'admin.authentication.registration-tokens.retrieve',
+    },
+    'create': {
+      template: 'create',
+      controller: app.registrationTokens,
+      pathPrefix: '/registration-tokens',
+      requirePermission: 'admin.authentication.registration-tokens.create',
+    },
+    'update': {
+      template: 'update',
+      controller: app.registrationTokens,
+      pathPrefix: '/registration-tokens',
+      requirePermission: 'admin.authentication.registration-tokens.update',
+    },
+    'replace': {
+      template: 'replace',
+      controller: app.registrationTokens,
+      pathPrefix: '/registration-tokens',
+      requirePermission: 'admin.authentication.registration-tokens.replace',
+    },
+    'delete': {
+      template: 'delete',
+      controller: app.registrationTokens,
+      pathPrefix: '/registration-tokens',
+      requirePermission: 'admin.authentication.registration-tokens.delete',
+    },
   });
 
 }

@@ -17,27 +17,35 @@ export function createUnifiedApp(): IUnifiedApp {
     pathPop: () => {
       return app.pathStack!.pop();
     },
-    addAction: (route) => {
+    addActions: (routes) => {
+      for (const route of Object.values(routes)) {
 
-      if (route.path) {
-        route.path = '/' + joinPaths(...app.pathStack!, route.path);
+        if (route.path) {
+          route.path = '/' + joinPaths(...app.pathStack!, route.path);
+        }
+          
+        if (route.pathPrefix) {
+          route.pathPrefix = '/' + joinPaths(...app.pathStack!, route.pathPrefix);
+        }
+  
+        app.actions!.push(route);
+
       }
-        
-      if (route.pathPrefix) {
-        route.pathPrefix = '/' + joinPaths(...app.pathStack!, route.pathPrefix);
+    },
+    addMiddlewares: (middlewares) => {
+      for (const middleware of Object.values(middlewares)) {
+        app.middlewares!.push(middleware);
       }
-
-      app.actions!.push(route);
-
     },
-    addMiddleware: (middleware) => {
-      app.middlewares!.push(middleware);
+    addPostwares: (postwares) => {
+      for (const postware of Object.values(postwares)) {
+        app.postwares!.push(postware);
+      }
     },
-    addPostware: (postware) => {
-      app.postwares!.push(postware);
-    },
-    addActionProcessor: (processor) => {
-      app.actionProcessors!.push(processor);
+    addActionProcessors: (processors) => {
+      for (const processor of Object.values(processors)) {
+        app.actionProcessors!.push(processor);
+      }
     },
     listen: (options) => {
 

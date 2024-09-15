@@ -16,10 +16,10 @@ declare module 'unified-app' {
     // deno-lint-ignore no-explicit-any
     filter?: any;
     sort?: Record<string, 1 | -1>;
-    limit?: number;
-    skip?: number;
     select?: string[];
     populate?: Record<string, string[]>;
+    limit?: number;
+    skip?: number;
   }
 
 }
@@ -27,175 +27,179 @@ declare module 'unified-app' {
 
 export function install(app: IUnifiedApp) {
   
-  app.addMiddleware(context => {
+  app.addMiddlewares({
+    'fill-context': context => {
 
-    if (context.params.resourceId !== undefined) {
-      context.resourceId = context.params.resourceId;
-    }
-
-    if (context.query.filter) {
-      context.filter = makeFilterFromQuery(context.query.filter);
-    }
+      if (context.params.resourceId !== undefined) {
+        context.resourceId = context.params.resourceId;
+      }
   
-    if (context.query.sort) {
-      context.sort = Object.fromEntries(
-        context.query.sort.split(',').map(part => {
-          const items = part.split(':');
-          return [items[0], items[1] === '1' ? 1 : -1];
-        })
-      );
-    }
+      if (context.query.filter) {
+        context.filter = makeFilterFromQuery(context.query.filter);
+      }
+    
+      if (context.query.sort) {
+        context.sort = Object.fromEntries(
+          context.query.sort.split(',').map(part => {
+            const items = part.split(':');
+            return [items[0], items[1] === '1' ? 1 : -1];
+          })
+        );
+      }
+    
+      if (context.query.select) {
+        context.select = context.query.select.split(' ');
+      }
   
-    if (context.query.select) {
-      context.select = context.query.select.split(' ');
-    }
-
-    if (context.query.populate) {
-      context.populate = Object.fromEntries(
-        context.query.populate.split(',').map(it =>
-          [ it.split(':')[0], it.split(':')[1]?.split(' ') ?? true ]
-        )
-      );
-    }
-
-    if (context.query.skip) {
-      context.skip = parseInt(context.query.skip, 10);
-    }
-
-    if (context.query.limit) {
-      context.limit = Math.min(parseInt(context.query.limit, 10), 30);
-    }
-
+      if (context.query.populate) {
+        context.populate = Object.fromEntries(
+          context.query.populate.split(',').map(it =>
+            [ it.split(':')[0], it.split(':')[1]?.split(' ') ?? true ]
+          )
+        );
+      }
+  
+      if (context.query.skip) {
+        context.skip = parseInt(context.query.skip, 10);
+      }
+  
+      if (context.query.limit) {
+        context.limit = Math.min(parseInt(context.query.limit, 10), 30);
+      }
+  
+    },
   });
 
-  app.addActionProcessor(action => {
+  app.addActionProcessors({
+    'apply-templates': action => {
 
-    if (!action.template) {
-      return;
-    }
-
-    switch (action.template) {
-
-      case 'list': {
-
-        if (!action.method) action.method = 'get';
-        if (!action.path) action.path = `${action.pathPrefix ?? ''}/`;
-
-        if (!action.handler) action.handler = ({ action, query, filter, sort, select, populate, limit, skip }) => {
-          if (query['single'] === '%true%') {
-            return action.controller!.find({
+      if (!action.template) {
+        return;
+      }
+  
+      switch (action.template) {
+  
+        case 'list': {
+  
+          if (!action.method) action.method = 'get';
+          if (!action.path) action.path = `${action.pathPrefix ?? ''}/`;
+  
+          if (!action.handler) action.handler = ({ action, query, filter, sort, select, populate, limit, skip }) => {
+            if (query['single'] === '%true%') {
+              return action.controller!.find({
+                filter,
+                populate,
+                select,
+              });
+            }
+            else {
+              return action.controller!.list({
+                filter,
+                sort,
+                limit,
+                skip,
+                populate,
+                select,
+              });
+            }
+          };
+  
+        } break;
+  
+        case 'count': {
+  
+          if (!action.method) action.method = 'get';
+          if (!action.path) action.path = `${action.pathPrefix ?? ''}/count`;
+  
+          if (!action.handler) action.handler = ({ action, filter, limit, skip }) => {
+            return action.controller!.count({
               filter,
-              populate,
-              select,
-            });
-          }
-          else {
-            return action.controller!.list({
-              filter,
-              sort,
               limit,
               skip,
+            });
+          };
+  
+        } break;
+  
+        case 'retrieve': {
+  
+          if (!action.method) action.method = 'get';
+          if (!action.path) action.path = `${action.pathPrefix ?? ''}/:resourceId`;
+  
+          if (!action.handler) action.handler = ({ action, resourceId, filter, select, populate }) => {
+            return action.controller!.retrieve({
+              resourceId,
+              filter,
               populate,
               select,
             });
-          }
-        };
-
-      } break;
-
-      case 'count': {
-
-        if (!action.method) action.method = 'get';
-        if (!action.path) action.path = `${action.pathPrefix ?? ''}/count`;
-
-        if (!action.handler) action.handler = ({ action, filter, limit, skip }) => {
-          return action.controller!.count({
-            filter,
-            limit,
-            skip,
-          });
-        };
-
-      } break;
-
-      case 'retrieve': {
-
-        if (!action.method) action.method = 'get';
-        if (!action.path) action.path = `${action.pathPrefix ?? ''}/:resourceId`;
-
-        if (!action.handler) action.handler = ({ action, resourceId, filter, select, populate }) => {
-          return action.controller!.retrieve({
-            resourceId,
-            filter,
-            populate,
-            select,
-          });
-        };
-
-      } break;
-
-      case 'create': {
-
-        if (!action.method) action.method = 'post';
-        if (!action.path) action.path = `${action.pathPrefix ?? ''}/`;
-
-        if (!action.handler) action.handler = ({ action, body }) => {
-          return action.controller!.create({
-            document: body,
-          });
-        };
-
-      } break;
-
-      case 'update': {
-
-        if (!action.method) action.method = 'patch';
-        if (!action.path) action.path = `${action.pathPrefix ?? ''}/:resourceId`;
-
-        if (!action.handler) action.handler = ({ action, resourceId, filter, body }) => {
-          return action.controller!.update({
-            resourceId,
-            filter,
-            payload: body,
-          });
-        };
-
-      } break;
-
-      case 'replace': {
-
-        if (!action.method) action.method = 'put';
-        if (!action.path) action.path = `${action.pathPrefix ?? ''}/:resourceId`;
-
-        if (!action.handler) action.handler = ({ action, resourceId, filter, body }) => {
-          return action.controller!.replace({
-            resourceId,
-            filter,
-            document: body,
-          });
-        };
-
-      } break;
-
-      case 'delete': {
-
-        if (!action.method) action.method = 'delete';
-        if (!action.path) action.path = `${action.pathPrefix ?? ''}/:resourceId`;
-
-        if (!action.handler) action.handler = ({ action, resourceId, filter }) => {
-          return action.controller!.delete({
-            resourceId,
-            filter,
-          });
-        };
-
-      } break;
-
-    }
-
-    delete action.template;
-    delete action.pathPrefix;
-
+          };
+  
+        } break;
+  
+        case 'create': {
+  
+          if (!action.method) action.method = 'post';
+          if (!action.path) action.path = `${action.pathPrefix ?? ''}/`;
+  
+          if (!action.handler) action.handler = ({ action, body }) => {
+            return action.controller!.create({
+              document: body,
+            });
+          };
+  
+        } break;
+  
+        case 'update': {
+  
+          if (!action.method) action.method = 'patch';
+          if (!action.path) action.path = `${action.pathPrefix ?? ''}/:resourceId`;
+  
+          if (!action.handler) action.handler = ({ action, resourceId, filter, body }) => {
+            return action.controller!.update({
+              resourceId,
+              filter,
+              payload: body,
+            });
+          };
+  
+        } break;
+  
+        case 'replace': {
+  
+          if (!action.method) action.method = 'put';
+          if (!action.path) action.path = `${action.pathPrefix ?? ''}/:resourceId`;
+  
+          if (!action.handler) action.handler = ({ action, resourceId, filter, body }) => {
+            return action.controller!.replace({
+              resourceId,
+              filter,
+              document: body,
+            });
+          };
+  
+        } break;
+  
+        case 'delete': {
+  
+          if (!action.method) action.method = 'delete';
+          if (!action.path) action.path = `${action.pathPrefix ?? ''}/:resourceId`;
+  
+          if (!action.handler) action.handler = ({ action, resourceId, filter }) => {
+            return action.controller!.delete({
+              resourceId,
+              filter,
+            });
+          };
+  
+        } break;
+  
+      }
+  
+      delete action.template;
+      delete action.pathPrefix;
+  
+    },
   });
 
 }

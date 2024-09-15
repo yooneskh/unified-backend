@@ -43,62 +43,57 @@ export function install(app: IUnifiedApp) {
   app.authorizationTokens = createUnifiedController<IAuthorizationTokenBase>(app, 'AuthorizationToken', AuthorizationTokenSchema);
 
 
-  app.addAction({
-    method: 'get',
-    path: '/authorization-tokens/meta',
-    requirePermission: 'admin.authorization.authorization-tokens.meta',
-    handler: () => {
-      return app.models['AuthorizationToken'];
+  app.addActions({
+    'meta': {
+      method: 'get',
+      path: '/authorization-tokens/meta',
+      requirePermission: 'admin.authorization.authorization-tokens.meta',
+      handler: () => {
+        return app.models['AuthorizationToken'];
+      },
     },
-  });
-
-  app.addAction({
-    template: 'list',
-    controller: app.authorizationTokens,
-    pathPrefix: '/authorization-tokens',
-    requirePermission: 'admin.authorization.authorization-tokens.list',
-  });
-
-  app.addAction({
-    template: 'count',
-    controller: app.authorizationTokens,
-    pathPrefix: '/authorization-tokens',
-    requirePermission: 'admin.authorization.authorization-tokens.count',
-  });
-
-  app.addAction({
-    template: 'retrieve',
-    controller: app.authorizationTokens,
-    pathPrefix: '/authorization-tokens',
-    requirePermission: 'admin.authorization.authorization-tokens.retrieve',
-  });
-
-  app.addAction({
-    template: 'create',
-    controller: app.authorizationTokens,
-    pathPrefix: '/authorization-tokens',
-    requirePermission: 'admin.authorization.authorization-tokens.create',
-  });
-
-  app.addAction({
-    template: 'update',
-    controller: app.authorizationTokens,
-    pathPrefix: '/authorization-tokens',
-    requirePermission: 'admin.authorization.authorization-tokens.update',
-  });
-
-  app.addAction({
-    template: 'replace',
-    controller: app.authorizationTokens,
-    pathPrefix: '/authorization-tokens',
-    requirePermission: 'admin.authorization.authorization-tokens.replace',
-  });
-
-  app.addAction({
-    template: 'delete',
-    controller: app.authorizationTokens,
-    pathPrefix: '/authorization-tokens',
-    requirePermission: 'admin.authorization.authorization-tokens.delete',
+    'list': {
+      template: 'list',
+      controller: app.authorizationTokens,
+      pathPrefix: '/authorization-tokens',
+      requirePermission: 'admin.authorization.authorization-tokens.list',
+    },
+    'count': {
+      template: 'count',
+      controller: app.authorizationTokens,
+      pathPrefix: '/authorization-tokens',
+      requirePermission: 'admin.authorization.authorization-tokens.count',
+    },
+    'retrieve': {
+      template: 'retrieve',
+      controller: app.authorizationTokens,
+      pathPrefix: '/authorization-tokens',
+      requirePermission: 'admin.authorization.authorization-tokens.retrieve',
+    },
+    'create': {
+      template: 'create',
+      controller: app.authorizationTokens,
+      pathPrefix: '/authorization-tokens',
+      requirePermission: 'admin.authorization.authorization-tokens.create',
+    },
+    'update': {
+      template: 'update',
+      controller: app.authorizationTokens,
+      pathPrefix: '/authorization-tokens',
+      requirePermission: 'admin.authorization.authorization-tokens.update',
+    },
+    'replace': {
+      template: 'replace',
+      controller: app.authorizationTokens,
+      pathPrefix: '/authorization-tokens',
+      requirePermission: 'admin.authorization.authorization-tokens.replace',
+    },
+    'delete': {
+      template: 'delete',
+      controller: app.authorizationTokens,
+      pathPrefix: '/authorization-tokens',
+      requirePermission: 'admin.authorization.authorization-tokens.delete',
+    },
   });
 
 }

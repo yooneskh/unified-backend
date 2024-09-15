@@ -45,62 +45,57 @@ export function install(app: IUnifiedApp) {
   app.verificationTokens = createUnifiedController<IVerificationTokenBase>(app, 'VerificationToken', VerificationTokenSchema);
 
 
-  app.addAction({
-    method: 'get',
-    path: '/verification-tokens/meta',
-    requirePermission: 'admin.authentication.verification-tokens.meta',
-    handler: () => {
-      return app.models['VerificationToken'];
+  app.addActions({
+    'meta': {
+      method: 'get',
+      path: '/verification-tokens/meta',
+      requirePermission: 'admin.authentication.verification-tokens.meta',
+      handler: () => {
+        return app.models['VerificationToken'];
+      },
     },
-  });
-
-  app.addAction({
-    template: 'list',
-    controller: app.verificationTokens,
-    pathPrefix: '/verification-tokens',
-    requirePermission: 'admin.authentication.verification-tokens.list',
-  });
-
-  app.addAction({
-    template: 'count',
-    controller: app.verificationTokens,
-    pathPrefix: '/verification-tokens',
-    requirePermission: 'admin.authentication.verification-tokens.count',
-  });
-
-  app.addAction({
-    template: 'retrieve',
-    controller: app.verificationTokens,
-    pathPrefix: '/verification-tokens',
-    requirePermission: 'admin.authentication.verification-tokens.retrieve',
-  });
-
-  app.addAction({
-    template: 'create',
-    controller: app.verificationTokens,
-    pathPrefix: '/verification-tokens',
-    requirePermission: 'admin.authentication.verification-tokens.create',
-  });
-
-  app.addAction({
-    template: 'update',
-    controller: app.verificationTokens,
-    pathPrefix: '/verification-tokens',
-    requirePermission: 'admin.authentication.verification-tokens.update',
-  });
-
-  app.addAction({
-    template: 'replace',
-    controller: app.verificationTokens,
-    pathPrefix: '/verification-tokens',
-    requirePermission: 'admin.authentication.verification-tokens.replace',
-  });
-
-  app.addAction({
-    template: 'delete',
-    controller: app.verificationTokens,
-    pathPrefix: '/verification-tokens',
-    requirePermission: 'admin.authentication.verification-tokens.delete',
+    'list': {
+      template: 'list',
+      controller: app.verificationTokens,
+      pathPrefix: '/verification-tokens',
+      requirePermission: 'admin.authentication.verification-tokens.list',
+    },
+    'count': {
+      template: 'count',
+      controller: app.verificationTokens,
+      pathPrefix: '/verification-tokens',
+      requirePermission: 'admin.authentication.verification-tokens.count',
+    },
+    'retrieve': {
+      template: 'retrieve',
+      controller: app.verificationTokens,
+      pathPrefix: '/verification-tokens',
+      requirePermission: 'admin.authentication.verification-tokens.retrieve',
+    },
+    'create': {
+      template: 'create',
+      controller: app.verificationTokens,
+      pathPrefix: '/verification-tokens',
+      requirePermission: 'admin.authentication.verification-tokens.create',
+    },
+    'update': {
+      template: 'update',
+      controller: app.verificationTokens,
+      pathPrefix: '/verification-tokens',
+      requirePermission: 'admin.authentication.verification-tokens.update',
+    },
+    'replace': {
+      template: 'replace',
+      controller: app.verificationTokens,
+      pathPrefix: '/verification-tokens',
+      requirePermission: 'admin.authentication.verification-tokens.replace',
+    },
+    'delete': {
+      template: 'delete',
+      controller: app.verificationTokens,
+      pathPrefix: '/verification-tokens',
+      requirePermission: 'admin.authentication.verification-tokens.delete',
+    },
   });
 
 }

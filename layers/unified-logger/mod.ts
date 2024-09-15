@@ -11,13 +11,17 @@ declare module 'unified-app' {
 
 export function install(app: IUnifiedApp) {
 
-  app.addMiddleware(context => {
-    context.timeStart = Date.now();
+  app.addMiddlewares({
+    'set-start': context => {
+      context.timeStart = Date.now();
+    },
   });
 
-  app.addPostware(context => {
-    context.timeEnd = Date.now();
-    console.log(`${context.action.method?.toLowerCase()} ${context.action.path} - ${context.timeEnd! - context.timeStart!}ms`);
+  app.addPostwares({
+    'print-log': context => {
+      context.timeEnd = Date.now();
+      console.log(`${context.action.method?.toLowerCase()} ${context.action.path} - ${context.timeEnd! - context.timeStart!}ms`);
+    },
   });
 
 }

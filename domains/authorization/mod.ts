@@ -60,57 +60,59 @@ export function install(app: IUnifiedApp) {
   );
 
 
-  app.addMiddleware(async context => {
+  app.addMiddlewares({
+    'check-permissions': async context => {
 
-    if (context.user) {
-
-      const allTokens = await app.authorizationTokens.list({
-        filter: {
-          user: context.user!._id,
-        },
-        populate: {
-          'roles': [ 'permissions' ],
-        },
-      });
-
-      if (allTokens.length === 0) {
-
-        const newAuthorizationToken = await app.authorizationTokens.create({
-          document: {
+      if (context.user) {
+  
+        const allTokens = await app.authorizationTokens.list({
+          filter: {
             user: context.user!._id,
-            permissions: Config.authorization.userDefaultPermissions,
+          },
+          populate: {
+            'roles': [ 'permissions' ],
           },
         });
-
-        allTokens.push(newAuthorizationToken);
-
+  
+        if (allTokens.length === 0) {
+  
+          const newAuthorizationToken = await app.authorizationTokens.create({
+            document: {
+              user: context.user!._id,
+              permissions: Config.authorization.userDefaultPermissions,
+            },
+          });
+  
+          allTokens.push(newAuthorizationToken);
+  
+        }
+  
+        context.userPermissions = [...new Set( allTokens.map(it => [ it.permissions, (it.roles as unknown as IAuthorizationRole[])?.map(x => x.permissions) ] ).flat(3) )].filter(Boolean);
+  
       }
-
-      context.userPermissions = [...new Set( allTokens.map(it => [ it.permissions, (it.roles as unknown as IAuthorizationRole[])?.map(x => x.permissions) ] ).flat(3) )].filter(Boolean);
-
-    }
-
-
-    context.hasPermission = (permission: string) => {
-      return wildcardIncludes(context.userPermissions, permission);
-    };
-
-    context.hasPermissions = (permissions: string[]) => {
-      return permissions.every(it => wildcardIncludes(context.userPermissions, it));
-    };
-
-    if (context.action.requirePermission && !wildcardIncludes(context.userPermissions, context.action.requirePermission)) {
-      throw new InvalidPermissionError('invalid permissions');
-    }
-
-    if (context.action.requirePermissions && !context.action.requirePermissions.every(it => wildcardIncludes(context.userPermissions, it))) {
-      throw new InvalidPermissionError('invalid permissions');
-    }
-
-    if (context.action.permissionFunction && !context.action.permissionFunction(context)) {
-      throw new InvalidPermissionError('invalid permissions');
-    }
-
+  
+  
+      context.hasPermission = (permission: string) => {
+        return wildcardIncludes(context.userPermissions, permission);
+      };
+  
+      context.hasPermissions = (permissions: string[]) => {
+        return permissions.every(it => wildcardIncludes(context.userPermissions, it));
+      };
+  
+      if (context.action.requirePermission && !wildcardIncludes(context.userPermissions, context.action.requirePermission)) {
+        throw new InvalidPermissionError('invalid permissions');
+      }
+  
+      if (context.action.requirePermissions && !context.action.requirePermissions.every(it => wildcardIncludes(context.userPermissions, it))) {
+        throw new InvalidPermissionError('invalid permissions');
+      }
+  
+      if (context.action.permissionFunction && !context.action.permissionFunction(context)) {
+        throw new InvalidPermissionError('invalid permissions');
+      }
+  
+    },
   });
 
 

@@ -41,62 +41,57 @@ export function install(app: IUnifiedApp) {
   app.authenticationTokens = createUnifiedController<IAuthenticationTokenBase>(app, 'AuthenticationToken', AuthenticationTokenSchema);
 
 
-  app.addAction({
-    method: 'get',
-    path: '/authentication-tokens/meta',
-    requirePermission: 'admin.authentication.authentication-tokens.meta',
-    handler: () => {
-      return app.models['AuthenticationToken'];
+  app.addActions({
+    'meta': {
+      method: 'get',
+      path: '/authentication-tokens/meta',
+      requirePermission: 'admin.authentication.authentication-tokens.meta',
+      handler: () => {
+        return app.models['AuthenticationToken'];
+      },
     },
-  });
-
-  app.addAction({
-    template: 'list',
-    controller: app.authenticationTokens,
-    pathPrefix: '/authentication-tokens',
-    requirePermission: 'admin.authentication.authentication-tokens.list',
-  });
-
-  app.addAction({
-    template: 'count',
-    controller: app.authenticationTokens,
-    pathPrefix: '/authentication-tokens',
-    requirePermission: 'admin.authentication.authentication-tokens.count',
-  });
-
-  app.addAction({
-    template: 'retrieve',
-    controller: app.authenticationTokens,
-    pathPrefix: '/authentication-tokens',
-    requirePermission: 'admin.authentication.authentication-tokens.retrieve',
-  });
-
-  app.addAction({
-    template: 'create',
-    controller: app.authenticationTokens,
-    pathPrefix: '/authentication-tokens',
-    requirePermission: 'admin.authentication.authentication-tokens.create',
-  });
-
-  app.addAction({
-    template: 'update',
-    controller: app.authenticationTokens,
-    pathPrefix: '/authentication-tokens',
-    requirePermission: 'admin.authentication.authentication-tokens.update',
-  });
-
-  app.addAction({
-    template: 'replace',
-    controller: app.authenticationTokens,
-    pathPrefix: '/authentication-tokens',
-    requirePermission: 'admin.authentication.authentication-tokens.replace',
-  });
-
-  app.addAction({
-    template: 'delete',
-    controller: app.authenticationTokens,
-    pathPrefix: '/authentication-tokens',
-    requirePermission: 'admin.authentication.authentication-tokens.delete',
+    'list': {
+      template: 'list',
+      controller: app.authenticationTokens,
+      pathPrefix: '/authentication-tokens',
+      requirePermission: 'admin.authentication.authentication-tokens.list',
+    },
+    'count': {
+      template: 'count',
+      controller: app.authenticationTokens,
+      pathPrefix: '/authentication-tokens',
+      requirePermission: 'admin.authentication.authentication-tokens.count',
+    },
+    'retrieve': {
+      template: 'retrieve',
+      controller: app.authenticationTokens,
+      pathPrefix: '/authentication-tokens',
+      requirePermission: 'admin.authentication.authentication-tokens.retrieve',
+    },
+    'create': {
+      template: 'create',
+      controller: app.authenticationTokens,
+      pathPrefix: '/authentication-tokens',
+      requirePermission: 'admin.authentication.authentication-tokens.create',
+    },
+    'update': {
+      template: 'update',
+      controller: app.authenticationTokens,
+      pathPrefix: '/authentication-tokens',
+      requirePermission: 'admin.authentication.authentication-tokens.update',
+    },
+    'replace': {
+      template: 'replace',
+      controller: app.authenticationTokens,
+      pathPrefix: '/authentication-tokens',
+      requirePermission: 'admin.authentication.authentication-tokens.replace',
+    },
+    'delete': {
+      template: 'delete',
+      controller: app.authenticationTokens,
+      pathPrefix: '/authentication-tokens',
+      requirePermission: 'admin.authentication.authentication-tokens.delete',
+    },
   });
 
 }
