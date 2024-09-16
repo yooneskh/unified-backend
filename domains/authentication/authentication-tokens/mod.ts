@@ -8,6 +8,7 @@ interface IAuthenticationTokenBase {
   user: string;
   token: string;
   validUntil: number;
+  active: boolean;
 } export interface IAuthenticationToken extends IAuthenticationTokenBase, IBaseDocument {}
 
 const AuthenticationTokenSchema: IUnifiedModel<IAuthenticationTokenBase> = {
@@ -22,6 +23,10 @@ const AuthenticationTokenSchema: IUnifiedModel<IAuthenticationTokenBase> = {
   },
   validUntil: {
     type: 'number',
+    required: true,
+  },
+  active: {
+    type: 'boolean',
     required: true,
   },
 };

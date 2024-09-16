@@ -78,7 +78,7 @@ export function makeRequestHandler(app: IUnifiedApp, actions: IUnifiedAction[]):
       }
   
   
-      const context: IUnifiedActionContext = {
+      const context = {
         app,
         action,
         request,
@@ -87,7 +87,7 @@ export function makeRequestHandler(app: IUnifiedApp, actions: IUnifiedAction[]):
         params,
         query,
         body,
-      };
+      } as unknown as IUnifiedActionContext;
   
   
       /* middlewares */

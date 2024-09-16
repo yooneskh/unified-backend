@@ -40,6 +40,7 @@ export function install(app: IUnifiedApp) {
           filter: {
             token: context.headers['authorization'],
             validUntil: { $gte: Date.now() },
+            active: true,
           },
         });
   
@@ -276,6 +277,7 @@ export function install(app: IUnifiedApp) {
             user: userId,
             token: createToken(Config.authentication.authenticationTokenUnits),
             validUntil: Date.now() + Config.authentication.authenticationTokenLifetime,
+            active: true,
           },
         });
   
@@ -292,6 +294,32 @@ export function install(app: IUnifiedApp) {
           ...user,
           permissions: userPermissions,
         };
+      },
+    },
+    'logout': {
+      method: 'post',
+      path: '/authentication/logout',
+      requiresAuthentication: true,
+      handler: async ({ user }) => {
+        
+        const authenticationTokens = await app.authenticationTokens.list({
+          filter: {
+            user: user!._id,
+            active: true,
+          },
+        });
+
+        for (const token of authenticationTokens) {
+          await app.authenticationTokens.update({
+            resourceId: token._id,
+            payload: {
+              active: false,
+            },
+          });
+        }
+
+        return true;
+
       },
     },
   });

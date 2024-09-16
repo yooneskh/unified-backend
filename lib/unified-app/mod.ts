@@ -10,4 +10,4 @@ export type {
   IUnifiedActionContext,
 } from './interfaces.d.ts';
 
-export * from './utils/reuseable-errors.ts';
+export * from './utils/response-errors.ts';
