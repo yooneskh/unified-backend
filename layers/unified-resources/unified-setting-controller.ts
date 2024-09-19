@@ -1,11 +1,13 @@
 import type { IUnifiedApp } from 'unified-app';
 import type { IUnifiedModel, IUnifiedSettingController, IUnifiedSettingControllerContext } from './interfaces.d.ts';
 import { Document } from 'unified-kv';
+import { dash } from 'radash';
 
 
 export function createUnifiedSettingController<T>(app: IUnifiedApp, model: string, _schema: IUnifiedModel<unknown>) {
 
   const document = new Document<T>(model);
+  const modelDashed = dash(model);
 
 
   return {
@@ -24,13 +26,13 @@ export function createUnifiedSettingController<T>(app: IUnifiedApp, model: strin
         // deno-lint-ignore no-explicit-any
         const record = await document.create({} as any);
 
-        app.emit(`${model}.retrieve`, record);
+        app.emit(`${modelDashed}.retrieve`, record);
         return record;
 
       }
 
 
-      app.emit(`${model}.retrieve`, item);
+      app.emit(`${modelDashed}.retrieve`, item);
       return item;
 
     },
@@ -69,7 +71,7 @@ export function createUnifiedSettingController<T>(app: IUnifiedApp, model: strin
       });
 
 
-      app.emit(`${model}.update`, newRecord, previousRecord);
+      app.emit(`${modelDashed}.update`, newRecord, previousRecord);
       return newRecord;
 
     },

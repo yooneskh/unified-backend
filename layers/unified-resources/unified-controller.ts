@@ -1,11 +1,13 @@
 import type { IUnifiedApp } from 'unified-app';
 import type { IUnifiedModel, IUnifiedController, IUnifiedControllerContext } from './interfaces.d.ts';
 import { Document } from 'unified-kv';
+import { dash } from 'radash';
 
 
 export function createUnifiedController<T>(app: IUnifiedApp, model: string, _schema: IUnifiedModel<unknown>) {
 
   const document = new Document<T>(model);
+  const modelDahsed = dash(model);
 
 
   return {
@@ -20,7 +22,7 @@ export function createUnifiedController<T>(app: IUnifiedApp, model: string, _sch
         select: context.select,
       });
 
-      app.emit(`${model}.list`, records);
+      app.emit(`${modelDahsed}.list`, records);
 
       return records;
 
@@ -34,7 +36,7 @@ export function createUnifiedController<T>(app: IUnifiedApp, model: string, _sch
         select: context.select,
       });
 
-      app.emit(`${model}.retrieve`, record);
+      app.emit(`${modelDahsed}.retrieve`, record);
 
       return record;
 
@@ -48,7 +50,7 @@ export function createUnifiedController<T>(app: IUnifiedApp, model: string, _sch
         select: context.select,
       });
 
-      app.emit(`${model}.find`, record);
+      app.emit(`${modelDahsed}.find`, record);
 
       return record;
 
@@ -61,7 +63,7 @@ export function createUnifiedController<T>(app: IUnifiedApp, model: string, _sch
         skip: context.skip,
       });
 
-      app.emit(`${model}.count`, records.length);
+      app.emit(`${modelDahsed}.count`, records.length);
 
       return records.length;
 
@@ -73,7 +75,7 @@ export function createUnifiedController<T>(app: IUnifiedApp, model: string, _sch
         limit: 1,
       });
 
-      app.emit(`${model}.exists`, records.length > 0);
+      app.emit(`${modelDahsed}.exists`, records.length > 0);
 
       return records.length > 0;
 
@@ -85,7 +87,7 @@ export function createUnifiedController<T>(app: IUnifiedApp, model: string, _sch
         limit: 1,
       });
 
-      app.emit(`${model}.not-exists`, records.length === 0);
+      app.emit(`${modelDahsed}.not-exists`, records.length === 0);
 
       return records.length === 0;
 
@@ -98,7 +100,7 @@ export function createUnifiedController<T>(app: IUnifiedApp, model: string, _sch
 
       const record = await document.create(context.document);
 
-      app.emit(`${model}.create`, record);
+      app.emit(`${modelDahsed}.create`, record);
 
       return record;
 
@@ -120,7 +122,7 @@ export function createUnifiedController<T>(app: IUnifiedApp, model: string, _sch
         payload: context.payload,
       });
 
-      app.emit(`${model}.update`, newRecord, previousRecord);
+      app.emit(`${modelDahsed}.update`, newRecord, previousRecord);
 
       return newRecord;
 
@@ -142,7 +144,7 @@ export function createUnifiedController<T>(app: IUnifiedApp, model: string, _sch
         payload: context.document,
       });
 
-      app.emit(`${model}.replace`, newRecord, previousRecord);
+      app.emit(`${modelDahsed}.replace`, newRecord, previousRecord);
 
       return newRecord;
 
@@ -154,7 +156,7 @@ export function createUnifiedController<T>(app: IUnifiedApp, model: string, _sch
         filter: context.filter,
       });
 
-      app.emit(`${model}.delete`, record);
+      app.emit(`${modelDahsed}.delete`, record);
 
       return record;
 

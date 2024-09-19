@@ -231,7 +231,7 @@ export function install(app: IUnifiedApp) {
   });
 
 
-  app.on('Media.delete', async (media: IMedia) => {
+  app.on('media.delete', async (media: IMedia) => {
     await Deno.remove(`../uploads/${Config.media.directory}/${media._id}.${media.extension}`);
   });
 
