@@ -5,20 +5,19 @@ import { createUnifiedSettingController } from 'unified-resources';
 
 
 interface IApplicationSettingBase {
-  name: string;
+  name?: string;
 } export interface IApplicationSetting extends IApplicationSettingBase, IBaseDocument {}
 
 const ApplicationSettingSchema: IUnifiedModel<IApplicationSettingBase> = {
   name: {
     type: 'string',
-    required: true,
   },
 };
 
 
 declare module 'unified-app' {
   interface IUnifiedApp {
-    applicationSetting: IUnifiedSettingController<IApplicationSettingBase>;
+    applicationSettings: IUnifiedSettingController<IApplicationSettingBase>;
   }
 }
 
@@ -27,7 +26,7 @@ export function install(app: IUnifiedApp) {
 
   app.addModel('ApplicationSetting', ApplicationSettingSchema);
 
-  app.applicationSetting = createUnifiedSettingController(app, 'ApplicationSetting', ApplicationSettingSchema);
+  app.applicationSettings = createUnifiedSettingController<IApplicationSettingBase>(app, 'ApplicationSetting', ApplicationSettingSchema);
 
 
   app.addActions({
@@ -35,7 +34,7 @@ export function install(app: IUnifiedApp) {
       method: 'get',
       path: '/application-settings/',
       handler: ({ filter, populate, select }) => {
-        return app.applicationSetting.retrieve({
+        return app.applicationSettings.retrieve({
           filter,
           populate,
           select,
@@ -45,9 +44,9 @@ export function install(app: IUnifiedApp) {
     'update': {
       method: 'patch',
       path: '/application-settings/',
-      requirePermission: 'admin.settings.application-settings.retrieve',
+      requirePermission: 'admin.settings.application-settings.update',
       handler: ({ filter, body }) => {
-        return app.applicationSetting.update({
+        return app.applicationSettings.update({
           filter,
           payload: body,
         });

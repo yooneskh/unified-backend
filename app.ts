@@ -4,7 +4,7 @@ import { install as installUtilities } from './domains/utilities/mod.ts';
 import { install as installAuthentication } from './domains/authentication/mod.ts';
 import { install as installAuthorization } from './domains/authorization/mod.ts';
 import { install as installMedia } from './domains/media/mod.ts';
-import { install as installApplicationSetting } from './domains/settings/application-setting.ts';
+import { install as installApplicationSettings } from './domains/settings/application-settings.ts';
 
 
 export function createApp(): IUnifiedApp {
@@ -25,7 +25,7 @@ export function createApp(): IUnifiedApp {
 
   /* app specific */
 
-  installApplicationSetting(app);
+  installApplicationSettings(app);
 
 
   app.pathPop();
