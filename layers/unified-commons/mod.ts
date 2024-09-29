@@ -7,9 +7,21 @@ import { install as installUnifiedRateLimiter } from '../unified-rate-limiter/mo
 
 
 export function install(app: IUnifiedApp) {
+
+  app.addActions({
+    'ping': {
+      method: 'get',
+      path: '/ping',
+      handler: () => {
+        return 'pong';
+      },
+    },
+  });
+
   installUnifiedEventEmitter(app);
   installUnifiedLogger(app);
   installUnifiedResources(app);
   installUnifiedCaptcha(app);
   installUnifiedRateLimiter(app);
+
 }
