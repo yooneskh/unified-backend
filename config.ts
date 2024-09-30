@@ -5,7 +5,7 @@ export const Config = {
     port: 8081,
   },
   database: {
-    path: './db.kv',
+    path: '../db/db.kv',
   },
   media: {
     directory: 'media',
